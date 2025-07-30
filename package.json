@@ -9,7 +9,8 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "scrape": "node scripts/run-scraper.js",
-    "scrape-direct": "node scripts/scrape-dexhunter.cjs"
+    "scrape-direct": "node scripts/scrape-dexhunter.cjs",
+    "scrape-api": "node scripts/scrape-dexhunter-api.cjs"
   },
   "dependencies": {
     "@meshsdk/core": "^1.1.0",
@@ -18,6 +19,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.378.0",
+    "node-fetch": "^3.3.2",
     "puppeteer": "^23.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

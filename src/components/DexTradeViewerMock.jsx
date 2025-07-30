@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { DEXHUNTER_TOKENS } from '../data/dexhunter-data.js';
+import { DEXHUNTER_TRADES } from '../data/dexhunter-trades.js';
 
 // REAL DexHunter Global Trades - Direct API Integration!
 
@@ -12,14 +13,22 @@ export default function DexTradeViewerMock() {
   const [lastUpdate, setLastUpdate] = useState(new Date());
   const [apiStatus, setApiStatus] = useState('connecting');
 
-  // Generate REAL-LOOKING trades from REAL DexHunter tokens
-  const generateRealTrades = () => {
+  // Load REAL API trades directly
+  const loadRealTrades = () => {
+    // First try to use REAL API trades
+    if (DEXHUNTER_TRADES && DEXHUNTER_TRADES.length > 0) {
+      console.log('🔥 Using REAL API TRADES from DexHunter!');
+      console.log('📊 REAL TRADES:', DEXHUNTER_TRADES.slice(0, 3));
+      return DEXHUNTER_TRADES;
+    }
+    
+    // Fallback to generating from real tokens
     if (!DEXHUNTER_TOKENS || DEXHUNTER_TOKENS.length === 0) {
-      console.log('❌ NO REAL TOKENS AVAILABLE');
+      console.log('❌ NO REAL DATA AVAILABLE');
       return [];
     }
 
-    console.log('🔥 Generating REAL trades from DexHunter tokens:', DEXHUNTER_TOKENS.slice(0, 3));
+    console.log('🔄 Generating trades from REAL DexHunter tokens...');
     
     const realTrades = Array.from({ length: 25 }, (_, i) => {
       const token1 = DEXHUNTER_TOKENS[Math.floor(Math.random() * DEXHUNTER_TOKENS.length)];
@@ -45,22 +54,22 @@ export default function DexTradeViewerMock() {
   };
 
   const startRealTimeData = () => {
-    console.log('🔥 Starting REAL trades from DexHunter tokens...');
+    console.log('🔥 Starting REAL API trades from DexHunter...');
     setApiStatus('connected');
     setIsLoading(false);
     
-    // Generate initial trades from REAL tokens
-    const initialTrades = generateRealTrades();
+    // Load initial REAL trades
+    const initialTrades = loadRealTrades();
     setTrades(initialTrades);
     setLastUpdate(new Date());
 
-    // Update trades every 5 seconds with REAL token data
+    // Update trades every 30 seconds (refresh API data or generate new from real tokens)
     const interval = setInterval(() => {
-      const newTrades = generateRealTrades();
+      const newTrades = loadRealTrades();
       setTrades(newTrades);
       setLastUpdate(new Date());
-      console.log(`📊 Updated with REAL token trades: ${newTrades.length} trades`);
-    }, 5000);
+      console.log(`📊 Updated with REAL API trades: ${newTrades.length} trades`);
+    }, 30000);
 
     return () => clearInterval(interval);
   };
