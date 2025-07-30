@@ -155,9 +155,20 @@ export default function TrendingTokens() {
                               </div>
                             </div>
                           ) : (
-                            // Professional geometric icons for other tokens
-                            <div className="w-8 h-8 bg-gradient-to-br from-slate-700 to-slate-600 rounded-lg flex items-center justify-center border border-slate-500">
-                              <span className="text-xs font-bold text-white">{token.symbol.slice(0, 2)}</span>
+                            // Real token logos
+                            <div className="w-8 h-8 rounded-lg overflow-hidden bg-white flex items-center justify-center">
+                              <img 
+                                src={token.logo} 
+                                alt={token.symbol}
+                                className="w-8 h-8 object-cover"
+                                onError={(e) => {
+                                  e.target.style.display = 'none';
+                                  e.target.nextSibling.style.display = 'flex';
+                                }}
+                              />
+                              <div className="w-8 h-8 bg-gradient-to-br from-slate-700 to-slate-600 rounded-lg hidden items-center justify-center border border-slate-500">
+                                <span className="text-xs font-bold text-white">{token.symbol.slice(0, 2)}</span>
+                              </div>
                             </div>
                           )}
                           <div>
@@ -185,15 +196,9 @@ export default function TrendingTokens() {
                       <td className="p-4">
                         <Badge 
                           variant="outline" 
-                          className={`
-                            ${token.category === 'defi' ? 'border-teal-500 text-teal-400' : ''}
-                            ${token.category === 'stable' ? 'border-green-500 text-green-400' : ''}
-                            ${token.category === 'native' ? 'border-blue-500 text-blue-400' : ''}
-                            ${token.category === 'ai' ? 'border-purple-500 text-purple-400' : ''}
-                            ${token.category === 'gaming' ? 'border-orange-500 text-orange-400' : ''}
-                          `}
+                          className={`text-xs px-2 py-1 ${CATEGORY_COLORS[token.category] || 'border-gray-500 text-gray-400'}`}
                         >
-                          {token.category}
+                          {token.category.toUpperCase()}
                         </Badge>
                       </td>
                     </tr>
