@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 
-// Simple wallet list - no complex detection needed
+// Simple wallet list with DEXY-styled icons
 const WALLETS = [
-  { name: 'Nami', key: 'nami', icon: '🦎' },
-  { name: 'Eternl', key: 'eternl', icon: '♾️' },
-  { name: 'Lace', key: 'lace', icon: '🎭' },
-  { name: 'Flint', key: 'flint', icon: '🔥' },
-  { name: 'Typhon', key: 'typhon', icon: '🌊' }
+  { name: 'Nami', key: 'nami', icon: 'N' },
+  { name: 'Eternl', key: 'eternl', icon: 'E' },
+  { name: 'Lace', key: 'lace', icon: 'L' },
+  { name: 'Flint', key: 'flint', icon: 'F' },
+  { name: 'Typhon', key: 'typhon', icon: 'T' }
 ];
 
 export default function WalletConnection() {
@@ -147,7 +147,9 @@ export default function WalletConnection() {
                       }`}
                     >
                       <div className="flex items-center space-x-3">
-                        <span className="text-2xl">{wallet.icon}</span>
+                        <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-orange-500 rounded-lg flex items-center justify-center border border-slate-600">
+                          <span className="text-sm font-bold text-white">{wallet.icon}</span>
+                        </div>
                         <div className="flex-1">
                           <div className="font-semibold text-white">{wallet.name}</div>
                           <div className="text-sm text-gray-400">

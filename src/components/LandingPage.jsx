@@ -96,7 +96,7 @@ export default function LandingPage({ onEnterApp }) {
               <div className="absolute inset-2 bg-gray-900 rounded-sm"></div>
             </div>
             <span className="text-2xl font-bold text-white">DEXY</span>
-            <Badge variant="secondary" className="ml-2">Beta</Badge>
+            <Badge variant="secondary" className="ml-2 bg-green-600/20 text-green-400 border-green-600/30">Live</Badge>
           </div>
           <div className="hidden md:flex space-x-8 text-gray-300">
             <a href="#features" className="hover:text-teal-400 transition-colors">Features</a>

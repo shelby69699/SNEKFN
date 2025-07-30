@@ -42,10 +42,10 @@ const DexyMiniLogo = () => (
 
 export default function Navigation({ activeTab, setActiveTab, onBackToLanding }) {
   const navItems = [
-    { id: 'trending', label: 'Trending', icon: '🔥' },
-    { id: 'trades', label: 'Trades', icon: '📊' },
-    { id: 'pools', label: 'Pools', icon: '💧' },
-    { id: 'analytics', label: 'Analytics', icon: '📈' }
+    { id: 'trending', label: 'Trending', icon: 'T' },
+    { id: 'trades', label: 'Trades', icon: 'D' },
+    { id: 'pools', label: 'Pools', icon: 'P' },
+    { id: 'analytics', label: 'Analytics', icon: 'A' }
   ];
 
   return (
