@@ -6,28 +6,6 @@ import dexHunterAPI from "../utils/dexhunterAPI";
 
 // REAL DexHunter Global Trades - Direct API Integration!
 
-const generateTrade = () => {
-  const inToken = mockTokens[Math.floor(Math.random() * mockTokens.length)];
-  let outToken = mockTokens[Math.floor(Math.random() * mockTokens.length)];
-  while (outToken === inToken) {
-    outToken = mockTokens[Math.floor(Math.random() * mockTokens.length)];
-  }
-  const isBuy = Math.random() > 0.5;
-
-  return {
-    id: Math.random().toString(36).substr(2, 9),
-    type: isBuy ? "Buy" : "Sell",
-    pair: isBuy ? `${outToken} > ${inToken}` : `${inToken} > ${outToken}`,
-    inAmount: `${(Math.random() * 990 + 10).toFixed(2)} ${isBuy ? outToken : inToken}`,
-    outAmount: `${(Math.random() * 99990 + 10).toFixed(2)} ${isBuy ? inToken : outToken}`,
-    price: `${(Math.random() * 0.0999 + 0.0001).toFixed(6)} ADA`,
-    status: Math.random() > 0.1 ? "Success" : "Pending",
-    dex: mockDexes[Math.floor(Math.random() * mockDexes.length)],
-    maker: `addr..${Math.random().toString(36).substr(2, 4)}`,
-    timeAgo: `${Math.floor(Math.random() * 59) + 1}s ago`
-  };
-};
-
 export default function DexTradeViewerMock() {
   const [trades, setTrades] = useState([]);
 
@@ -43,7 +21,20 @@ export default function DexTradeViewerMock() {
   }, []);
 
   return (
-    <Card className="p-4">
+    <Card className="bg-slate-900 border-slate-700">
+      <CardContent className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className="text-xl font-semibold text-white flex items-center gap-3">
+            Global Trades
+            <div className="flex items-center gap-2">
+              <div className={`w-2 h-2 rounded-full ${apiStatus === 'connected' ? 'bg-green-400 animate-pulse' : apiStatus === 'fetching' ? 'bg-yellow-400 animate-pulse' : 'bg-red-400'}`}></div>
+              <span className={`text-xs font-normal ${getStatusColor()}`}>{getStatusText()}</span>
+            </div>
+          </div>
+          <div className="text-sm text-gray-400">
+            Last update: {lastUpdate.toLocaleTimeString()}
+          </div>
+        </div>
       <CardContent>
         <div className="text-xl font-semibold mb-4">Global Trades</div>
         <ScrollArea className="h-[600px]">
