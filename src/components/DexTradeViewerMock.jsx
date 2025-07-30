@@ -70,18 +70,7 @@ export default function DexTradeViewerMock() {
   return (
     <Card className="bg-slate-900 border-slate-700">
       <CardContent className="p-6">
-        <div className="flex items-center justify-between mb-4">
-          <div className="text-xl font-semibold text-white flex items-center gap-3">
-            Global Trades
-            <div className="flex items-center gap-2">
-              <div className={`w-2 h-2 rounded-full ${apiStatus === 'connected' ? 'bg-green-400 animate-pulse' : apiStatus === 'fetching' ? 'bg-yellow-400 animate-pulse' : 'bg-red-400'}`}></div>
-              <span className={`text-xs font-normal ${getStatusColor()}`}>{getStatusText()}</span>
-            </div>
-          </div>
-          <div className="text-sm text-gray-400">
-            Last update: {lastUpdate.toLocaleTimeString()}
-          </div>
-        </div>
+        <div className="text-xl font-semibold mb-4 text-white">Global Trades</div>
         <ScrollArea className="h-[600px]">
           <table className="w-full text-sm">
             <thead className="text-muted-foreground">

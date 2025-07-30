@@ -55,15 +55,11 @@ export default function TrendingTokens() {
       {/* Header with Search and Filters */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-            Trending Tokens 
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <span className="text-sm text-green-400 font-normal">LIVE</span>
-            </div>
+          <h2 className="text-2xl font-bold text-white">
+            Trending Tokens
           </h2>
           <p className="text-gray-400">
-            Real-time Cardano ecosystem data from multiple APIs • Last update: {lastUpdate.toLocaleTimeString()}
+            Top performing tokens across Cardano DEXes
           </p>
         </div>
         
