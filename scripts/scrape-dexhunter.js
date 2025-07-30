@@ -7,37 +7,49 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 async function scrapeDexHunterTrends() {
-  console.log('🚀 Starting DexHunter scraping...');
+  console.log('🚀 Starting REAL DexHunter data extraction...');
   
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false, // Show browser for debugging
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
-      '--disable-accelerated-2d-canvas',
-      '--no-first-run',
-      '--no-zygote',
-      '--single-process',
-      '--disable-gpu'
+      '--disable-web-security',
+      '--disable-features=VizDisplayCompositor',
+      '--ignore-certificate-errors',
+      '--ignore-ssl-errors',
+      '--disable-blink-features=AutomationControlled'
     ]
   });
 
   try {
     const page = await browser.newPage();
     
-    // Set user agent to avoid bot detection
-    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
+    // Enhanced stealth settings
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+    await page.setViewport({ width: 1920, height: 1080 });
+    
+    // Remove automation indicators
+    await page.evaluateOnNewDocument(() => {
+      Object.defineProperty(navigator, 'webdriver', {
+        get: () => undefined,
+      });
+    });
     
     console.log('📡 Navigating to DexHunter trends page...');
     await page.goto('https://app.dexhunter.io/trends', { 
-      waitUntil: 'networkidle2',
-      timeout: 30000 
+      waitUntil: ['load', 'domcontentloaded', 'networkidle0'],
+      timeout: 60000 
     });
 
-    // Wait for the page to load and content to appear
-    console.log('⏳ Waiting for content to load...');
-    await page.waitForTimeout(5000);
+    // Wait longer for React to load the data
+    console.log('⏳ Waiting for DexHunter React app to load data...');
+    await new Promise(resolve => setTimeout(resolve, 15000));
+    
+    // Take screenshot for debugging
+    await page.screenshot({ path: 'debug-dexhunter.png', fullPage: true });
+    console.log('📸 Debug screenshot saved: debug-dexhunter.png');
 
     // Try to find and extract token data
     const tokenData = await page.evaluate(() => {

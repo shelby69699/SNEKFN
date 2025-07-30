@@ -2,28 +2,38 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { DEXHUNTER_TOKENS, CATEGORY_COLORS } from '../data/dexhunter-data';
+import { CATEGORY_COLORS } from '../data/dexhunter-data';
+import realTimeData from '../utils/realTimeData';
 
-// Now using real DexHunter-inspired data from ../data/dexhunter-data.js
+// REAL-TIME Cardano token data from multiple APIs - NO MOCK BULLSHIT!
 
 export default function TrendingTokens() {
   const [tokens, setTokens] = useState([]);
   const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [lastUpdate, setLastUpdate] = useState(new Date());
 
   useEffect(() => {
-    // Use DexHunter data directly
-    setTokens(DEXHUNTER_TOKENS);
-    
-    // Simulate real-time price updates
-    const interval = setInterval(() => {
-      setTokens(prev => prev.map(token => ({
-        ...token,
-        change24h: token.change24h + (Math.random() - 0.5) * 2 // Small fluctuation
-      })));
-    }, 8000);
-    
-    return () => clearInterval(interval);
+    console.log('🔥 DEXY: Starting REAL-TIME Cardano data feed...');
+    setIsLoading(true);
+
+    // Subscribe to real-time data updates
+    const unsubscribe = realTimeData.subscribe((newTokens) => {
+      console.log(`📊 LIVE UPDATE: ${newTokens.length} tokens received`);
+      setTokens(newTokens);
+      setIsLoading(false);
+      setLastUpdate(new Date());
+    });
+
+    // Start the real-time data feed (updates every 10 seconds)
+    realTimeData.start(10000);
+
+    // Cleanup on unmount
+    return () => {
+      unsubscribe();
+      realTimeData.stop();
+    };
   }, []);
 
   const filteredTokens = tokens.filter(token => {
@@ -45,8 +55,16 @@ export default function TrendingTokens() {
       {/* Header with Search and Filters */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-bold text-white mb-2">Trending</h2>
-          <p className="text-muted-foreground">Discover trending tokens on Cardano</p>
+          <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+            Trending Tokens 
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm text-green-400 font-normal">LIVE</span>
+            </div>
+          </h2>
+          <p className="text-gray-400">
+            Real-time Cardano ecosystem data from multiple APIs • Last update: {lastUpdate.toLocaleTimeString()}
+          </p>
         </div>
         
         {/* Search Bar */}
@@ -100,8 +118,28 @@ export default function TrendingTokens() {
                     <th className="p-4 text-sm font-medium text-gray-400">Category</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {filteredTokens.map((token, index) => (
+                            <tbody>
+              {isLoading ? (
+                // Loading skeleton
+                Array.from({ length: 10 }).map((_, index) => (
+                  <tr key={index} className="border-b border-slate-800">
+                    <td className="p-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-slate-700 rounded-lg animate-pulse"></div>
+                        <div className="space-y-1">
+                          <div className="w-16 h-4 bg-slate-700 rounded animate-pulse"></div>
+                          <div className="w-24 h-3 bg-slate-700 rounded animate-pulse"></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="p-4"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="p-4"><div className="w-16 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="p-4"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="p-4"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="p-4"><div className="w-16 h-6 bg-slate-700 rounded animate-pulse"></div></td>
+                  </tr>
+                ))
+              ) : filteredTokens.map((token, index) => (
                     <tr 
                       key={token.symbol} 
                       className="border-b border-slate-800 hover:bg-slate-800/50 transition-colors cursor-pointer"
