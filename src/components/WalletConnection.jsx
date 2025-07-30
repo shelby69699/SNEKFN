@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -113,10 +114,10 @@ export default function WalletConnection() {
         )}
       </button>
 
-      {/* Wallet Selection Modal */}
-      {showWalletModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
-          <Card className="bg-slate-900 border-slate-700 max-w-md w-full pointer-events-auto">
+      {/* Wallet Selection Modal - Rendered at document.body level */}
+      {showWalletModal && createPortal(
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[99999] flex items-center justify-center p-4" style={{zIndex: 99999}}>
+          <Card className="bg-slate-900 border-slate-700 max-w-md w-full pointer-events-auto relative z-[99999] shadow-2xl" style={{zIndex: 99999}}>
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-bold text-white">Connect Wallet</h3>
@@ -200,7 +201,8 @@ export default function WalletConnection() {
               </div>
             </CardContent>
           </Card>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

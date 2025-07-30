@@ -42,7 +42,7 @@ function App() {
       {/* Your beautiful DEXY geometric background */}
       <DexyBackground />
       
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-0">
         <Navigation 
           activeTab={activeTab} 
           setActiveTab={setActiveTab}
