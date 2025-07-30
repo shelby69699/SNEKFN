@@ -14,23 +14,21 @@ const DexyLogo = () => (
         <div className="relative w-full h-full">
           {/* Top hexagonal structure */}
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-20">
-            <div className="absolute inset-0 border-4 border-teal-400 transform rotate-45" style={{
-              clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)'
-            }}></div>
+            <div className="absolute inset-0 border-4 border-teal-400 transform rotate-45 rounded-lg"></div>
           </div>
           
           {/* Main vertical framework lines */}
           <div className="absolute left-1/2 top-8 w-1 h-16 bg-gradient-to-b from-teal-400 to-teal-500 transform -translate-x-1/2"></div>
-          <div className="absolute left-8 top-12 w-1 h-12 bg-gradient-to-b from-teal-400 to-teal-500 transform rotate-30"></div>
-          <div className="absolute right-8 top-12 w-1 h-12 bg-gradient-to-b from-teal-400 to-teal-500 transform -rotate-30"></div>
+          <div className="absolute left-8 top-12 w-1 h-12 bg-gradient-to-b from-teal-400 to-teal-500 transform rotate-12"></div>
+          <div className="absolute right-8 top-12 w-1 h-12 bg-gradient-to-b from-teal-400 to-teal-500 transform -rotate-12"></div>
           
           {/* Side framework structures */}
-          <div className="absolute left-2 top-16 w-16 h-16 border-3 border-teal-500 transform -rotate-12 opacity-80"></div>
-          <div className="absolute right-2 top-16 w-16 h-16 border-3 border-teal-500 transform rotate-12 opacity-80"></div>
+          <div className="absolute left-2 top-16 w-16 h-16 border-2 border-teal-500 rounded-lg transform -rotate-12 opacity-80"></div>
+          <div className="absolute right-2 top-16 w-16 h-16 border-2 border-teal-500 rounded-lg transform rotate-12 opacity-80"></div>
           
           {/* Bottom cubic structure */}
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-24">
-            <div className="absolute inset-0 border-4 border-teal-400 rounded-lg transform rotate-45 skew-x-12"></div>
+            <div className="absolute inset-0 border-4 border-teal-400 rounded-lg transform rotate-45"></div>
             <div className="absolute inset-2 border-2 border-teal-500 rounded-md transform -rotate-12"></div>
           </div>
         </div>
@@ -52,9 +50,9 @@ const DexyLogo = () => (
           {/* Main cube face */}
           <div className="absolute inset-0 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 rounded-lg shadow-2xl border border-orange-300"></div>
           {/* Top face for 3D effect */}
-          <div className="absolute -top-2 -left-2 w-12 h-12 bg-gradient-to-br from-orange-300 to-orange-500 rounded-lg transform skew-x-12 -skew-y-12 opacity-90"></div>
+          <div className="absolute -top-2 -left-2 w-12 h-12 bg-gradient-to-br from-orange-300 to-orange-500 rounded-lg transform rotate-12 opacity-90"></div>
           {/* Right face for 3D effect */}
-          <div className="absolute -top-1 -right-1 w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-700 rounded-lg transform skew-y-12 skew-x-12 opacity-80"></div>
+          <div className="absolute -top-1 -right-1 w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-700 rounded-lg transform -rotate-12 opacity-80"></div>
           {/* Inner glow */}
           <div className="absolute inset-1 bg-gradient-to-br from-orange-200 to-orange-400 rounded-md opacity-60"></div>
         </div>
