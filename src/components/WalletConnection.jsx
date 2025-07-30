@@ -31,10 +31,12 @@ export default function WalletConnection() {
 
       // Check if wallet is enabled already  
       const walletApi = window.cardano[walletKey];
-      console.log(`Attempting to connect to ${walletDisplayName}...`);
+              console.log(`Attempting to connect to ${walletDisplayName}...`);
 
       // Connect to wallet
+      console.log('Calling enable() on wallet...');
       const api = await walletApi.enable();
+      console.log('Wallet enabled successfully:', api);
       
       if (api) {
         // Success!
@@ -71,6 +73,8 @@ export default function WalletConnection() {
   };
 
   const openWalletModal = () => {
+    console.log('Opening wallet modal...');
+    console.log('Available wallets:', WALLETS.filter(w => window.cardano && window.cardano[w.key]));
     setShowWalletModal(true);
   };
 
