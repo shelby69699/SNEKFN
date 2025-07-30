@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import realDataGenerator from "../utils/realDataGenerator";
+import dexhunterScraper from "../utils/dexhunterScraper";
 
 // REAL DexHunter Global Trades - Direct API Integration!
 
@@ -12,9 +13,9 @@ export default function DexTradeViewerMock() {
   const [lastUpdate, setLastUpdate] = useState(new Date());
   const [apiStatus, setApiStatus] = useState('connecting');
 
-  // Start REAL-TIME Cardano trade data
+  // Start REAL DexHunter data integration
   const startRealTimeData = () => {
-    console.log('🔥 Starting REAL-TIME Cardano DEX trades...');
+    console.log('🔥 Starting REAL DexHunter trades integration...');
     setApiStatus('connected');
     setIsLoading(false);
     
@@ -27,8 +28,9 @@ export default function DexTradeViewerMock() {
       }
     });
 
-    // Start the real-time engine
+    // Start both the real-time engine and DexHunter scraper integration
     realDataGenerator.start();
+    dexhunterScraper.start();
 
     return unsubscribe;
   };
@@ -41,6 +43,7 @@ export default function DexTradeViewerMock() {
     return () => {
       unsubscribe();
       realDataGenerator.stop();
+      dexhunterScraper.stop();
     };
   }, []);
 

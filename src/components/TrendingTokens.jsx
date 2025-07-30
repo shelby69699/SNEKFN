@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import realDataGenerator from '../utils/realDataGenerator';
+import dexhunterScraper from '../utils/dexhunterScraper';
 
 // Real DexHunter API integration for trending tokens
 const fetchRealDexHunterTrending = async () => {
@@ -227,13 +228,15 @@ export default function TrendingTokens() {
       }
     });
 
-    // Start the real-time engine
+    // Start both the real-time engine and DexHunter scraper integration
     realDataGenerator.start();
+    dexhunterScraper.start();
 
     // Cleanup on unmount
     return () => {
       unsubscribe();
       realDataGenerator.stop();
+      dexhunterScraper.stop();
     };
   }, []);
 

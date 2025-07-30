@@ -1,10 +1,6 @@
-import puppeteer from 'puppeteer';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const puppeteer = require('puppeteer');
+const fs = require('fs');
+const path = require('path');
 
 async function scrapeDexHunterTrends() {
   console.log('🚀 Starting REAL DexHunter data extraction...');
