@@ -3,13 +3,38 @@ import { createPortal } from 'react-dom';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 
-// Simple wallet list with DEXY-styled icons
+// Professional wallet list with real logos
 const WALLETS = [
-  { name: 'Nami', key: 'nami', icon: 'N' },
-  { name: 'Eternl', key: 'eternl', icon: 'E' },
-  { name: 'Lace', key: 'lace', icon: 'L' },
-  { name: 'Flint', key: 'flint', icon: 'F' },
-  { name: 'Typhon', key: 'typhon', icon: 'T' }
+  { 
+    name: 'Nami', 
+    key: 'nami', 
+    logo: 'https://avatars.githubusercontent.com/u/92246442?s=200&v=4',
+    description: 'Browser wallet with built-in DeFi features'
+  },
+  { 
+    name: 'Eternl', 
+    key: 'eternl', 
+    logo: 'https://pbs.twimg.com/profile_images/1455124542603341829/9GlhfuES_400x400.jpg',
+    description: 'Advanced wallet with staking support'
+  },
+  { 
+    name: 'Lace', 
+    key: 'lace', 
+    logo: 'https://pbs.twimg.com/profile_images/1590349942046052352/ixJhw0WE_400x400.jpg',
+    description: 'IOG\'s official light wallet'
+  },
+  { 
+    name: 'Flint', 
+    key: 'flint', 
+    logo: 'https://pbs.twimg.com/profile_images/1438850225311014913/Np6w5TgF_400x400.jpg',
+    description: 'Fast and secure Cardano wallet'
+  },
+  { 
+    name: 'Typhon', 
+    key: 'typhon', 
+    logo: 'https://pbs.twimg.com/profile_images/1555888240688226304/RJP_5xn1_400x400.jpg',
+    description: 'Feature-rich wallet with DApp support'
+  }
 ];
 
 export default function WalletConnection() {
@@ -147,14 +172,25 @@ export default function WalletConnection() {
                           : 'border-slate-800 bg-slate-900'
                       }`}
                     >
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-orange-500 rounded-lg flex items-center justify-center border border-slate-600">
-                          <span className="text-sm font-bold text-white">{wallet.icon}</span>
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 rounded-lg overflow-hidden bg-white flex items-center justify-center border-2 border-slate-600">
+                          <img 
+                            src={wallet.logo} 
+                            alt={wallet.name}
+                            className="w-10 h-10 object-cover rounded-md"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.nextSibling.style.display = 'flex';
+                            }}
+                          />
+                          <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-orange-500 rounded-md hidden items-center justify-center">
+                            <span className="text-sm font-bold text-white">{wallet.name[0]}</span>
+                          </div>
                         </div>
                         <div className="flex-1">
                           <div className="font-semibold text-white">{wallet.name}</div>
                           <div className="text-sm text-gray-400">
-                            {isInstalled ? 'Ready to connect' : 'Not installed'}
+                            {isInstalled ? wallet.description : 'Not installed'}
                           </div>
                         </div>
                         {isInstalled && <div className="w-3 h-3 bg-green-500 rounded-full"></div>}
