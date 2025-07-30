@@ -67,7 +67,7 @@ export default function Navigation({ activeTab, setActiveTab, onBackToLanding })
             <h1 className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent">
               DEXY
             </h1>
-            <Badge variant="secondary" className="ml-1 bg-gradient-to-r from-teal-600/20 to-orange-600/20 border-teal-500/50">Live</Badge>
+            
           </div>
           
           <div className="hidden md:block w-px h-6 bg-slate-600"></div>

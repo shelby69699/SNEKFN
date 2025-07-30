@@ -34,7 +34,7 @@ export default function Header({ onBackToLanding }) {
             DEXY
           </h1>
           <span className="text-muted-foreground">Aggregator</span>
-          <Badge variant="secondary" className="ml-2">Live</Badge>
+          
         </div>
         <div className="flex items-center space-x-4">
           <button 

@@ -59,7 +59,7 @@ export default function DexTradeViewerMock() {
 
   const getStatusText = () => {
     switch (apiStatus) {
-      case 'connected': return 'LIVE API';
+      case 'connected': return 'CONNECTED';
       case 'fetching': return 'FETCHING';
       case 'fallback': return 'FALLBACK';
       case 'error': return 'ERROR';

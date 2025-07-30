@@ -20,7 +20,7 @@ export default function TrendingTokens() {
 
     // Subscribe to real-time data updates
     const unsubscribe = realTimeData.subscribe((newTokens) => {
-      console.log(`📊 LIVE UPDATE: ${newTokens.length} tokens received`);
+      console.log(`📊 UPDATE: ${newTokens.length} tokens received`);
       setTokens(newTokens);
       setIsLoading(false);
       setLastUpdate(new Date());
