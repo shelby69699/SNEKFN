@@ -41,15 +41,16 @@ export default function TrendingTokens() {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    const trendingTokens = mockTokens.map(generateTrendingToken);
-    setTokens(trendingTokens);
+    // Use DexHunter data directly
+    setTokens(DEXHUNTER_TOKENS);
     
+    // Simulate real-time price updates
     const interval = setInterval(() => {
       setTokens(prev => prev.map(token => ({
         ...token,
-        change24h: faker.datatype.number({ min: -25, max: 150, precision: 0.01 })
+        change24h: token.change24h + (Math.random() - 0.5) * 2 // Small fluctuation
       })));
-    }, 5000);
+    }, 8000);
     
     return () => clearInterval(interval);
   }, []);
@@ -178,7 +179,7 @@ export default function TrendingTokens() {
                         </div>
                       </td>
                       <td className="p-4 font-mono text-white">
-                        {token.price}
+                        {typeof token.price === 'string' ? token.price : `$${token.price}`}
                       </td>
                       <td className="p-4">
                         <span className={`font-medium ${
@@ -188,7 +189,7 @@ export default function TrendingTokens() {
                         </span>
                       </td>
                       <td className="p-4 text-gray-300">
-                        {token.volume24h}
+                        {token.volume}
                       </td>
                       <td className="p-4 text-gray-300">
                         {token.marketCap}
