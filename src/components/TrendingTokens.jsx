@@ -4,36 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { DEXHUNTER_TOKENS, CATEGORY_COLORS } from '../data/dexhunter-data';
 
-// DEXY ecosystem tokens and metrics - your professional platform
-const mockTokens = [
-  { symbol: "DEXY", name: "DEXY Protocol", category: "defi" },
-  { symbol: "ADA", name: "Cardano", category: "native" },
-  { symbol: "DJED", name: "Djed Stablecoin", category: "stable" },
-  { symbol: "IUSD", name: "Indigo USD", category: "stable" },
-  { symbol: "MIN", name: "Minswap", category: "defi" },
-  { symbol: "WRT", name: "WingRiders", category: "defi" },
-  { symbol: "SUNDAE", name: "SundaeSwap", category: "defi" },
-  { symbol: "VYFI", name: "VyFinance", category: "defi" },
-  { symbol: "AGIX", name: "SingularityNET", category: "ai" },
-  { symbol: "COPI", name: "Cornucopias", category: "gaming" }
-];
-
-const generateTrendingToken = (tokenData) => {
-  const changePercent = faker.datatype.number({ min: -25, max: 150, precision: 0.01 });
-  const volume24h = faker.datatype.number({ min: 100000, max: 5000000 });
-  const price = faker.finance.amount(0.001, 2, 6);
-  const marketCap = faker.datatype.number({ min: 1000000, max: 100000000 });
-  
-  return {
-    ...tokenData,
-    price: `$${price}`,
-    change24h: changePercent,
-    volume24h: `$${(volume24h / 1000000).toFixed(2)}M`,
-    marketCap: `$${(marketCap / 1000000).toFixed(1)}M`,
-    // Use DEXY geometric icon instead of random avatars
-    isDexy: tokenData.symbol === 'DEXY'
-  };
-};
+// Now using real DexHunter-inspired data from ../data/dexhunter-data.js
 
 export default function TrendingTokens() {
   const [tokens, setTokens] = useState([]);
