@@ -1,115 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import { formatAdaBalance, shortenAddress, getSupportedWallets, getNetworkInfo } from '@/lib/cardano-utils';
 
-// Wallet descriptions for the modal
-const WALLET_DESCRIPTIONS = {
-  nami: "Popular Cardano wallet with built-in DeFi features",
-  eternl: "Advanced Cardano wallet with staking and multi-account support", 
-  lace: "IOG's official light wallet for Cardano",
-  flint: "Fast and secure Cardano wallet",
-  typhon: "Feature-rich Cardano wallet with DApp connector"
-};
+// Simple wallet list - no complex detection needed
+const WALLETS = [
+  { name: 'Nami', key: 'nami', icon: '🦎' },
+  { name: 'Eternl', key: 'eternl', icon: '♾️' },
+  { name: 'Lace', key: 'lace', icon: '🎭' },
+  { name: 'Flint', key: 'flint', icon: '🔥' },
+  { name: 'Typhon', key: 'typhon', icon: '🌊' }
+];
 
 export default function WalletConnection() {
   const [isConnecting, setIsConnecting] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
-  const [walletAddress, setWalletAddress] = useState('');
   const [walletName, setWalletName] = useState('');
+  const [walletAddress, setWalletAddress] = useState('');
   const [showWalletModal, setShowWalletModal] = useState(false);
-  const [availableWallets, setAvailableWallets] = useState([]);
-  const [balance, setBalance] = useState('');
-
-  // Check which wallets are installed
-  useEffect(() => {
-    const checkWallets = () => {
-      const supported = getSupportedWallets();
-      setAvailableWallets(supported);
-    };
-
-    checkWallets();
-    // Recheck after a short delay in case wallets load asynchronously
-    setTimeout(checkWallets, 1000);
-    
-    // Listen for wallet installations
-    const interval = setInterval(checkWallets, 5000);
-    return () => clearInterval(interval);
-  }, []);
 
   const connectWallet = async (walletKey, walletDisplayName) => {
     try {
       setIsConnecting(true);
       
+      // Check if wallet exists
       if (!window.cardano || !window.cardano[walletKey]) {
         alert(`${walletDisplayName} wallet not found. Please install it first.`);
-        setIsConnecting(false);
         return;
       }
 
-      // Check if wallet is already enabled
-      const isEnabled = await window.cardano[walletKey].isEnabled();
-      let api;
+      // Connect to wallet
+      const api = await window.cardano[walletKey].enable();
       
-      if (!isEnabled) {
-        // Request permission to connect
-        api = await window.cardano[walletKey].enable();
-      } else {
-        api = await window.cardano[walletKey].enable();
-      }
-
       if (api) {
+        // Success!
         setIsConnected(true);
         setWalletName(walletDisplayName);
         setShowWalletModal(false);
-
-        // Get wallet address
+        
+        // Try to get address (simplified)
         try {
-          const usedAddresses = await api.getUsedAddresses();
-          const unusedAddresses = await api.getUnusedAddresses();
-          
-          let address = '';
-          if (usedAddresses && usedAddresses.length > 0) {
-            // Convert from hex to bech32 if needed
-            address = usedAddresses[0];
-          } else if (unusedAddresses && unusedAddresses.length > 0) {
-            address = unusedAddresses[0];
+          const addresses = await api.getUsedAddresses();
+          if (addresses && addresses.length > 0) {
+            const addr = addresses[0];
+            // Show shortened version
+            setWalletAddress(addr.length > 20 ? `${addr.slice(0, 8)}...${addr.slice(-6)}` : addr);
+          } else {
+            setWalletAddress('Connected');
           }
-          
-          if (address) {
-            // If address is in hex, convert to readable format
-            if (address.startsWith('01') || address.startsWith('00')) {
-              // This is a hex address, use it as is for now
-              setWalletAddress(address);
-            } else {
-              setWalletAddress(address);
-            }
-          }
-
-          // Get balance
-          try {
-            const balanceValue = await api.getBalance();
-            if (balanceValue) {
-              const formattedBalance = formatAdaBalance(balanceValue);
-              setBalance(formattedBalance);
-            }
-            
-            // Get network info
-            const networkInfo = await getNetworkInfo(api);
-            console.log('Connected to:', networkInfo.networkName);
-          } catch (balanceError) {
-            console.log('Could not fetch balance:', balanceError);
-            setBalance('Balance unavailable');
-          }
-
-        } catch (addressError) {
-          console.log('Could not fetch address:', addressError);
-          setWalletAddress('Address unavailable');
+        } catch (e) {
+          setWalletAddress('Connected');
         }
       }
     } catch (error) {
-      console.error('Wallet connection failed:', error);
-      alert(`Failed to connect to ${walletDisplayName}. Please try again.`);
+      console.error('Connection failed:', error);
+      alert(`Failed to connect to ${walletDisplayName}. User denied or wallet error.`);
     } finally {
       setIsConnecting(false);
     }
@@ -119,16 +63,9 @@ export default function WalletConnection() {
     setIsConnected(false);
     setWalletAddress('');
     setWalletName('');
-    setBalance('');
   };
 
-
-
   const openWalletModal = () => {
-    if (availableWallets.length === 0) {
-      alert('No Cardano wallets detected. Please install Nami, Eternl, Lace, or another supported wallet.');
-      return;
-    }
     setShowWalletModal(true);
   };
 
@@ -141,11 +78,10 @@ export default function WalletConnection() {
         </Badge>
         <button
           onClick={disconnectWallet}
-          className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-slate-600 flex items-center space-x-2"
-          title={`Balance: ${balance}\nAddress: ${walletAddress}`}
+          className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors border border-slate-600"
+          title={`Disconnect ${walletName}`}
         >
-          <span>{shortenAddress(walletAddress)}</span>
-          <span className="text-xs text-gray-400">🔗</span>
+          {walletAddress}
         </button>
       </div>
     );
@@ -188,66 +124,67 @@ export default function WalletConnection() {
               </p>
 
               <div className="space-y-3">
-                {availableWallets.length > 0 ? (
-                  availableWallets.map((wallet) => (
+                {WALLETS.map((wallet) => {
+                  const isInstalled = window.cardano && window.cardano[wallet.key];
+                  return (
                     <button
                       key={wallet.key}
                       onClick={() => connectWallet(wallet.key, wallet.name)}
-                      disabled={isConnecting}
-                      className="w-full p-4 border border-slate-700 rounded-lg bg-slate-800 hover:bg-slate-700 transition-all text-left disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={isConnecting || !isInstalled}
+                      className={`w-full p-4 border rounded-lg transition-all text-left disabled:opacity-50 disabled:cursor-not-allowed ${
+                        isInstalled 
+                          ? 'border-slate-700 bg-slate-800 hover:bg-slate-700' 
+                          : 'border-slate-800 bg-slate-900'
+                      }`}
                     >
                       <div className="flex items-center space-x-3">
                         <span className="text-2xl">{wallet.icon}</span>
                         <div className="flex-1">
                           <div className="font-semibold text-white">{wallet.name}</div>
                           <div className="text-sm text-gray-400">
-                            {WALLET_DESCRIPTIONS[wallet.key] || "Cardano wallet"}
+                            {isInstalled ? 'Ready to connect' : 'Not installed'}
                           </div>
                         </div>
-                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                        {isInstalled && <div className="w-3 h-3 bg-green-500 rounded-full"></div>}
                       </div>
                     </button>
-                  ))
-                ) : (
-                  <div className="text-center py-8">
-                    <div className="text-4xl mb-4">🚫</div>
-                    <div className="text-white font-semibold mb-2">No Wallets Found</div>
-                    <div className="text-gray-400 text-sm mb-4">
-                      Please install a Cardano wallet to continue
-                    </div>
-                    <div className="space-y-2 text-sm">
-                      <a 
-                        href="https://namiwallet.io/" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="block text-teal-400 hover:text-teal-300 transition-colors"
-                      >
-                        📱 Install Nami Wallet
-                      </a>
-                      <a 
-                        href="https://eternl.io/" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="block text-teal-400 hover:text-teal-300 transition-colors"
-                      >
-                        ♾️ Install Eternl Wallet
-                      </a>
-                      <a 
-                        href="https://www.lace.io/" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="block text-teal-400 hover:text-teal-300 transition-colors"
-                      >
-                        🎭 Install Lace Wallet
-                      </a>
-                    </div>
-                  </div>
-                )}
+                  );
+                })}
+              </div>
+              
+              <div className="mt-4 text-center">
+                <p className="text-sm text-gray-400 mb-2">Don't have a wallet?</p>
+                <div className="flex justify-center space-x-4 text-sm">
+                  <a 
+                    href="https://namiwallet.io/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-teal-400 hover:text-teal-300 transition-colors"
+                  >
+                    Get Nami
+                  </a>
+                  <a 
+                    href="https://eternl.io/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-teal-400 hover:text-teal-300 transition-colors"
+                  >
+                    Get Eternl
+                  </a>
+                  <a 
+                    href="https://www.lace.io/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-teal-400 hover:text-teal-300 transition-colors"
+                  >
+                    Get Lace
+                  </a>
+                </div>
               </div>
 
-              <div className="mt-6 p-3 bg-slate-800 rounded-lg border border-slate-700">
+              <div className="mt-4 p-3 bg-slate-800/50 rounded-lg border border-slate-700/50">
                 <div className="text-xs text-gray-400">
-                  🔒 Your wallet connection is secure and only used for displaying balances and enabling transactions. DEXY never stores your private keys.
+                  🔒 Secure connection - DEXY never stores your private keys
                 </div>
               </div>
             </CardContent>
