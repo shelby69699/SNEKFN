@@ -1,139 +1,139 @@
-// Real-time data scraped from DexHunter - 2025-07-30T22:58:15.473Z
+// Real-time data scraped from DexHunter - 2025-07-30T23:19:10.909Z
 export const DEXHUNTER_TOKENS = [
   {
-    "symbol": "TITAN",
-    "name": "TITAN Token",
-    "price": "0.142284",
+    "symbol": "METERA",
+    "name": "METERA Token",
+    "price": "42",
     "change24h": 0,
-    "volume": "$760735",
-    "marketCap": "$9492122",
+    "volume": "$185235",
+    "marketCap": "$1746387",
+    "category": "gaming"
+  },
+  {
+    "symbol": "ADA",
+    "name": "ADA Token",
+    "price": "50",
+    "change24h": 0,
+    "volume": "$397057",
+    "marketCap": "$8613868",
+    "category": "utility"
+  },
+  {
+    "symbol": "ADA",
+    "name": "ADA Token",
+    "price": "134",
+    "change24h": 0,
+    "volume": "$738657",
+    "marketCap": "$2086759",
     "category": "defi"
   },
   {
-    "symbol": "SKY",
-    "name": "SKY Token",
-    "price": "308",
+    "symbol": "ADA",
+    "name": "ADA Token",
+    "price": "800",
     "change24h": 0,
-    "volume": "$191704",
-    "marketCap": "$9453829",
+    "volume": "$804792",
+    "marketCap": "$730849",
+    "category": "utility"
+  },
+  {
+    "symbol": "ADA",
+    "name": "ADA Token",
+    "price": "49",
+    "change24h": 0,
+    "volume": "$327635",
+    "marketCap": "$9110915",
     "category": "meme"
   },
   {
-    "symbol": "BLEE",
-    "name": "BLEE Token",
-    "price": "1.2",
+    "symbol": "ADA",
+    "name": "ADA Token",
+    "price": "50",
     "change24h": 0,
-    "volume": "$887931",
-    "marketCap": "$4809031",
+    "volume": "$612690",
+    "marketCap": "$6091679",
     "category": "utility"
   },
   {
     "symbol": "ADA",
     "name": "ADA Token",
-    "price": "30",
+    "price": "22",
     "change24h": 0,
-    "volume": "$948298",
-    "marketCap": "$4356152",
-    "category": "gaming"
+    "volume": "$288348",
+    "marketCap": "$3532881",
+    "category": "defi"
   },
   {
     "symbol": "ADA",
     "name": "ADA Token",
-    "price": "25",
+    "price": "527.89",
     "change24h": 0,
-    "volume": "$581299",
-    "marketCap": "$4563943",
+    "volume": "$734805",
+    "marketCap": "$4276390",
     "category": "gaming"
+  },
+  {
+    "symbol": "DJED",
+    "name": "DJED Token",
+    "price": "31",
+    "change24h": 0,
+    "volume": "$875607",
+    "marketCap": "$3460680",
+    "category": "meme"
+  },
+  {
+    "symbol": "CDS",
+    "name": "CDS Token",
+    "price": "203",
+    "change24h": 0,
+    "volume": "$573778",
+    "marketCap": "$3285516",
+    "category": "meme"
   },
   {
     "symbol": "ADA",
     "name": "ADA Token",
-    "price": "100",
+    "price": "593",
     "change24h": 0,
-    "volume": "$256623",
-    "marketCap": "$9614630",
-    "category": "gaming"
+    "volume": "$393971",
+    "marketCap": "$8709252",
+    "category": "meme"
+  },
+  {
+    "symbol": "ADA",
+    "name": "ADA Token",
+    "price": "194",
+    "change24h": 0,
+    "volume": "$806018",
+    "marketCap": "$1733207",
+    "category": "meme"
   },
   {
     "symbol": "ADA",
     "name": "ADA Token",
     "price": "20",
     "change24h": 0,
-    "volume": "$112585",
-    "marketCap": "$1956162",
-    "category": "utility"
+    "volume": "$610109",
+    "marketCap": "$6686654",
+    "category": "meme"
   },
   {
-    "symbol": "ADA",
-    "name": "ADA Token",
-    "price": "20",
+    "symbol": "CHAD",
+    "name": "CHAD Token",
+    "price": "0.004852",
     "change24h": 0,
-    "volume": "$603127",
-    "marketCap": "$4153172",
-    "category": "utility"
-  },
-  {
-    "symbol": "ADA",
-    "name": "ADA Token",
-    "price": "69",
-    "change24h": 0,
-    "volume": "$261884",
-    "marketCap": "$3470070",
+    "volume": "$177718",
+    "marketCap": "$5417771",
     "category": "gaming"
   },
   {
     "symbol": "ADA",
     "name": "ADA Token",
-    "price": "687",
+    "price": "63",
     "change24h": 0,
-    "volume": "$227678",
-    "marketCap": "$8172194",
-    "category": "defi"
-  },
-  {
-    "symbol": "FLOW",
-    "name": "FLOW Token",
-    "price": "693",
-    "change24h": 0,
-    "volume": "$978302",
-    "marketCap": "$1347066",
-    "category": "defi"
-  },
-  {
-    "symbol": "ADA",
-    "name": "ADA Token",
-    "price": "1.87",
-    "change24h": 0,
-    "volume": "$933034",
-    "marketCap": "$3960278",
-    "category": "defi"
-  },
-  {
-    "symbol": "ADA",
-    "name": "ADA Token",
-    "price": "100",
-    "change24h": 0,
-    "volume": "$374393",
-    "marketCap": "$4788442",
-    "category": "utility"
-  },
-  {
-    "symbol": "PUCKY",
-    "name": "PUCKY Token",
-    "price": "224",
-    "change24h": 0,
-    "volume": "$171168",
-    "marketCap": "$9799110",
-    "category": "utility"
-  },
-  {
-    "symbol": "ADA",
-    "name": "ADA Token",
-    "price": "5.59",
-    "change24h": 0,
-    "volume": "$853345",
-    "marketCap": "$1842308",
-    "category": "utility"
+    "volume": "$799560",
+    "marketCap": "$9624056",
+    "category": "meme"
   }
 ];
 
@@ -146,4 +146,4 @@ export const CATEGORY_COLORS = {
   'gaming': 'border-orange-500 text-orange-400'
 };
 
-export const SCRAPE_TIMESTAMP = '2025-07-30T22:58:15.474Z';
+export const SCRAPE_TIMESTAMP = '2025-07-30T23:19:10.910Z';
