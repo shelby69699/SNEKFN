@@ -2,29 +2,39 @@ import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import WalletConnection from './WalletConnection';
 
-// Your professional DEXY logo for navigation
+// Your exact DEXY logo for navigation - matching your design
 const DexyMiniLogo = () => (
-  <div className="w-10 h-10 relative group cursor-pointer">
-    {/* Outer geometric framework */}
-    <div className="absolute inset-0 border-2 border-teal-400 rounded-xl rotate-12 transition-all duration-300 group-hover:rotate-6">
-      {/* Connection nodes */}
-      <div className="absolute -top-1 -left-1 w-2 h-2 bg-white rounded-full animate-pulse"></div>
-      <div className="absolute -top-1 -right-1 w-2 h-2 bg-white rounded-full animate-pulse delay-100"></div>
-      <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white rounded-full animate-pulse delay-200"></div>
-      <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-white rounded-full animate-pulse delay-300"></div>
+  <div className="w-12 h-12 relative group cursor-pointer">
+    {/* Hexagonal framework matching your logo */}
+    <div className="absolute inset-1 border-2 border-teal-400 transition-all duration-300 group-hover:scale-110" 
+         style={{clipPath: 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)'}}>
+      
+      {/* Connection nodes - white circles */}
+      <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full"></div>
+      <div className="absolute top-1/4 -right-1 w-2 h-2 bg-white rounded-full"></div>
+      <div className="absolute bottom-1/4 -right-1 w-2 h-2 bg-white rounded-full"></div>
+      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full"></div>
+      <div className="absolute bottom-1/4 -left-1 w-2 h-2 bg-white rounded-full"></div>
+      <div className="absolute top-1/4 -left-1 w-2 h-2 bg-white rounded-full"></div>
     </div>
     
     {/* Inner framework */}
-    <div className="absolute inset-1 border border-teal-500 rounded-lg rotate-6 bg-gradient-to-br from-teal-500/10 to-transparent">
-      {/* Central orange element */}
+    <div className="absolute inset-3 border border-teal-500 bg-slate-800/60" 
+         style={{clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'}}>
+      
+      {/* Central orange 3D cube */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className="w-3 h-3 bg-gradient-to-br from-orange-400 to-orange-600 rounded rotate-45 shadow-lg shadow-orange-500/30"></div>
-        <div className="absolute inset-0.5 bg-slate-900 rounded-sm"></div>
+        <div className="relative w-4 h-4">
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-300 to-orange-500 transform -skew-y-6 skew-x-6"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-700 transform translate-x-1 translate-y-1 -skew-y-6"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-600"></div>
+        </div>
       </div>
     </div>
     
     {/* Hover glow effect */}
-    <div className="absolute inset-0 rounded-xl rotate-12 bg-gradient-to-br from-teal-400/20 to-orange-400/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    <div className="absolute inset-0 bg-gradient-to-br from-teal-400/30 to-orange-400/30 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
+         style={{clipPath: 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)'}}></div>
   </div>
 );
 

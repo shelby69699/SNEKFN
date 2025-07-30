@@ -3,34 +3,48 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import DexyBackground from './DexyBackground';
 
-// Your exact DEXY logo design - enhanced and professional
+// Your exact DEXY logo design - matching the image perfectly
 const DexyLogo = () => (
-  <div className="relative w-32 h-32 mx-auto mb-8 transform hover:scale-105 transition-transform duration-500">
-    {/* Outer geometric framework with connection points */}
-    <div className="absolute inset-0 border-4 border-teal-400 rounded-3xl rotate-12 shadow-2xl shadow-teal-500/20">
-      {/* Connection nodes - your exact design */}
-      <div className="absolute -top-2 -left-2 w-4 h-4 bg-white rounded-full shadow-lg animate-pulse"></div>
-      <div className="absolute -top-2 -right-2 w-4 h-4 bg-white rounded-full shadow-lg animate-pulse delay-100"></div>
-      <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-white rounded-full shadow-lg animate-pulse delay-200"></div>
-      <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-white rounded-full shadow-lg animate-pulse delay-300"></div>
-      <div className="absolute top-1/4 -left-2 w-4 h-4 bg-white rounded-full shadow-lg animate-pulse delay-75"></div>
-      <div className="absolute top-1/4 -right-2 w-4 h-4 bg-white rounded-full shadow-lg animate-pulse delay-150"></div>
+  <div className="relative w-40 h-40 mx-auto mb-8 transform hover:scale-105 transition-transform duration-500">
+    {/* Outer hexagonal framework - matching your design */}
+    <div className="absolute inset-0">
+      {/* Main hexagonal border structure */}
+      <div className="absolute inset-2 border-4 border-teal-400 transform rotate-0" 
+           style={{clipPath: 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)'}}>
+      </div>
       
-      {/* Inner framework layers */}
-      <div className="absolute inset-3 border-3 border-teal-500 rounded-2xl rotate-6 bg-gradient-to-br from-teal-500/10 to-transparent">
-        <div className="absolute inset-4 border-2 border-teal-600 rounded-xl rotate-3 bg-gradient-to-br from-teal-600/10 to-transparent">
-          {/* Central orange cubic element - your signature design */}
+      {/* Connection nodes - white circles at exact positions */}
+      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
+      <div className="absolute top-1/4 right-2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
+      <div className="absolute bottom-1/4 right-2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
+      <div className="absolute bottom-1/4 left-2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
+      <div className="absolute top-1/4 left-2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
+      
+      {/* Inner geometric framework layers */}
+      <div className="absolute inset-6 border-2 border-teal-500" 
+           style={{clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'}}>
+        <div className="absolute inset-2 border border-teal-600 bg-slate-800/80" 
+             style={{clipPath: 'polygon(20% 0%, 80% 0%, 100% 50%, 80% 100%, 20% 100%, 0% 50%)'}}>
+          
+          {/* Central orange cubic element - your signature 3D cube */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg rotate-45 shadow-xl shadow-orange-500/30"></div>
-            <div className="absolute inset-1 bg-gradient-to-br from-orange-500 to-orange-700 rounded-md"></div>
-            <div className="absolute inset-2 bg-slate-900 rounded-sm"></div>
+            {/* Main orange cube */}
+            <div className="relative w-12 h-12">
+              {/* Top face */}
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-300 to-orange-500 transform -skew-y-12 skew-x-12"></div>
+              {/* Right face */}
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-700 transform translate-x-2 translate-y-2 -skew-y-12"></div>
+              {/* Front face */}
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-600"></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     
-    {/* Glowing effects */}
-    <div className="absolute inset-0 rounded-3xl rotate-12 bg-gradient-to-br from-teal-400/20 to-orange-400/20 blur-xl"></div>
+    {/* Glowing effects matching your design */}
+    <div className="absolute inset-0 bg-gradient-to-br from-teal-400/20 to-orange-400/20 blur-2xl"></div>
   </div>
 );
 
