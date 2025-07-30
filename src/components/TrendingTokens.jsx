@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import realDataGenerator from '../utils/realDataGenerator';
-import dexhunterScraper from '../utils/dexhunterScraper';
+import { DEXHUNTER_TOKENS } from '../data/dexhunter-data.js';
 
 // Real DexHunter API integration for trending tokens
 const fetchRealDexHunterTrending = async () => {
@@ -214,30 +213,37 @@ export default function TrendingTokens() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Start REAL-TIME trending tokens
-    console.log('🔥 Starting REAL-TIME trending tokens...');
+    // Load REAL DexHunter data directly - NO FAKE BULLSHIT
+    console.log('🔥 Loading REAL DexHunter tokens...');
     setIsLoading(true);
     setError(null);
     
-    // Subscribe to real-time updates
-    const unsubscribe = realDataGenerator.subscribe((data) => {
-      if (data.tokens) {
-        setTokens(data.tokens);
-        setIsLoading(false);
-        console.log(`📊 Live tokens update: ${data.tokens.length} tokens`);
-      }
-    });
-
-    // Start both the real-time engine and DexHunter scraper integration
-    realDataGenerator.start();
-    dexhunterScraper.start();
-
-    // Cleanup on unmount
-    return () => {
-      unsubscribe();
-      realDataGenerator.stop();
-      dexhunterScraper.stop();
-    };
+    // Use the REAL scraped data immediately
+    if (DEXHUNTER_TOKENS && DEXHUNTER_TOKENS.length > 0) {
+      console.log(`✅ LOADED ${DEXHUNTER_TOKENS.length} REAL TOKENS FROM DEXHUNTER!`);
+      console.log('🎯 REAL TOKENS:', DEXHUNTER_TOKENS.slice(0, 3));
+      
+      // Convert to our format
+      const realTokens = DEXHUNTER_TOKENS.map((token, index) => ({
+        id: token.symbol?.toLowerCase() || `token_${index}`,
+        name: token.name || token.symbol || 'Unknown',
+        symbol: token.symbol || 'UNK',
+        logo: getTokenLogo(token.symbol),
+        category: token.category || 'DeFi',
+        price: parseFloat(token.price?.replace('$', '').replace(',', '')) || 0,
+        change_24h: token.change24h || 0,
+        volume_24h: parseVolume(token.volume) || 0,
+        market_cap: parseVolume(token.marketCap) || 0,
+        rank: index + 1
+      }));
+      
+      setTokens(realTokens);
+      setIsLoading(false);
+    } else {
+      console.log('❌ NO REAL DATA FOUND');
+      setError('No real data available');
+      setIsLoading(false);
+    }
   }, []);
 
   const filteredTokens = tokens.filter(token => {
