@@ -4,11 +4,16 @@ The most capital efficient trading protocol on Cardano. DEXY aggregates liquidit
 
 ## Features
 
-- 🔄 Real-time trade monitoring across multiple Cardano DEXes
-- 📊 Live statistics dashboard
-- 🎨 Dark theme optimized interface
-- 📱 Responsive design
-- ⚡ High-performance data updates
+- 🔄 **Real-time trade monitoring** across multiple Cardano DEXes
+- 📊 **Live statistics dashboard** with market insights
+- 🔗 **Real Cardano wallet integration** (Nami, Eternl, Lace, Flint, Typhon)
+- 🎨 **Professional dark theme** optimized interface
+- 📱 **Responsive design** with mobile support
+- ⚡ **High-performance data updates** with live streaming
+- 🔥 **Trending tokens tracker** with search and filters
+- 💧 **Liquidity pools analytics** with APY tracking
+- 📈 **Advanced analytics dashboard** with market insights
+- 🎯 **Multi-tab navigation** (Trending, Trades, Pools, Analytics)
 
 ## Supported DEXes
 
@@ -64,8 +69,10 @@ npm run build
 
 - **Frontend**: React 18, Vite
 - **Styling**: TailwindCSS, ShadCN UI
-- **Mock Data**: Faker.js
-- **Future**: Lucid Cardano integration for real data
+- **Wallet Integration**: @meshsdk/core, Cardano dApp Connector API
+- **Mock Data**: Faker.js for demo purposes
+- **UI Components**: Professional ShadCN UI components
+- **Real-time Updates**: Live data streaming simulation
 
 ## Project Structure
 
