@@ -1,10 +1,17 @@
 // REAL DexHunter API Scraper - Using the actual API endpoint!
-const fetch = require('node-fetch');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const fs = require('fs');
 const path = require('path');
 
-// REAL DexHunter API endpoint discovered from DevTools
-const API_URL = 'https://dhapio.io/swap/globalOrders';
+// Possible DexHunter API endpoints to try
+const POSSIBLE_ENDPOINTS = [
+  'https://api.dexhunter.io/swap/globalOrders',
+  'https://app.dexhunter.io/api/swap/globalOrders',
+  'https://dexhunter.io/api/swap/globalOrders',
+  'https://api.dexhunter.io/api/trades',
+  'https://app.dexhunter.io/api/trades',
+  'https://dexhunter.io/api/trades'
+];
 
 async function scrapeDexHunterAPI() {
   console.log('🚀 Starting REAL DexHunter API scraping...');
@@ -29,18 +36,56 @@ async function scrapeDexHunterAPI() {
       order: 'desc'
     };
 
-    console.log('📡 Calling REAL DexHunter API...');
-    console.log('🎯 URL:', API_URL);
-    console.log('📦 Payload:', payload);
-
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) {
-      throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+    console.log('📡 Trying multiple DexHunter API endpoints...');
+    
+    let response;
+    let successUrl;
+    
+    // Try each endpoint
+    for (const endpoint of POSSIBLE_ENDPOINTS) {
+      try {
+        console.log(`🎯 Trying: ${endpoint}`);
+        
+        // Try both POST and GET
+        const methods = [
+          { method: 'POST', body: JSON.stringify(payload) },
+          { method: 'GET', body: null }
+        ];
+        
+        for (const methodConfig of methods) {
+          try {
+            const requestHeaders = { ...headers };
+            if (methodConfig.method === 'GET') {
+              delete requestHeaders['content-type'];
+            }
+            
+            response = await fetch(endpoint, {
+              method: methodConfig.method,
+              headers: requestHeaders,
+              body: methodConfig.body
+            });
+            
+            if (response.ok) {
+              successUrl = endpoint;
+              console.log(`✅ SUCCESS with ${methodConfig.method} ${endpoint}`);
+              break;
+            } else {
+              console.log(`❌ ${methodConfig.method} ${endpoint}: ${response.status}`);
+            }
+          } catch (error) {
+            console.log(`❌ ${methodConfig.method} ${endpoint}: ${error.message}`);
+          }
+        }
+        
+        if (successUrl) break;
+        
+      } catch (error) {
+        console.log(`❌ ${endpoint}: ${error.message}`);
+      }
+    }
+    
+    if (!successUrl) {
+      throw new Error('No working API endpoint found');
     }
 
     const data = await response.json();

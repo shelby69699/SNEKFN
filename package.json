@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "scrape": "node scripts/run-scraper.js",
     "scrape-direct": "node scripts/scrape-dexhunter.cjs",
-    "scrape-api": "node scripts/scrape-dexhunter-api.cjs"
+    "scrape-api": "node scripts/scrape-dexhunter-api.cjs",
+    "scrape-selenium": "node scripts/scrape-dexhunter-selenium.cjs",
+    "inspect": "node scripts/inspect-dexhunter.js"
   },
   "dependencies": {
     "@meshsdk/core": "^1.1.0",
@@ -23,6 +25,7 @@
     "puppeteer": "^23.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "selenium-webdriver": "^4.34.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   },
