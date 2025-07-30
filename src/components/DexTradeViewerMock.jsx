@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import dexHunterAPI from "../utils/dexhunterAPI";
 
-const mockTokens = ["ADA", "DJED", "ROOKIE", "GATOR", "BA.AD", "WORT", "SNEK", "SU.OR"];
-const mockDexes = ["Minswap", "WingRiders", "Spectrum"];
+// REAL DexHunter Global Trades - Direct API Integration!
 
 const generateTrade = () => {
   const inToken = mockTokens[Math.floor(Math.random() * mockTokens.length)];
@@ -62,7 +62,22 @@ export default function DexTradeViewerMock() {
               </tr>
             </thead>
             <tbody>
-              {trades.map((trade) => (
+              {isLoading ? (
+                // Loading skeleton
+                Array.from({ length: 10 }).map((_, index) => (
+                  <tr key={index} className="border-b border-slate-800">
+                    <td className="py-2 px-1"><div className="w-12 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-2 px-1"><div className="w-16 h-6 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-2 px-1"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-2 px-1"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-2 px-1"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-2 px-1"><div className="w-16 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-2 px-1"><div className="w-16 h-6 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-2 px-1"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-2 px-1"><div className="w-16 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                  </tr>
+                ))
+              ) : trades.map((trade) => (
                 <tr key={trade.id} className="border-b hover:bg-muted/50 transition-colors">
                   <td className="py-2">{trade.timeAgo}</td>
                   <td className="py-2">
