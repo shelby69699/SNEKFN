@@ -106,8 +106,8 @@ export default function WalletConnection() {
 
       {/* Wallet Selection Modal */}
       {showWalletModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <Card className="bg-slate-900 border-slate-700 max-w-md w-full">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+          <Card className="bg-slate-900 border-slate-700 max-w-md w-full pointer-events-auto">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-bold text-white">Connect Wallet</h3>

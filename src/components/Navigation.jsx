@@ -59,7 +59,7 @@ export default function Navigation({ activeTab, setActiveTab, onBackToLanding })
         </div>
       </div>
       
-      <div className="flex items-center justify-between relative z-10">
+              <div className="flex items-center justify-between relative z-0">
         {/* Logo and Brand */}
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-3">
