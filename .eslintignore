@@ -1,0 +1,7 @@
+# Ignore Node.js scripts
+scripts/
+proxy-server/
+*.config.js
+src/utils/proxyAPI.js
+dist/
+node_modules/

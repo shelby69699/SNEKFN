@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 // DEXY geometric background elements using your exact logo design
 export default function DexyBackground() {
