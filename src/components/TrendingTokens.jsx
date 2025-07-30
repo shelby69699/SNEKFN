@@ -4,17 +4,18 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { faker } from '@faker-js/faker';
 
+// DEXY ecosystem tokens and metrics - your professional platform
 const mockTokens = [
-  { symbol: "SNEK", name: "Snek", category: "meme" },
-  { symbol: "HOSKY", name: "Hosky", category: "meme" },
-  { symbol: "DJED", name: "Djed", category: "stable" },
-  { symbol: "ROOKIE", name: "Rookie", category: "gaming" },
-  { symbol: "GATOR", name: "AlligatorCoin", category: "meme" },
-  { symbol: "WORT", name: "World of Reels", category: "gaming" },
-  { symbol: "NMKR", name: "Newm", category: "utility" },
+  { symbol: "DEXY", name: "DEXY Protocol", category: "defi" },
+  { symbol: "ADA", name: "Cardano", category: "native" },
+  { symbol: "DJED", name: "Djed Stablecoin", category: "stable" },
+  { symbol: "IUSD", name: "Indigo USD", category: "stable" },
   { symbol: "MIN", name: "Minswap", category: "defi" },
   { symbol: "WRT", name: "WingRiders", category: "defi" },
-  { symbol: "SUNDAE", name: "SundaeSwap", category: "defi" }
+  { symbol: "SUNDAE", name: "SundaeSwap", category: "defi" },
+  { symbol: "VYFI", name: "VyFinance", category: "defi" },
+  { symbol: "AGIX", name: "SingularityNET", category: "ai" },
+  { symbol: "COPI", name: "Cornucopias", category: "gaming" }
 ];
 
 const generateTrendingToken = (tokenData) => {
@@ -29,7 +30,8 @@ const generateTrendingToken = (tokenData) => {
     change24h: changePercent,
     volume24h: `$${(volume24h / 1000000).toFixed(2)}M`,
     marketCap: `$${(marketCap / 1000000).toFixed(1)}M`,
-    image: `https://ui-avatars.com/api/?name=${tokenData.symbol}&background=random&size=32`
+    // Use DEXY geometric icon instead of random avatars
+    isDexy: tokenData.symbol === 'DEXY'
   };
 };
 
@@ -94,14 +96,14 @@ export default function TrendingTokens() {
 
       {/* Category Filters */}
       <div className="flex flex-wrap gap-2">
-        {['all', 'meme', 'defi', 'gaming', 'utility', 'stable'].map((category) => (
+        {['all', 'defi', 'stable', 'native', 'ai', 'gaming'].map((category) => (
           <button
             key={category}
             onClick={() => setFilter(category)}
-            className={`px-4 py-2 rounded-lg font-medium transition-all ${
+            className={`px-4 py-2 rounded-lg font-medium transition-all border ${
               filter === category
-                ? 'bg-teal-600 text-white shadow-lg'
-                : 'bg-slate-800 text-gray-300 hover:bg-slate-700 hover:text-white'
+                ? 'bg-gradient-to-r from-teal-600 to-orange-600 text-white shadow-lg border-teal-400'
+                : 'bg-slate-800/50 border-slate-700 text-gray-300 hover:bg-slate-700 hover:text-white hover:border-teal-500/50'
             }`}
           >
             {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -137,11 +139,20 @@ export default function TrendingTokens() {
                       </td>
                       <td className="p-4">
                         <div className="flex items-center space-x-3">
-                          <img 
-                            src={token.image} 
-                            alt={token.symbol}
-                            className="w-8 h-8 rounded-full"
-                          />
+                          {token.isDexy ? (
+                            // Special DEXY logo for DEXY token
+                            <div className="relative w-8 h-8">
+                              <div className="absolute inset-0 border-2 border-teal-400 rounded-lg rotate-12"></div>
+                              <div className="absolute inset-1 border border-teal-500 rounded-md rotate-6">
+                                <div className="w-full h-full bg-gradient-to-br from-orange-400 to-orange-600 rounded-sm"></div>
+                              </div>
+                            </div>
+                          ) : (
+                            // Professional geometric icons for other tokens
+                            <div className="w-8 h-8 bg-gradient-to-br from-slate-700 to-slate-600 rounded-lg flex items-center justify-center border border-slate-500">
+                              <span className="text-xs font-bold text-white">{token.symbol.slice(0, 2)}</span>
+                            </div>
+                          )}
                           <div>
                             <div className="font-semibold text-white">{token.symbol}</div>
                             <div className="text-sm text-gray-400">{token.name}</div>
@@ -168,11 +179,11 @@ export default function TrendingTokens() {
                         <Badge 
                           variant="outline" 
                           className={`
-                            ${token.category === 'meme' ? 'border-orange-500 text-orange-400' : ''}
                             ${token.category === 'defi' ? 'border-teal-500 text-teal-400' : ''}
-                            ${token.category === 'gaming' ? 'border-purple-500 text-purple-400' : ''}
-                            ${token.category === 'utility' ? 'border-blue-500 text-blue-400' : ''}
                             ${token.category === 'stable' ? 'border-green-500 text-green-400' : ''}
+                            ${token.category === 'native' ? 'border-blue-500 text-blue-400' : ''}
+                            ${token.category === 'ai' ? 'border-purple-500 text-purple-400' : ''}
+                            ${token.category === 'gaming' ? 'border-orange-500 text-orange-400' : ''}
                           `}
                         >
                           {token.category}

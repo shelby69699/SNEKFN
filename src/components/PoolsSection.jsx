@@ -95,18 +95,15 @@ export default function PoolsSection() {
                         {index + 1}
                       </td>
                       <td className="p-4">
-                        <div className="flex items-center space-x-2">
-                          <div className="flex -space-x-2">
-                            <img 
-                              src={`https://ui-avatars.com/api/?name=${pool.tokenA}&background=random&size=24`}
-                              alt={pool.tokenA}
-                              className="w-6 h-6 rounded-full border-2 border-slate-900"
-                            />
-                            <img 
-                              src={`https://ui-avatars.com/api/?name=${pool.tokenB}&background=random&size=24`}
-                              alt={pool.tokenB}
-                              className="w-6 h-6 rounded-full border-2 border-slate-900"
-                            />
+                        <div className="flex items-center space-x-3">
+                          <div className="flex -space-x-1">
+                            {/* Professional token pair icons */}
+                            <div className="w-6 h-6 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full border-2 border-slate-900 flex items-center justify-center">
+                              <span className="text-[10px] font-bold text-white">{pool.tokenA.slice(0, 1)}</span>
+                            </div>
+                            <div className="w-6 h-6 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full border-2 border-slate-900 flex items-center justify-center">
+                              <span className="text-[10px] font-bold text-white">{pool.tokenB.slice(0, 1)}</span>
+                            </div>
                           </div>
                           <span className="font-semibold text-white">
                             {pool.tokenA}/{pool.tokenB}

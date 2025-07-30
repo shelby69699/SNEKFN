@@ -18,19 +18,26 @@ export default function WalletDemo() {
           </Badge>
         </div>
         
-        <div className="mt-4 p-4 bg-slate-800 rounded-lg border border-slate-700">
-          <div className="text-sm text-gray-300 mb-2">
-            <strong>Supported Wallets:</strong>
-          </div>
-          <div className="flex flex-wrap gap-2 text-sm">
-            <span className="bg-slate-700 px-2 py-1 rounded">🦎 Nami</span>
-            <span className="bg-slate-700 px-2 py-1 rounded">♾️ Eternl</span>
-            <span className="bg-slate-700 px-2 py-1 rounded">🎭 Lace</span>
-            <span className="bg-slate-700 px-2 py-1 rounded">🔥 Flint</span>
-            <span className="bg-slate-700 px-2 py-1 rounded">🌊 Typhon</span>
+        <div className="mt-4 p-4 bg-slate-800/50 rounded-lg border border-teal-500/20 relative overflow-hidden">
+          {/* DEXY geometric pattern */}
+          <div className="absolute top-2 right-2 opacity-10">
+            <div className="w-8 h-8 border border-teal-400 rounded-lg rotate-12">
+              <div className="w-full h-full bg-orange-400/30 rounded-md rotate-6"></div>
+            </div>
           </div>
           
-          <div className="mt-3 text-xs text-gray-400">
+          <div className="text-sm text-gray-300 mb-2 relative z-10">
+            <strong>Supported Wallets:</strong>
+          </div>
+          <div className="flex flex-wrap gap-2 text-sm relative z-10">
+            <span className="bg-gradient-to-r from-teal-600/20 to-orange-600/20 border border-teal-500/30 px-3 py-1 rounded-full">🦎 Nami</span>
+            <span className="bg-gradient-to-r from-teal-600/20 to-orange-600/20 border border-teal-500/30 px-3 py-1 rounded-full">♾️ Eternl</span>
+            <span className="bg-gradient-to-r from-teal-600/20 to-orange-600/20 border border-teal-500/30 px-3 py-1 rounded-full">🎭 Lace</span>
+            <span className="bg-gradient-to-r from-teal-600/20 to-orange-600/20 border border-teal-500/30 px-3 py-1 rounded-full">🔥 Flint</span>
+            <span className="bg-gradient-to-r from-teal-600/20 to-orange-600/20 border border-teal-500/30 px-3 py-1 rounded-full">🌊 Typhon</span>
+          </div>
+          
+          <div className="mt-3 text-xs text-gray-400 relative z-10">
             💡 <strong>Tip:</strong> If you don't have a Cardano wallet installed, the system will guide you to install one.
           </div>
         </div>

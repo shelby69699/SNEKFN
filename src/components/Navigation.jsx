@@ -2,13 +2,29 @@ import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import WalletConnection from './WalletConnection';
 
+// Your professional DEXY logo for navigation
 const DexyMiniLogo = () => (
-  <div className="w-8 h-8 relative">
-    <div className="absolute inset-0 bg-gradient-to-br from-teal-400 to-teal-600 rounded-lg rotate-12"></div>
-    <div className="absolute inset-1 bg-gradient-to-br from-orange-400 to-orange-600 rounded-md rotate-6"></div>
-    <div className="absolute inset-2 bg-gray-900 rounded-sm flex items-center justify-center">
-      <div className="w-2 h-2 bg-gradient-to-br from-teal-400 to-orange-500 rounded-sm"></div>
+  <div className="w-10 h-10 relative group cursor-pointer">
+    {/* Outer geometric framework */}
+    <div className="absolute inset-0 border-2 border-teal-400 rounded-xl rotate-12 transition-all duration-300 group-hover:rotate-6">
+      {/* Connection nodes */}
+      <div className="absolute -top-1 -left-1 w-2 h-2 bg-white rounded-full animate-pulse"></div>
+      <div className="absolute -top-1 -right-1 w-2 h-2 bg-white rounded-full animate-pulse delay-100"></div>
+      <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-white rounded-full animate-pulse delay-200"></div>
+      <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-white rounded-full animate-pulse delay-300"></div>
     </div>
+    
+    {/* Inner framework */}
+    <div className="absolute inset-1 border border-teal-500 rounded-lg rotate-6 bg-gradient-to-br from-teal-500/10 to-transparent">
+      {/* Central orange element */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="w-3 h-3 bg-gradient-to-br from-orange-400 to-orange-600 rounded rotate-45 shadow-lg shadow-orange-500/30"></div>
+        <div className="absolute inset-0.5 bg-slate-900 rounded-sm"></div>
+      </div>
+    </div>
+    
+    {/* Hover glow effect */}
+    <div className="absolute inset-0 rounded-xl rotate-12 bg-gradient-to-br from-teal-400/20 to-orange-400/20 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
   </div>
 );
 
@@ -21,8 +37,17 @@ export default function Navigation({ activeTab, setActiveTab, onBackToLanding })
   ];
 
   return (
-    <nav className="bg-slate-900/50 border border-slate-700 rounded-lg p-4 mb-6 backdrop-blur-sm">
-      <div className="flex items-center justify-between">
+    <nav className="bg-slate-900/30 border border-teal-500/20 rounded-lg p-4 mb-6 backdrop-blur-sm relative overflow-hidden">
+      {/* DEXY geometric pattern background */}
+      <div className="absolute top-0 right-0 opacity-5">
+        <div className="w-24 h-24 border-2 border-teal-400 rounded-xl rotate-12">
+          <div className="absolute inset-2 border border-orange-400 rounded-lg rotate-6">
+            <div className="w-full h-full bg-orange-400/20 rounded-md"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="flex items-center justify-between relative z-10">
         {/* Logo and Brand */}
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-3">
@@ -30,7 +55,7 @@ export default function Navigation({ activeTab, setActiveTab, onBackToLanding })
             <h1 className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent">
               DEXY
             </h1>
-            <Badge variant="secondary" className="ml-1">Beta</Badge>
+            <Badge variant="secondary" className="ml-1 bg-gradient-to-r from-teal-600/20 to-orange-600/20 border-teal-500/50">Live</Badge>
           </div>
           
           <div className="hidden md:block w-px h-6 bg-slate-600"></div>

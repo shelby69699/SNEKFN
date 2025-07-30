@@ -1,20 +1,36 @@
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import DexyBackground from './DexyBackground';
 
+// Your exact DEXY logo design - enhanced and professional
 const DexyLogo = () => (
-  <div className="relative w-24 h-24 mx-auto mb-6">
-    <div className="absolute inset-0 bg-gradient-to-br from-teal-400 to-teal-600 rounded-2xl rotate-12 opacity-90"></div>
-    <div className="absolute inset-2 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl rotate-6"></div>
-    <div className="absolute inset-4 bg-gray-900 rounded-lg flex items-center justify-center">
-      <div className="w-6 h-6 bg-gradient-to-br from-teal-400 to-orange-500 rounded transform rotate-45"></div>
+  <div className="relative w-32 h-32 mx-auto mb-8 transform hover:scale-105 transition-transform duration-500">
+    {/* Outer geometric framework with connection points */}
+    <div className="absolute inset-0 border-4 border-teal-400 rounded-3xl rotate-12 shadow-2xl shadow-teal-500/20">
+      {/* Connection nodes - your exact design */}
+      <div className="absolute -top-2 -left-2 w-4 h-4 bg-white rounded-full shadow-lg animate-pulse"></div>
+      <div className="absolute -top-2 -right-2 w-4 h-4 bg-white rounded-full shadow-lg animate-pulse delay-100"></div>
+      <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-white rounded-full shadow-lg animate-pulse delay-200"></div>
+      <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-white rounded-full shadow-lg animate-pulse delay-300"></div>
+      <div className="absolute top-1/4 -left-2 w-4 h-4 bg-white rounded-full shadow-lg animate-pulse delay-75"></div>
+      <div className="absolute top-1/4 -right-2 w-4 h-4 bg-white rounded-full shadow-lg animate-pulse delay-150"></div>
+      
+      {/* Inner framework layers */}
+      <div className="absolute inset-3 border-3 border-teal-500 rounded-2xl rotate-6 bg-gradient-to-br from-teal-500/10 to-transparent">
+        <div className="absolute inset-4 border-2 border-teal-600 rounded-xl rotate-3 bg-gradient-to-br from-teal-600/10 to-transparent">
+          {/* Central orange cubic element - your signature design */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg rotate-45 shadow-xl shadow-orange-500/30"></div>
+            <div className="absolute inset-1 bg-gradient-to-br from-orange-500 to-orange-700 rounded-md"></div>
+            <div className="absolute inset-2 bg-slate-900 rounded-sm"></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div className="absolute -top-1 -left-1 w-3 h-3 bg-white rounded-full opacity-80"></div>
-    <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full opacity-80"></div>
-    <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-white rounded-full opacity-80"></div>
-    <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-white rounded-full opacity-80"></div>
-    <div className="absolute top-2 left-2 w-3 h-3 bg-white rounded-full opacity-60"></div>
-    <div className="absolute top-2 right-2 w-3 h-3 bg-white rounded-full opacity-60"></div>
+    
+    {/* Glowing effects */}
+    <div className="absolute inset-0 rounded-3xl rotate-12 bg-gradient-to-br from-teal-400/20 to-orange-400/20 blur-xl"></div>
   </div>
 );
 
@@ -38,13 +54,9 @@ export default function LandingPage({ onEnterApp }) {
   const supportedDexes = ["Minswap", "WingRiders", "Spectrum", "MuesliSwap", "VyFinance"];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-teal-500/5 to-orange-500/5 rounded-full blur-3xl"></div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-teal-950/30 to-slate-900 relative overflow-hidden">
+      {/* Your DEXY geometric background */}
+      <DexyBackground />
 
       {/* Navigation */}
       <nav className="relative z-10 p-6">
@@ -88,9 +100,11 @@ export default function LandingPage({ onEnterApp }) {
             </span>
           </h2>
           
-          <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
             The most capital efficient trading protocol on Cardano.<br />
-            <span className="text-teal-400">Aggregating liquidity across all major DEXes.</span>
+            <span className="bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent font-semibold">
+              Powered by advanced geometric algorithms and unified liquidity.
+            </span>
           </p>
           
           <button
@@ -112,13 +126,14 @@ export default function LandingPage({ onEnterApp }) {
 
       {/* Features Section */}
       <div id="features" className="relative z-10 max-w-6xl mx-auto px-6 pb-20">
-        <h3 className="text-3xl font-bold text-white text-center mb-12">Why Choose DEXY?</h3>
+        <h3 className="text-3xl font-bold text-white text-center mb-4">Why Choose DEXY?</h3>
+        <p className="text-center text-gray-400 mb-12">Experience next-generation DeFi with geometric precision</p>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
-            <Card key={index} className="p-6 bg-slate-800/50 border-slate-700 backdrop-blur-sm hover:bg-slate-800/70 transition-all duration-300">
-              <div className="text-4xl mb-4">{feature.icon}</div>
-              <h4 className="text-xl font-bold text-white mb-2">{feature.title}</h4>
-              <p className="text-gray-400">{feature.desc}</p>
+            <Card key={index} className="p-6 bg-slate-800/30 border border-teal-500/20 backdrop-blur-sm hover:bg-slate-800/50 hover:border-teal-400/40 transition-all duration-300 group">
+              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">{feature.icon}</div>
+              <h4 className="text-xl font-bold bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent mb-2">{feature.title}</h4>
+              <p className="text-gray-300">{feature.desc}</p>
             </Card>
           ))}
         </div>
@@ -141,19 +156,26 @@ export default function LandingPage({ onEnterApp }) {
 
       {/* Stats Preview */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 pb-20">
-        <Card className="p-8 bg-slate-800/30 border-slate-700 backdrop-blur-sm">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold text-teal-400 mb-2">$50M+</div>
-              <div className="text-gray-400">Total Volume Aggregated</div>
+        <Card className="p-8 bg-slate-800/20 border border-teal-500/30 backdrop-blur-sm relative overflow-hidden">
+          {/* DEXY geometric pattern overlay */}
+          <div className="absolute top-4 right-4 opacity-10">
+            <div className="w-16 h-16 border-2 border-teal-400 rounded-xl rotate-12">
+              <div className="w-full h-full bg-orange-400/20 rounded-lg rotate-6"></div>
             </div>
-            <div>
-              <div className="text-3xl font-bold text-orange-400 mb-2">100K+</div>
-              <div className="text-gray-400">Successful Swaps</div>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8 text-center relative z-10">
+            <div className="group">
+              <div className="text-4xl font-bold bg-gradient-to-r from-teal-400 to-teal-300 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">$50M+</div>
+              <div className="text-gray-300">Total Volume Aggregated</div>
             </div>
-            <div>
-              <div className="text-3xl font-bold text-white mb-2">5.2%</div>
-              <div className="text-gray-400">Average Savings</div>
+            <div className="group">
+              <div className="text-4xl font-bold bg-gradient-to-r from-orange-400 to-orange-300 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">100K+</div>
+              <div className="text-gray-300">Successful Swaps</div>
+            </div>
+            <div className="group">
+              <div className="text-4xl font-bold bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">5.2%</div>
+              <div className="text-gray-300">Average Savings</div>
             </div>
           </div>
         </Card>

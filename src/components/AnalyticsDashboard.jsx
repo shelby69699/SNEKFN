@@ -117,11 +117,20 @@ export default function AnalyticsDashboard() {
                 <div key={token.symbol} className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <span className="text-gray-400 text-sm">#{index + 1}</span>
-                    <img 
-                      src={`https://ui-avatars.com/api/?name=${token.symbol}&background=random&size=32`}
-                      alt={token.symbol}
-                      className="w-8 h-8 rounded-full"
-                    />
+                    {token.symbol === 'DEXY' ? (
+                      // Special DEXY logo
+                      <div className="relative w-8 h-8">
+                        <div className="absolute inset-0 border-2 border-teal-400 rounded-lg rotate-12"></div>
+                        <div className="absolute inset-1 border border-teal-500 rounded-md rotate-6">
+                          <div className="w-full h-full bg-gradient-to-br from-orange-400 to-orange-600 rounded-sm"></div>
+                        </div>
+                      </div>
+                    ) : (
+                      // Professional token icons
+                      <div className="w-8 h-8 bg-gradient-to-br from-slate-700 to-slate-600 rounded-lg flex items-center justify-center border border-slate-500">
+                        <span className="text-xs font-bold text-white">{token.symbol.slice(0, 2)}</span>
+                      </div>
+                    )}
                     <div>
                       <div className="font-semibold text-white">{token.symbol}</div>
                       <div className="text-sm text-gray-400">{formatNumber(token.volume)} vol</div>
@@ -144,11 +153,20 @@ export default function AnalyticsDashboard() {
                 <div key={token.symbol} className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <span className="text-gray-400 text-sm">#{index + 1}</span>
-                    <img 
-                      src={`https://ui-avatars.com/api/?name=${token.symbol}&background=random&size=32`}
-                      alt={token.symbol}
-                      className="w-8 h-8 rounded-full"
-                    />
+                    {token.symbol === 'DEXY' ? (
+                      // Special DEXY logo
+                      <div className="relative w-8 h-8">
+                        <div className="absolute inset-0 border-2 border-teal-400 rounded-lg rotate-12"></div>
+                        <div className="absolute inset-1 border border-teal-500 rounded-md rotate-6">
+                          <div className="w-full h-full bg-gradient-to-br from-orange-400 to-orange-600 rounded-sm"></div>
+                        </div>
+                      </div>
+                    ) : (
+                      // Professional token icons
+                      <div className="w-8 h-8 bg-gradient-to-br from-slate-700 to-slate-600 rounded-lg flex items-center justify-center border border-slate-500">
+                        <span className="text-xs font-bold text-white">{token.symbol.slice(0, 2)}</span>
+                      </div>
+                    )}
                     <div>
                       <div className="font-semibold text-white">{token.symbol}</div>
                       <div className="text-sm text-gray-400">{formatNumber(token.volume)} vol</div>
