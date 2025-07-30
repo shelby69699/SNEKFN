@@ -256,10 +256,38 @@ export default function TrendingTokens() {
   const categories = ['All', ...new Set(tokens.map(token => token.category))];
 
   const formatNumber = (num) => {
-    if (num >= 1e9) return `$${(num / 1e9).toFixed(2)}B`;
-    if (num >= 1e6) return `$${(num / 1e6).toFixed(2)}M`;
-    if (num >= 1e3) return `$${(num / 1e3).toFixed(2)}K`;
+    if (typeof num === 'string') return num;
+    if (num >= 1000000000) return `$${(num / 1000000000).toFixed(1)}B`;
+    if (num >= 1000000) return `$${(num / 1000000).toFixed(1)}M`;
+    if (num >= 1000) return `$${(num / 1000).toFixed(1)}K`;
     return `$${num.toFixed(2)}`;
+  };
+
+  const parseVolume = (volumeStr) => {
+    if (typeof volumeStr === 'number') return volumeStr;
+    if (typeof volumeStr === 'string') {
+      const match = volumeStr.match(/\$?([\d,\.]+)([KMB]?)/);
+      if (match) {
+        let value = parseFloat(match[1].replace(',', ''));
+        const unit = match[2];
+        if (unit === 'K') value *= 1000;
+        if (unit === 'M') value *= 1000000;
+        if (unit === 'B') value *= 1000000000;
+        return value;
+      }
+    }
+    return 0;
+  };
+
+  const getTokenLogo = (symbol) => {
+    const colors = ['#3B82F6', '#10B981', '#8B5CF6', '#F59E0B', '#EF4444', '#06B6D4'];
+    const colorIndex = symbol?.charCodeAt(0) % colors.length || 0;
+    const color = colors[colorIndex];
+    
+    return `data:image/svg+xml;base64,${btoa(`<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="24" cy="24" r="24" fill="${color}"/>
+    <text x="24" y="30" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">${symbol?.slice(0, 4) || 'TOK'}</text>
+    </svg>`)}`;
   };
 
   const formatPrice = (price) => {
