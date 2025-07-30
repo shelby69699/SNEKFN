@@ -23,13 +23,18 @@ export default function WalletConnection() {
       setIsConnecting(true);
       
       // Check if wallet exists
-      if (!window.cardano || !window.cardano[walletKey]) {
+      if (typeof window === 'undefined' || !window.cardano || !window.cardano[walletKey]) {
         alert(`${walletDisplayName} wallet not found. Please install it first.`);
+        setIsConnecting(false);
         return;
       }
 
+      // Check if wallet is enabled already  
+      const walletApi = window.cardano[walletKey];
+      console.log(`Attempting to connect to ${walletDisplayName}...`);
+
       // Connect to wallet
-      const api = await window.cardano[walletKey].enable();
+      const api = await walletApi.enable();
       
       if (api) {
         // Success!
@@ -125,7 +130,7 @@ export default function WalletConnection() {
 
               <div className="space-y-3">
                 {WALLETS.map((wallet) => {
-                  const isInstalled = window.cardano && window.cardano[wallet.key];
+                  const isInstalled = typeof window !== 'undefined' && window.cardano && window.cardano[wallet.key];
                   return (
                     <button
                       key={wallet.key}
