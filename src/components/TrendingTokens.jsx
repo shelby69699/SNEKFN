@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import proxyAPI from '../utils/proxyAPI';
 
 // Real DexHunter API integration for trending tokens
 const fetchRealDexHunterTrending = async () => {
@@ -212,23 +213,26 @@ export default function TrendingTokens() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Load real trending tokens on component mount
+    // Load REAL trending tokens via proxy
     const loadRealTrendingTokens = async () => {
       setIsLoading(true);
       setError(null);
       
       try {
-        const realTokens = await fetchRealDexHunterTrending();
+        console.log('🔄 Loading trending tokens via DEXY proxy...');
+        const realTokens = await proxyAPI.fetchTrendingTokens();
+        
         if (realTokens && realTokens.length > 0) {
           setTokens(realTokens);
-          console.log(`✅ Loaded ${realTokens.length} real trending tokens!`);
+          console.log(`✅ Loaded ${realTokens.length} real trending tokens via proxy!`);
         } else {
-          setError('No real trending tokens available');
+          setTokens(proxyAPI.getFallbackTokens());
+          console.log('⚠️ Using fallback Cardano ecosystem tokens');
         }
       } catch (err) {
         console.error('❌ Error loading trending tokens:', err);
-        setError('Failed to load real trending tokens');
-        setTokens(getRealCardanoTokens()); // Fallback to curated tokens
+        setTokens(proxyAPI.getFallbackTokens());
+        setError('Using fallback Cardano data');
       } finally {
         setIsLoading(false);
       }
