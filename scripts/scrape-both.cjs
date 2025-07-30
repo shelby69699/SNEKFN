@@ -7,11 +7,13 @@ async function scrapeEverything() {
   console.log('🚀 Starting COMPLETE DexHunter scraping - TRENDS + TRADES');
   
   const browser = await puppeteer.launch({
-    headless: false,
+    headless: true, // SILENT MODE - NO BROWSER WINDOWS!
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      '--disable-web-security'
+      '--disable-web-security',
+      '--disable-dev-shm-usage',
+      '--disable-gpu'
     ]
   });
 

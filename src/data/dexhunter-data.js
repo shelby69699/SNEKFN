@@ -1,4 +1,4 @@
-// REAL DexHunter tokens - 2025-07-30T23:56:32.418Z
+// REAL DexHunter tokens - 2025-07-30T23:57:33.636Z
 export const DEXHUNTER_TOKENS = [
   {
     "symbol": "ADA",
@@ -43,4 +43,4 @@ export const CATEGORY_COLORS = {
   'gaming': 'border-orange-500 text-orange-400'
 };
 
-export const SCRAPE_TIMESTAMP = '2025-07-30T23:56:32.418Z';
+export const SCRAPE_TIMESTAMP = '2025-07-30T23:57:33.636Z';
