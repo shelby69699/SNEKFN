@@ -1,8 +1,8 @@
-// REAL DexHunter trades - 2025-07-30T23:56:03.649Z
+// REAL DexHunter trades - 2025-07-30T23:56:32.419Z
 export const DEXHUNTER_TRADES = [
   {
-    "id": "real_trade_1753919763639_0",
-    "timeAgo": "1s ago",
+    "id": "real_trade_1753919792416_0",
+    "timeAgo": "30s ago",
     "type": "Sell",
     "pair": "Ba..RT ADA",
     "inAmount": "69 ADA",
@@ -11,9 +11,9 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..9h9w",
-    "timestamp": 1753919628846.9805,
+    "timestamp": 1753919643963.9243,
     "rawCells": [
-      "1s ago",
+      "30s ago",
       "Sell",
       "Ba..RT ADA",
       "69 ADA",
@@ -27,8 +27,8 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763639_1",
-    "timeAgo": "1s ago",
+    "id": "real_trade_1753919792417_1",
+    "timeAgo": "30s ago",
     "type": "Sell",
     "pair": "Ba..RT ADA",
     "inAmount": "70 ADA",
@@ -37,9 +37,9 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..6gxe",
-    "timestamp": 1753919658255.8953,
+    "timestamp": 1753919645507.1743,
     "rawCells": [
-      "1s ago",
+      "30s ago",
       "Sell",
       "Ba..RT ADA",
       "70 ADA",
@@ -53,8 +53,8 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763639_2",
-    "timeAgo": "1s ago",
+    "id": "real_trade_1753919792417_2",
+    "timeAgo": "30s ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
     "inAmount": "500 ADA",
@@ -63,9 +63,9 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "$address.io",
-    "timestamp": 1753919642791.0605,
+    "timestamp": 1753919548377.0056,
     "rawCells": [
-      "1s ago",
+      "30s ago",
       "Buy",
       "ADA Ba..RT",
       "500 ADA",
@@ -79,8 +79,8 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763639_3",
-    "timeAgo": "1s ago",
+    "id": "real_trade_1753919792417_3",
+    "timeAgo": "30s ago",
     "type": "Sell",
     "pair": "Ba..RT ADA",
     "inAmount": "332 ADA",
@@ -89,9 +89,9 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..q30n",
-    "timestamp": 1753919722488.9744,
+    "timestamp": 1753919666122.1567,
     "rawCells": [
-      "1s ago",
+      "30s ago",
       "Sell",
       "Ba..RT ADA",
       "332 ADA",
@@ -105,8 +105,8 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763639_4",
-    "timeAgo": "1m ago",
+    "id": "real_trade_1753919792417_4",
+    "timeAgo": "2m ago",
     "type": "Sell",
     "pair": "Ba..RT ADA",
     "inAmount": "159 ADA",
@@ -115,9 +115,9 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..e0qg",
-    "timestamp": 1753919475220.1458,
+    "timestamp": 1753919760071.2534,
     "rawCells": [
-      "1m ago",
+      "2m ago",
       "Sell",
       "Ba..RT ADA",
       "159 ADA",
@@ -131,8 +131,8 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763639_5",
-    "timeAgo": "1m ago",
+    "id": "real_trade_1753919792417_5",
+    "timeAgo": "2m ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
     "inAmount": "50 ADA",
@@ -141,9 +141,9 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..3etc",
-    "timestamp": 1753919581126.4673,
+    "timestamp": 1753919672789.688,
     "rawCells": [
-      "1m ago",
+      "2m ago",
       "Buy",
       "ADA Ba..RT",
       "50 ADA",
@@ -157,7 +157,7 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763639_6",
+    "id": "real_trade_1753919792417_6",
     "timeAgo": "2m ago",
     "type": "Sell",
     "pair": "ANO ADA",
@@ -167,7 +167,7 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..u0zj",
-    "timestamp": 1753919524992.5054,
+    "timestamp": 1753919771087.6292,
     "rawCells": [
       "2m ago",
       "Sell",
@@ -183,7 +183,7 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763639_7",
+    "id": "real_trade_1753919792417_7",
     "timeAgo": "2m ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
@@ -193,7 +193,7 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..n5k3",
-    "timestamp": 1753919751235.7375,
+    "timestamp": 1753919550197.9072,
     "rawCells": [
       "2m ago",
       "Buy",
@@ -209,7 +209,7 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763639_8",
+    "id": "real_trade_1753919792417_8",
     "timeAgo": "2m ago",
     "type": "Sell",
     "pair": "Ba..RT ADA",
@@ -219,7 +219,7 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..ppgf",
-    "timestamp": 1753919746156.8691,
+    "timestamp": 1753919700181.6409,
     "rawCells": [
       "2m ago",
       "Sell",
@@ -235,7 +235,7 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_9",
+    "id": "real_trade_1753919792417_9",
     "timeAgo": "2m ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
@@ -245,7 +245,7 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..e0qg",
-    "timestamp": 1753919482660.6555,
+    "timestamp": 1753919504697.4597,
     "rawCells": [
       "2m ago",
       "Buy",
@@ -261,7 +261,7 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_10",
+    "id": "real_trade_1753919792417_10",
     "timeAgo": "2m ago",
     "type": "Sell",
     "pair": "Ba..RT ADA",
@@ -271,7 +271,7 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "$jrat",
-    "timestamp": 1753919486758.6372,
+    "timestamp": 1753919705690.6704,
     "rawCells": [
       "2m ago",
       "Sell",
@@ -287,7 +287,7 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_11",
+    "id": "real_trade_1753919792417_11",
     "timeAgo": "2m ago",
     "type": "Sell",
     "pair": "Ba..RT ADA",
@@ -297,7 +297,7 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "$craz..ader",
-    "timestamp": 1753919679285.089,
+    "timestamp": 1753919778774.008,
     "rawCells": [
       "2m ago",
       "Sell",
@@ -313,7 +313,7 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_12",
+    "id": "real_trade_1753919792417_12",
     "timeAgo": "2m ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
@@ -323,7 +323,7 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..9h9w",
-    "timestamp": 1753919631419.8323,
+    "timestamp": 1753919639722.926,
     "rawCells": [
       "2m ago",
       "Buy",
@@ -339,7 +339,7 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_13",
+    "id": "real_trade_1753919792417_13",
     "timeAgo": "2m ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
@@ -349,7 +349,7 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..6gxe",
-    "timestamp": 1753919621870.079,
+    "timestamp": 1753919581774.964,
     "rawCells": [
       "2m ago",
       "Buy",
@@ -365,7 +365,7 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_14",
+    "id": "real_trade_1753919792417_14",
     "timeAgo": "2m ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
@@ -375,7 +375,7 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "$cockwhale",
-    "timestamp": 1753919680960.8962,
+    "timestamp": 1753919529454.7368,
     "rawCells": [
       "2m ago",
       "Buy",
@@ -391,7 +391,7 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_15",
+    "id": "real_trade_1753919792417_15",
     "timeAgo": "3m ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
@@ -401,7 +401,7 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "$cockwhale",
-    "timestamp": 1753919733288.0815,
+    "timestamp": 1753919561699.439,
     "rawCells": [
       "3m ago",
       "Buy",
@@ -417,7 +417,7 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_16",
+    "id": "real_trade_1753919792417_16",
     "timeAgo": "3m ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
@@ -427,7 +427,7 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "$3954",
-    "timestamp": 1753919734727.4578,
+    "timestamp": 1753919774579.088,
     "rawCells": [
       "3m ago",
       "Buy",
@@ -443,7 +443,7 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_17",
+    "id": "real_trade_1753919792417_17",
     "timeAgo": "3m ago",
     "type": "Sell",
     "pair": "Ba..RT ADA",
@@ -453,7 +453,7 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..e0qg",
-    "timestamp": 1753919562738.6943,
+    "timestamp": 1753919636105.2505,
     "rawCells": [
       "3m ago",
       "Sell",
@@ -469,7 +469,7 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_18",
+    "id": "real_trade_1753919792417_18",
     "timeAgo": "3m ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
@@ -479,7 +479,7 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "$cockwhale",
-    "timestamp": 1753919693275.7312,
+    "timestamp": 1753919532206.343,
     "rawCells": [
       "3m ago",
       "Buy",
@@ -495,8 +495,8 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_19",
-    "timeAgo": "3m ago",
+    "id": "real_trade_1753919792417_19",
+    "timeAgo": "4m ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
     "inAmount": "300 ADA",
@@ -505,9 +505,9 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "$teka..9ine",
-    "timestamp": 1753919667365.6562,
+    "timestamp": 1753919563426.245,
     "rawCells": [
-      "3m ago",
+      "4m ago",
       "Buy",
       "ADA Ba..RT",
       "300 ADA",
@@ -521,8 +521,8 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_20",
-    "timeAgo": "3m ago",
+    "id": "real_trade_1753919792418_20",
+    "timeAgo": "4m ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
     "inAmount": "50 ADA",
@@ -531,9 +531,9 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "$snek..cher",
-    "timestamp": 1753919510897.6,
+    "timestamp": 1753919759840.2102,
     "rawCells": [
-      "3m ago",
+      "4m ago",
       "Buy",
       "ADA Ba..RT",
       "50 ADA",
@@ -547,8 +547,8 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_21",
-    "timeAgo": "3m ago",
+    "id": "real_trade_1753919792418_21",
+    "timeAgo": "4m ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
     "inAmount": "100 ADA",
@@ -557,9 +557,9 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..yhp3",
-    "timestamp": 1753919686012.194,
+    "timestamp": 1753919565410.2378,
     "rawCells": [
-      "3m ago",
+      "4m ago",
       "Buy",
       "ADA Ba..RT",
       "100 ADA",
@@ -573,8 +573,8 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_22",
-    "timeAgo": "3m ago",
+    "id": "real_trade_1753919792418_22",
+    "timeAgo": "4m ago",
     "type": "Buy",
     "pair": "ADA Ba..RT",
     "inAmount": "50 ADA",
@@ -583,9 +583,9 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "$voidlock",
-    "timestamp": 1753919668744.097,
+    "timestamp": 1753919640111.8596,
     "rawCells": [
-      "3m ago",
+      "4m ago",
       "Buy",
       "ADA Ba..RT",
       "50 ADA",
@@ -599,8 +599,8 @@ export const DEXHUNTER_TRADES = [
     "cellCount": 10
   },
   {
-    "id": "real_trade_1753919763640_23",
-    "timeAgo": "3m ago",
+    "id": "real_trade_1753919792418_23",
+    "timeAgo": "4m ago",
     "type": "Sell",
     "pair": "BA..T ADA",
     "inAmount": "118 ADA",
@@ -609,9 +609,9 @@ export const DEXHUNTER_TRADES = [
     "status": "Success",
     "dex": "",
     "maker": "addr..4ar9",
-    "timestamp": 1753919479363.4355,
+    "timestamp": 1753919687186.5684,
     "rawCells": [
-      "3m ago",
+      "4m ago",
       "Sell",
       "BA..T ADA",
       "118 ADA",
@@ -626,4 +626,4 @@ export const DEXHUNTER_TRADES = [
   }
 ];
 
-export const TRADES_TIMESTAMP = '2025-07-30T23:56:03.649Z';
+export const TRADES_TIMESTAMP = '2025-07-30T23:56:32.419Z';
