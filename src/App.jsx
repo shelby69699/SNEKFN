@@ -6,6 +6,7 @@ import DexTradeViewerMock from './components/DexTradeViewerMock'
 import TrendingTokens from './components/TrendingTokens'
 import PoolsSection from './components/PoolsSection'
 import AnalyticsDashboard from './components/AnalyticsDashboard'
+import WalletDemo from './components/WalletDemo'
 
 function App() {
   const [showApp, setShowApp] = useState(false);
@@ -49,6 +50,7 @@ function App() {
           setActiveTab={setActiveTab}
           onBackToLanding={() => setShowApp(false)} 
         />
+        <WalletDemo />
         {renderContent()}
       </div>
     </div>
