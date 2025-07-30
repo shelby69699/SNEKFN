@@ -11,7 +11,6 @@
     "scrape": "node scripts/scrape-dexhunter.js"
   },
   "dependencies": {
-    "@faker-js/faker": "^8.4.1",
     "@meshsdk/core": "^1.1.0",
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
