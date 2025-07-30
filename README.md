@@ -1,6 +1,6 @@
-# SNEKFN - DEX Aggregator
+# DEXY - Cardano DEX Aggregator
 
-A Cardano DEX aggregator for viewing real-time trading data across multiple decentralized exchanges.
+The most capital efficient trading protocol on Cardano. DEXY aggregates liquidity across all major decentralized exchanges to maximize returns and optimize profits.
 
 ## Features
 
