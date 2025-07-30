@@ -84,7 +84,9 @@ export default function Navigation({ activeTab, setActiveTab, onBackToLanding })
                     : 'text-gray-300 hover:text-white hover:bg-slate-800'
                 }`}
               >
-                <span className="text-base">{item.icon}</span>
+                <div className="w-6 h-6 bg-gradient-to-br from-teal-500 to-orange-500 rounded flex items-center justify-center">
+                  <span className="text-xs font-bold text-white">{item.icon}</span>
+                </div>
                 <span>{item.label}</span>
               </button>
             ))}
