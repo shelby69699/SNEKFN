@@ -2,27 +2,29 @@ import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { faker } from "@faker-js/faker";
 
 const mockTokens = ["ADA", "DJED", "ROOKIE", "GATOR", "BA.AD", "WORT", "SNEK", "SU.OR"];
 const mockDexes = ["Minswap", "WingRiders", "Spectrum"];
 
 const generateTrade = () => {
-  const inToken = faker.helpers.arrayElement(mockTokens);
-  let outToken = faker.helpers.arrayElement(mockTokens.filter(t => t !== inToken));
-  const isBuy = faker.datatype.boolean();
+  const inToken = mockTokens[Math.floor(Math.random() * mockTokens.length)];
+  let outToken = mockTokens[Math.floor(Math.random() * mockTokens.length)];
+  while (outToken === inToken) {
+    outToken = mockTokens[Math.floor(Math.random() * mockTokens.length)];
+  }
+  const isBuy = Math.random() > 0.5;
 
   return {
-    id: faker.datatype.uuid(),
+    id: Math.random().toString(36).substr(2, 9),
     type: isBuy ? "Buy" : "Sell",
     pair: isBuy ? `${outToken} > ${inToken}` : `${inToken} > ${outToken}`,
-    inAmount: `${faker.finance.amount(10, 1000, 2)} ${isBuy ? outToken : inToken}`,
-    outAmount: `${faker.finance.amount(10, 100000, 2)} ${isBuy ? inToken : outToken}`,
-    price: `${faker.finance.amount(0.0001, 0.1, 6)} ADA`,
-    status: faker.helpers.arrayElement(["Success", "Pending"]),
-    dex: faker.helpers.arrayElement(mockDexes),
-    maker: `addr..${faker.random.alphaNumeric(4)}`,
-    timeAgo: `${faker.datatype.number({ min: 1, max: 59 })}s ago`
+    inAmount: `${(Math.random() * 990 + 10).toFixed(2)} ${isBuy ? outToken : inToken}`,
+    outAmount: `${(Math.random() * 99990 + 10).toFixed(2)} ${isBuy ? inToken : outToken}`,
+    price: `${(Math.random() * 0.0999 + 0.0001).toFixed(6)} ADA`,
+    status: Math.random() > 0.1 ? "Success" : "Pending",
+    dex: mockDexes[Math.floor(Math.random() * mockDexes.length)],
+    maker: `addr..${Math.random().toString(36).substr(2, 4)}`,
+    timeAgo: `${Math.floor(Math.random() * 59) + 1}s ago`
   };
 };
 
