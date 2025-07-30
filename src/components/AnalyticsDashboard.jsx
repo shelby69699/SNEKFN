@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { REAL_TOKENS } from '../data/tokens';
+import { DEXHUNTER_TOKENS } from '../data/dexhunter-data';
 
 export default function AnalyticsDashboard() {
   const [marketData, setMarketData] = useState({
