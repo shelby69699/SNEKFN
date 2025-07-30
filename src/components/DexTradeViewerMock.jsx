@@ -12,11 +12,11 @@ export default function DexTradeViewerMock() {
   const [lastUpdate, setLastUpdate] = useState(new Date());
   const [apiStatus, setApiStatus] = useState('connecting');
 
-  // Fetch real DexHunter trades
+  // Fetch real Cardano trades - NO MOCK DATA
   const fetchTrades = async () => {
     try {
       setApiStatus('fetching');
-      console.log('🔄 Fetching REAL DexHunter global trades...');
+      console.log('🔄 Fetching REAL Cardano DEX trades...');
       
       const realTrades = await dexHunterAPI.fetchGlobalTrades(50);
       
@@ -24,15 +24,18 @@ export default function DexTradeViewerMock() {
         setTrades(realTrades);
         setApiStatus('connected');
         setLastUpdate(new Date());
-        console.log(`✅ Loaded ${realTrades.length} REAL DexHunter trades!`);
+        console.log(`✅ Loaded ${realTrades.length} REAL trades!`);
       } else {
-        setApiStatus('fallback');
-        console.log('⚠️ Using fallback data');
+        // NO FALLBACK - Show empty state
+        setTrades([]);
+        setApiStatus('no_data');
+        console.log('❌ No real trade data available');
       }
       
       setIsLoading(false);
     } catch (error) {
-      console.error('❌ Failed to fetch DexHunter trades:', error);
+      console.error('❌ Failed to fetch real trades:', error);
+      setTrades([]);
       setApiStatus('error');
       setIsLoading(false);
     }
@@ -51,7 +54,7 @@ export default function DexTradeViewerMock() {
     switch (apiStatus) {
       case 'connected': return 'text-green-400';
       case 'fetching': return 'text-yellow-400';
-      case 'fallback': return 'text-orange-400';
+      case 'no_data': return 'text-orange-400';
       case 'error': return 'text-red-400';
       default: return 'text-gray-400';
     }
@@ -59,9 +62,9 @@ export default function DexTradeViewerMock() {
 
   const getStatusText = () => {
     switch (apiStatus) {
-      case 'connected': return 'CONNECTED';
-      case 'fetching': return 'FETCHING';
-      case 'fallback': return 'FALLBACK';
+      case 'connected': return 'REAL DATA';
+      case 'fetching': return 'LOADING';
+      case 'no_data': return 'NO DATA';
       case 'error': return 'ERROR';
       default: return 'CONNECTING';
     }
@@ -102,6 +105,24 @@ export default function DexTradeViewerMock() {
                     <td className="py-2 px-1"><div className="w-16 h-4 bg-slate-700 rounded animate-pulse"></div></td>
                   </tr>
                 ))
+              ) : trades.length === 0 ? (
+                // No data state
+                <tr>
+                  <td colSpan="9" className="py-12 text-center">
+                    <div className="text-gray-400">
+                      <div className="text-lg font-semibold mb-2">No Real Trade Data Available</div>
+                      <div className="text-sm">
+                        {apiStatus === 'error' ? 
+                          'Failed to connect to Cardano DEX APIs' : 
+                          'No live trades found from real DEX sources'
+                        }
+                      </div>
+                      <div className="text-xs mt-2 text-gray-500">
+                        Status: {getStatusText()}
+                      </div>
+                    </div>
+                  </td>
+                </tr>
               ) : trades.map((trade) => (
                 <tr key={trade.id} className="border-b hover:bg-muted/50 transition-colors">
                   <td className="py-2">{trade.timeAgo}</td>

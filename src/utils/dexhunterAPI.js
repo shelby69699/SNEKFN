@@ -236,32 +236,37 @@ class DexHunterAPI {
     return this.generateRealisticTrades();
   }
 
-  // Generate realistic Cardano DEX trades based on real patterns
-  generateRealisticTrades(count = 20) {
-    const cardanoTokens = ['ADA', 'DJED', 'SNEK', 'HOSKY', 'MIN', 'SUNDAE', 'WRT', 'AGIX', 'COPI', 'BOOK'];
-    const dexes = ['Minswap', 'SundaeSwap', 'WingRiders', 'Spectrum', 'MuesliSwap'];
-    
-    return Array.from({ length: count }, (_, i) => {
-      const tokenIn = cardanoTokens[Math.floor(Math.random() * cardanoTokens.length)];
-      let tokenOut = cardanoTokens[Math.floor(Math.random() * cardanoTokens.length)];
-      while (tokenOut === tokenIn) {
-        tokenOut = cardanoTokens[Math.floor(Math.random() * cardanoTokens.length)];
+  // Parse real Cardano blockchain data into trade format
+  parseCardanoData(data) {
+    try {
+      // Handle different API response formats
+      if (Array.isArray(data)) {
+        return data.slice(0, 10).map((item, index) => this.formatRealCardanoTrade(item, index));
+      } else if (data.result && Array.isArray(data.result)) {
+        return data.result.slice(0, 10).map((item, index) => this.formatRealCardanoTrade(item, index));
       }
+      return [];
+    } catch (error) {
+      console.error('Error parsing Cardano data:', error);
+      return [];
+    }
+  }
 
-      return {
-        id: `dh_${Date.now()}_${i}`,
-        type: Math.random() > 0.5 ? 'Buy' : 'Sell',
-        pair: `${tokenIn} > ${tokenOut}`,
-        inAmount: `${(Math.random() * 10000 + 100).toFixed(2)} ${tokenIn}`,
-        outAmount: `${(Math.random() * 50000 + 1000).toFixed(2)} ${tokenOut}`,
-        price: `${(Math.random() * 0.1 + 0.001).toFixed(6)} ADA`,
-        status: Math.random() > 0.05 ? 'Success' : 'Pending',
-        dex: dexes[Math.floor(Math.random() * dexes.length)],
-        maker: `addr..${Math.random().toString(36).substr(2, 4)}`,
-        timeAgo: `${Math.floor(Math.random() * 300) + 1}s ago`,
-        timestamp: Date.now() - (Math.random() * 300000)
-      };
-    });
+  // Format real Cardano data into trade structure
+  formatRealCardanoTrade(item, index) {
+    return {
+      id: `cardano_${Date.now()}_${index}`,
+      type: 'Trade',
+      pair: `${item.token_a || 'ADA'} > ${item.token_b || 'Unknown'}`,
+      inAmount: `${item.amount_a || '0'} ${item.token_a || 'ADA'}`,
+      outAmount: `${item.amount_b || '0'} ${item.token_b || 'Unknown'}`,
+      price: `${item.price || '0.000001'} ADA`,
+      status: 'Success',
+      dex: item.dex || 'Cardano DEX',
+      maker: `addr..${item.hash?.substr(0, 4) || 'real'}`,
+      timeAgo: this.formatTimeAgo(item.timestamp || Date.now()),
+      timestamp: item.timestamp || Date.now()
+    };
   }
 
   // Utility functions
