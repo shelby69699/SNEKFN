@@ -8,17 +8,64 @@ import dexHunterAPI from "../utils/dexhunterAPI";
 
 export default function DexTradeViewerMock() {
   const [trades, setTrades] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [lastUpdate, setLastUpdate] = useState(new Date());
+  const [apiStatus, setApiStatus] = useState('connecting');
+
+  // Fetch real DexHunter trades
+  const fetchTrades = async () => {
+    try {
+      setApiStatus('fetching');
+      console.log('🔄 Fetching REAL DexHunter global trades...');
+      
+      const realTrades = await dexHunterAPI.fetchGlobalTrades(50);
+      
+      if (realTrades && realTrades.length > 0) {
+        setTrades(realTrades);
+        setApiStatus('connected');
+        setLastUpdate(new Date());
+        console.log(`✅ Loaded ${realTrades.length} REAL DexHunter trades!`);
+      } else {
+        setApiStatus('fallback');
+        console.log('⚠️ Using fallback data');
+      }
+      
+      setIsLoading(false);
+    } catch (error) {
+      console.error('❌ Failed to fetch DexHunter trades:', error);
+      setApiStatus('error');
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Generate initial trades
-    const initialTrades = Array.from({ length: 10 }, generateTrade);
-    setTrades(initialTrades);
+    // Initial fetch
+    fetchTrades();
 
-    const interval = setInterval(() => {
-      setTrades(prev => [generateTrade(), ...prev.slice(0, 19)]);
-    }, 2500);
+    // Refresh trades every 5 seconds for real-time updates
+    const interval = setInterval(fetchTrades, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  const getStatusColor = () => {
+    switch (apiStatus) {
+      case 'connected': return 'text-green-400';
+      case 'fetching': return 'text-yellow-400';
+      case 'fallback': return 'text-orange-400';
+      case 'error': return 'text-red-400';
+      default: return 'text-gray-400';
+    }
+  };
+
+  const getStatusText = () => {
+    switch (apiStatus) {
+      case 'connected': return 'LIVE API';
+      case 'fetching': return 'FETCHING';
+      case 'fallback': return 'FALLBACK';
+      case 'error': return 'ERROR';
+      default: return 'CONNECTING';
+    }
+  };
 
   return (
     <Card className="bg-slate-900 border-slate-700">
