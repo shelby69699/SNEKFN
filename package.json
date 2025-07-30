@@ -8,8 +8,8 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "scrape": "node scripts/run-scraper.js",
-    "scrape-direct": "node scripts/scrape-dexhunter.cjs",
+    "scrape": "node scripts/scrape-dexhunter.cjs",
+    "scrape-auto": "node scripts/auto-scraper.cjs",
     "scrape-api": "node scripts/scrape-dexhunter-api.cjs",
     "scrape-selenium": "node scripts/scrape-dexhunter-selenium.cjs",
     "inspect": "node scripts/inspect-dexhunter.js"

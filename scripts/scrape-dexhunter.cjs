@@ -214,7 +214,7 @@ export const SCRAPE_TIMESTAMP = '${new Date().toISOString()}';
     console.log(`💾 Saved ${combinedTokens.length} tokens to ${outputPath}`);
     console.log('📊 Sample tokens:', combinedTokens.slice(0, 3));
 
-    return combinedTokens;
+    return { trades: tradesData, tokens: combinedTokens };
 
   } catch (error) {
     console.error('❌ Error scraping DexHunter:', error);
@@ -225,9 +225,9 @@ export const SCRAPE_TIMESTAMP = '${new Date().toISOString()}';
 }
 
 // Run the scraper
-scrapeDexHunterTrends()
-  .then(tokens => {
-    console.log(`🎉 Successfully scraped ${tokens.length} tokens from DexHunter!`);
+scrapeDexHunterTrades()
+  .then(result => {
+    console.log(`🎉 Successfully scraped ${result.trades?.length || 0} trades and ${result.tokens?.length || 0} tokens from DexHunter!`);
     process.exit(0);
   })
   .catch(error => {
