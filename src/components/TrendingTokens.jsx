@@ -284,7 +284,9 @@ export default function TrendingTokens() {
     'Stablecoin': 'bg-gradient-to-r from-green-500/20 to-green-600/20 text-green-400 border-green-500/30',
     'Utility': 'bg-gradient-to-r from-purple-500/20 to-purple-600/20 text-purple-400 border-purple-500/30',
     'AI': 'bg-gradient-to-r from-orange-500/20 to-orange-600/20 text-orange-400 border-orange-500/30',
-    'Gaming': 'bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 text-yellow-400 border-yellow-500/30'
+    'Gaming': 'bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 text-yellow-400 border-yellow-500/30',
+    'NFT': 'bg-gradient-to-r from-red-500/20 to-red-600/20 text-red-400 border-red-500/30',
+    'Music': 'bg-gradient-to-r from-indigo-500/20 to-indigo-600/20 text-indigo-400 border-indigo-500/30'
   };
 
   return (

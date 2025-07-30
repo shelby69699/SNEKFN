@@ -9,7 +9,7 @@ class RealDataGenerator {
     this.currentTokens = [];
     this.lastTradeId = 1000;
     
-    // Real Cardano tokens with actual data
+    // Real Cardano tokens with actual data - EXPANDED LIST
     this.realTokens = [
       {
         symbol: 'ADA',
@@ -58,6 +58,48 @@ class RealDataGenerator {
         name: 'World Mobile',
         basePrice: 0.085,
         volatility: 0.07
+      },
+      {
+        symbol: 'COPI',
+        name: 'Cornucopias',
+        basePrice: 0.045,
+        volatility: 0.18
+      },
+      {
+        symbol: 'BOOK',
+        name: 'BOOK',
+        basePrice: 0.0025,
+        volatility: 0.22
+      },
+      {
+        symbol: 'CLAY',
+        name: 'Clay Nation',
+        basePrice: 0.15,
+        volatility: 0.14
+      },
+      {
+        symbol: 'HUNT',
+        name: 'Hunt Token',
+        basePrice: 0.08,
+        volatility: 0.16
+      },
+      {
+        symbol: 'MELD',
+        name: 'MELD',
+        basePrice: 0.006,
+        volatility: 0.11
+      },
+      {
+        symbol: 'NEWM',
+        name: 'NEWM',
+        basePrice: 0.035,
+        volatility: 0.13
+      },
+      {
+        symbol: 'GENS',
+        name: 'Genshiro',
+        basePrice: 0.018,
+        volatility: 0.19
       }
     ];
 
@@ -155,19 +197,31 @@ class RealDataGenerator {
     return decimals[symbol] || 2;
   }
 
-  // Get token logo
+  // Get token logo - NO EXTERNAL REQUESTS
   getTokenLogo(symbol) {
+    // Use data URIs for reliable logos that won't fail
     const logos = {
-      'ADA': 'https://cryptologos.cc/logos/cardano-ada-logo.png',
-      'DJED': 'https://pbs.twimg.com/profile_images/1494689689341177857/rGMNyYos_400x400.jpg',
-      'SNEK': 'https://pbs.twimg.com/profile_images/1658861271498850307/w4Z4_5vJ_400x400.jpg',
-      'MIN': 'https://pbs.twimg.com/profile_images/1462416892156706818/MzT_KsEO_400x400.jpg',
-      'HOSKY': 'https://pbs.twimg.com/profile_images/1482376298902732803/NGYkEUCL_400x400.jpg',
-      'SUNDAE': 'https://pbs.twimg.com/profile_images/1471947491891290114/Tv4Irene_400x400.jpg',
-      'AGIX': 'https://pbs.twimg.com/profile_images/1595407866985254913/fvI84L5w_400x400.jpg',
-      'WMT': 'https://pbs.twimg.com/profile_images/1472247395017093123/I8f4XMFW_400x400.jpg'
+      'ADA': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjQiIGZpbGw9IiMwMDMzQUQiLz4KPHN2ZyB4PSIxMiIgeT0iMTIiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHA+QURBIDwvcD4KPC9zdmc+Cjwvc3ZnPgo=',
+      'DJED': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjQiIGZpbGw9IiMwMEE5NjEiLz4KPHN2ZyB4PSIxMiIgeT0iMTIiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHA+REpFRDwvcD4KPC9zdmc+Cjwvc3ZnPgo=',
+      'SNEK': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjQiIGZpbGw9IiNGNTdDMDAiLz4KPHN2ZyB4PSIxMiIgeT0iMTIiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHA+U05FSzwvcD4KPC9zdmc+Cjwvc3ZnPgo=',
+      'MIN': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjQiIGZpbGw9IiMyMEI0OEUiLz4KPHN2ZyB4PSIxMiIgeT0iMTIiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHA+TUlOPC9wPgo8L3N2Zz4KPC9zdmc+Cg==',
+      'HOSKY': 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjQiIGN5PSIyNCIgcj0iMjQiIGZpbGw9IiNGNzkzMUUiLz4KPHN2ZyB4PSIxMiIgeT0iMTIiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHA+SE9TS1k8L3A+Cjwvc3ZnPgo8L3N2Zz4K'
     };
-    return logos[symbol] || `https://via.placeholder.com/48x48/0ea5e9/ffffff?text=${symbol[0]}`;
+    
+    // Generate professional logo for any token
+    if (logos[symbol]) {
+      return logos[symbol];
+    }
+    
+    // Generate a color based on symbol
+    const colors = ['#3B82F6', '#10B981', '#8B5CF6', '#F59E0B', '#EF4444', '#06B6D4', '#84CC16', '#F97316'];
+    const colorIndex = symbol.charCodeAt(0) % colors.length;
+    const color = colors[colorIndex];
+    
+    return `data:image/svg+xml;base64,${btoa(`<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="24" cy="24" r="24" fill="${color}"/>
+<text x="24" y="30" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">${symbol.slice(0, 4)}</text>
+</svg>`)}`;
   }
 
   // Get token category
@@ -180,7 +234,14 @@ class RealDataGenerator {
       'HOSKY': 'Meme',
       'SUNDAE': 'DeFi',
       'AGIX': 'AI',
-      'WMT': 'Utility'
+      'WMT': 'Utility',
+      'COPI': 'Gaming',
+      'BOOK': 'Utility',
+      'CLAY': 'NFT',
+      'HUNT': 'Gaming',
+      'MELD': 'DeFi',
+      'NEWM': 'Music',
+      'GENS': 'DeFi'
     };
     return categories[symbol] || 'DeFi';
   }
@@ -272,8 +333,10 @@ class RealDataGenerator {
       }
     }, 15000);
 
-    // Initial notification
-    this.notifySubscribers();
+    // Initial notification with slight delay to ensure UI is ready
+    setTimeout(() => {
+      this.notifySubscribers();
+    }, 100);
   }
 
   // Update token prices realistically
@@ -310,11 +373,13 @@ class RealDataGenerator {
   // Subscribe to updates
   subscribe(callback) {
     this.subscribers.push(callback);
-    // Immediately call with current data
-    callback({
-      trades: this.currentTrades,
-      tokens: this.currentTokens
-    });
+    // Immediately call with current data after a slight delay
+    setTimeout(() => {
+      callback({
+        trades: this.currentTrades,
+        tokens: this.currentTokens
+      });
+    }, 50);
     
     return () => {
       this.subscribers = this.subscribers.filter(sub => sub !== callback);
