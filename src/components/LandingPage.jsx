@@ -3,33 +3,69 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import DexyBackground from './DexyBackground';
 
-// Your REAL professional DEXY logo - simplified but elegant
+// Your PROFESSIONAL DEXY Aggregator Logo - Exact 3D Hexagonal Design
 const DexyLogo = () => (
   <div className="relative w-48 h-48 mx-auto mb-8 transform hover:scale-105 transition-transform duration-500">
-    {/* Main cubic framework structure */}
-    <div className="absolute inset-8 border-4 border-teal-400 rounded-2xl transform rotate-12 bg-slate-800/10"></div>
-    <div className="absolute inset-12 border-2 border-teal-500 rounded-xl transform -rotate-6 bg-slate-800/20"></div>
+    {/* Main 3D Hexagonal Framework */}
+    <div className="absolute inset-6 transform rotate-12">
+      {/* Hexagonal structure with 3D depth */}
+      <div className="relative w-36 h-36">
+        {/* Main hexagon face */}
+        <div className="absolute inset-0 border-4 border-teal-400 transform rotate-0"
+             style={{
+               clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)'
+             }}>
+        </div>
+        
+        {/* 3D depth layers */}
+        <div className="absolute inset-0 border-3 border-teal-500 transform translate-x-2 translate-y-2 opacity-60"
+             style={{
+               clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)'
+             }}>
+        </div>
+        
+        {/* Inner hexagonal structure */}
+        <div className="absolute inset-4 border-2 border-teal-300 opacity-80"
+             style={{
+               clipPath: 'polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)'
+             }}>
+        </div>
+      </div>
+      
+      {/* Connection nodes at hexagon vertices */}
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1 w-3 h-3 bg-white rounded-full shadow-lg border border-teal-300"></div>
+      <div className="absolute top-1/4 right-0 transform translate-x-1 w-3 h-3 bg-white rounded-full shadow-lg border border-teal-300"></div>
+      <div className="absolute bottom-1/4 right-0 transform translate-x-1 w-3 h-3 bg-white rounded-full shadow-lg border border-teal-300"></div>
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1 w-3 h-3 bg-white rounded-full shadow-lg border border-teal-300"></div>
+      <div className="absolute bottom-1/4 left-0 transform -translate-x-1 w-3 h-3 bg-white rounded-full shadow-lg border border-teal-300"></div>
+      <div className="absolute top-1/4 left-0 transform -translate-x-1 w-3 h-3 bg-white rounded-full shadow-lg border border-teal-300"></div>
+    </div>
     
-    {/* Connection nodes at corners */}
-    <div className="absolute top-6 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-lg border-2 border-teal-300"></div>
-    <div className="absolute top-1/3 right-6 w-4 h-4 bg-white rounded-full shadow-lg border-2 border-teal-300"></div>
-    <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-lg border-2 border-teal-300"></div>
-    <div className="absolute top-1/3 left-6 w-4 h-4 bg-white rounded-full shadow-lg border-2 border-teal-300"></div>
-    
-    {/* Central orange cube */}
+    {/* Central Orange 3D Cube */}
     <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <div className="relative w-16 h-16">
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl shadow-2xl"></div>
-        <div className="absolute inset-2 bg-gradient-to-br from-orange-200 to-orange-400 rounded-lg opacity-60"></div>
+      <div className="relative w-12 h-12">
+        {/* Front face */}
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg shadow-xl"></div>
+        {/* Top face */}
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-300 to-orange-500 rounded-lg transform -translate-y-1 -translate-x-1 scale-90"></div>
+        {/* Right face */}
+        <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-700 rounded-lg transform translate-x-1 translate-y-1 scale-90"></div>
       </div>
     </div>
     
-    {/* Framework lines */}
-    <div className="absolute left-1/2 top-12 w-1 h-24 bg-gradient-to-b from-teal-400 to-teal-500 transform -translate-x-1/2"></div>
-    <div className="absolute top-1/2 left-12 h-1 w-24 bg-gradient-to-r from-teal-400 to-teal-500 transform -translate-y-1/2"></div>
+    {/* Framework connection lines */}
+    <div className="absolute inset-0 transform rotate-12">
+      {/* Vertical lines */}
+      <div className="absolute left-1/2 top-8 w-0.5 h-8 bg-gradient-to-b from-teal-400 to-teal-500 transform -translate-x-1/2"></div>
+      <div className="absolute left-1/2 bottom-8 w-0.5 h-8 bg-gradient-to-b from-teal-400 to-teal-500 transform -translate-x-1/2"></div>
+      
+      {/* Horizontal lines */}
+      <div className="absolute top-1/2 left-8 h-0.5 w-8 bg-gradient-to-r from-teal-400 to-teal-500 transform -translate-y-1/2"></div>
+      <div className="absolute top-1/2 right-8 h-0.5 w-8 bg-gradient-to-r from-teal-400 to-teal-500 transform -translate-y-1/2"></div>
+    </div>
     
-    {/* Subtle glow */}
-    <div className="absolute inset-0 bg-gradient-to-br from-teal-400/10 to-orange-400/10 blur-xl rounded-full"></div>
+    {/* Professional glow effect */}
+    <div className="absolute inset-0 bg-gradient-to-br from-teal-400/20 to-orange-400/20 blur-2xl rounded-full"></div>
   </div>
 );
 
