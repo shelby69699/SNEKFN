@@ -3,48 +3,62 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import DexyBackground from './DexyBackground';
 
-// Your exact DEXY logo design - matching the image perfectly
+// Your ACTUAL DEXY logo - cubic geometric framework with teal connections
 const DexyLogo = () => (
   <div className="relative w-40 h-40 mx-auto mb-8 transform hover:scale-105 transition-transform duration-500">
-    {/* Outer hexagonal framework - matching your design */}
+    {/* Outer cubic framework structure */}
     <div className="absolute inset-0">
-      {/* Main hexagonal border structure */}
-      <div className="absolute inset-2 border-4 border-teal-400 transform rotate-0" 
-           style={{clipPath: 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)'}}>
+      {/* Main geometric framework - cubic structure */}
+      <div className="absolute inset-4 border-4 border-teal-400 rounded-xl transform rotate-12">
+        {/* Framework connection lines */}
+        <div className="absolute -inset-2">
+          {/* Top horizontal lines */}
+          <div className="absolute top-0 left-1/4 w-1/2 h-1 bg-teal-400"></div>
+          <div className="absolute top-0 left-0 w-1/4 h-1 bg-teal-400 transform -rotate-45 origin-left"></div>
+          <div className="absolute top-0 right-0 w-1/4 h-1 bg-teal-400 transform rotate-45 origin-right"></div>
+          
+          {/* Side connection lines */}
+          <div className="absolute left-0 top-1/4 w-1 h-1/2 bg-teal-400"></div>
+          <div className="absolute right-0 top-1/4 w-1 h-1/2 bg-teal-400"></div>
+          
+          {/* Bottom horizontal lines */}
+          <div className="absolute bottom-0 left-1/4 w-1/2 h-1 bg-teal-400"></div>
+          <div className="absolute bottom-0 left-0 w-1/4 h-1 bg-teal-400 transform rotate-45 origin-left"></div>
+          <div className="absolute bottom-0 right-0 w-1/4 h-1 bg-teal-400 transform -rotate-45 origin-right"></div>
+        </div>
       </div>
       
-      {/* Connection nodes - white circles at exact positions */}
-      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
-      <div className="absolute top-1/4 right-2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
-      <div className="absolute bottom-1/4 right-2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
-      <div className="absolute bottom-1/4 left-2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
-      <div className="absolute top-1/4 left-2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
+      {/* White connection nodes at framework intersections */}
+      <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-lg z-10"></div>
+      <div className="absolute top-1/4 right-2 w-4 h-4 bg-white rounded-full shadow-lg z-10"></div>
+      <div className="absolute top-1/2 right-0 w-4 h-4 bg-white rounded-full shadow-lg z-10"></div>
+      <div className="absolute bottom-1/4 right-2 w-4 h-4 bg-white rounded-full shadow-lg z-10"></div>
+      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-lg z-10"></div>
+      <div className="absolute bottom-1/4 left-2 w-4 h-4 bg-white rounded-full shadow-lg z-10"></div>
+      <div className="absolute top-1/2 left-0 w-4 h-4 bg-white rounded-full shadow-lg z-10"></div>
+      <div className="absolute top-1/4 left-2 w-4 h-4 bg-white rounded-full shadow-lg z-10"></div>
       
-      {/* Inner geometric framework layers */}
-      <div className="absolute inset-6 border-2 border-teal-500" 
-           style={{clipPath: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'}}>
-        <div className="absolute inset-2 border border-teal-600 bg-slate-800/80" 
-             style={{clipPath: 'polygon(20% 0%, 80% 0%, 100% 50%, 80% 100%, 20% 100%, 0% 50%)'}}>
-          
-          {/* Central orange cubic element - your signature 3D cube */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            {/* Main orange cube */}
-            <div className="relative w-12 h-12">
-              {/* Top face */}
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-300 to-orange-500 transform -skew-y-12 skew-x-12"></div>
-              {/* Right face */}
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-700 transform translate-x-2 translate-y-2 -skew-y-12"></div>
-              {/* Front face */}
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-600"></div>
-            </div>
-          </div>
+      {/* Central orange cube element */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+        <div className="relative w-16 h-16">
+          {/* 3D orange cube with proper isometric perspective */}
+          {/* Front face */}
+          <div className="absolute inset-2 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg shadow-xl"></div>
+          {/* Top face */}
+          <div className="absolute inset-2 bg-gradient-to-br from-orange-300 to-orange-500 rounded-lg transform -translate-y-2 -translate-x-2 -skew-y-12 skew-x-12"></div>
+          {/* Right face */}
+          <div className="absolute inset-2 bg-gradient-to-br from-orange-500 to-orange-700 rounded-lg transform translate-x-2 translate-y-2 skew-y-12"></div>
         </div>
+      </div>
+      
+      {/* Inner framework structure */}
+      <div className="absolute inset-8 border-2 border-teal-500 rounded-lg transform rotate-6 bg-slate-800/20">
+        <div className="absolute inset-2 border border-teal-600 rounded-md bg-slate-800/40"></div>
       </div>
     </div>
     
-    {/* Glowing effects matching your design */}
-    <div className="absolute inset-0 bg-gradient-to-br from-teal-400/20 to-orange-400/20 blur-2xl"></div>
+    {/* Subtle glow effect */}
+    <div className="absolute inset-0 bg-gradient-to-br from-teal-400/15 to-orange-400/15 blur-2xl"></div>
   </div>
 );
 

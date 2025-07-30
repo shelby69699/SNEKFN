@@ -140,11 +140,18 @@ export default function TrendingTokens() {
                       <td className="p-4">
                         <div className="flex items-center space-x-3">
                           {token.isDexy ? (
-                            // Special DEXY logo for DEXY token
+                            // Your ACTUAL DEXY logo - cubic framework
                             <div className="relative w-8 h-8">
-                              <div className="absolute inset-0 border-2 border-teal-400 rounded-lg rotate-12"></div>
-                              <div className="absolute inset-1 border border-teal-500 rounded-md rotate-6">
-                                <div className="w-full h-full bg-gradient-to-br from-orange-400 to-orange-600 rounded-sm"></div>
+                              <div className="absolute inset-0 border-2 border-teal-400 rounded-lg transform rotate-12">
+                                <div className="absolute -inset-0.5">
+                                  <div className="absolute top-0 left-1/4 w-1/2 h-0.5 bg-teal-400"></div>
+                                  <div className="absolute left-0 top-1/4 w-0.5 h-1/2 bg-teal-400"></div>
+                                </div>
+                              </div>
+                              <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full"></div>
+                              <div className="absolute top-1/4 -right-1 w-1.5 h-1.5 bg-white rounded-full"></div>
+                              <div className="absolute inset-2 border border-teal-500 rounded-sm bg-slate-800/60">
+                                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-gradient-to-br from-orange-400 to-orange-600 rounded-sm"></div>
                               </div>
                             </div>
                           ) : (
