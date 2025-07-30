@@ -35,8 +35,6 @@ export default function DexTradeViewerMock() {
             Last update: {lastUpdate.toLocaleTimeString()}
           </div>
         </div>
-      <CardContent>
-        <div className="text-xl font-semibold mb-4">Global Trades</div>
         <ScrollArea className="h-[600px]">
           <table className="w-full text-sm">
             <thead className="text-muted-foreground">
