@@ -235,4 +235,4 @@ scrapeDexHunterTrends()
     process.exit(1);
   });
 
-export { scrapeDexHunterTrends };
+// Removed export for CommonJS
