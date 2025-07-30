@@ -9,6 +9,8 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "scrape": "node scripts/scrape-both.cjs",
+    "scrape-fresh": "node scripts/scrape-both.cjs",
+    "scrape-api-direct": "node scripts/scrape-api-direct.cjs",
     "scrape-trades": "node scripts/scrape-real-trades.cjs",
     "scrape-auto": "node scripts/auto-scraper.cjs",
     "scrape-api": "node scripts/scrape-dexhunter-api.cjs",
