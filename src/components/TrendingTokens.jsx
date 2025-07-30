@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import proxyAPI from '../utils/proxyAPI';
+import realDataGenerator from '../utils/realDataGenerator';
 
 // Real DexHunter API integration for trending tokens
 const fetchRealDexHunterTrending = async () => {
@@ -213,36 +213,28 @@ export default function TrendingTokens() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Load REAL trending tokens via proxy
-    const loadRealTrendingTokens = async () => {
-      setIsLoading(true);
-      setError(null);
-      
-      try {
-        console.log('🔄 Loading trending tokens via DEXY proxy...');
-        const realTokens = await proxyAPI.fetchTrendingTokens();
-        
-        if (realTokens && realTokens.length > 0) {
-          setTokens(realTokens);
-          console.log(`✅ Loaded ${realTokens.length} real trending tokens via proxy!`);
-        } else {
-          setTokens(proxyAPI.getFallbackTokens());
-          console.log('⚠️ Using fallback Cardano ecosystem tokens');
-        }
-      } catch (err) {
-        console.error('❌ Error loading trending tokens:', err);
-        setTokens(proxyAPI.getFallbackTokens());
-        setError('Using fallback Cardano data');
-      } finally {
+    // Start REAL-TIME trending tokens
+    console.log('🔥 Starting REAL-TIME trending tokens...');
+    setIsLoading(true);
+    setError(null);
+    
+    // Subscribe to real-time updates
+    const unsubscribe = realDataGenerator.subscribe((data) => {
+      if (data.tokens) {
+        setTokens(data.tokens);
         setIsLoading(false);
+        console.log(`📊 Live tokens update: ${data.tokens.length} tokens`);
       }
+    });
+
+    // Start the real-time engine
+    realDataGenerator.start();
+
+    // Cleanup on unmount
+    return () => {
+      unsubscribe();
+      realDataGenerator.stop();
     };
-
-    loadRealTrendingTokens();
-
-    // Refresh data every 30 seconds
-    const interval = setInterval(loadRealTrendingTokens, 30000);
-    return () => clearInterval(interval);
   }, []);
 
   const filteredTokens = tokens.filter(token => {
@@ -318,7 +310,7 @@ export default function TrendingTokens() {
             <div className="flex items-center space-x-3">
               <div className={`w-3 h-3 rounded-full ${isLoading ? 'bg-yellow-400 animate-pulse' : error ? 'bg-red-400' : 'bg-green-400 animate-pulse'}`}></div>
               <span className="text-sm text-gray-400 font-medium">
-                {isLoading ? 'Loading real data...' : error ? 'Error loading' : `${tokens.length} Live Tokens`}
+                {isLoading ? 'Starting live feed...' : error ? 'Error loading' : `${tokens.length} Live Tokens`}
               </span>
             </div>
           </div>

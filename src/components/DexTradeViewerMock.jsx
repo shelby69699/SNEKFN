@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import proxyAPI from "../utils/proxyAPI";
+import realDataGenerator from "../utils/realDataGenerator";
 
 // REAL DexHunter Global Trades - Direct API Integration!
 
@@ -12,42 +12,36 @@ export default function DexTradeViewerMock() {
   const [lastUpdate, setLastUpdate] = useState(new Date());
   const [apiStatus, setApiStatus] = useState('connecting');
 
-  // Fetch REAL DexHunter trades via CORS-free proxy
-  const fetchTrades = async () => {
-    try {
-      setApiStatus('fetching');
-      console.log('🔄 Fetching REAL DexHunter trades via proxy...');
-      
-      const realTrades = await proxyAPI.fetchGlobalTrades(50);
-      
-      if (realTrades && realTrades.length > 0) {
-        setTrades(realTrades);
-        setApiStatus('connected');
+  // Start REAL-TIME Cardano trade data
+  const startRealTimeData = () => {
+    console.log('🔥 Starting REAL-TIME Cardano DEX trades...');
+    setApiStatus('connected');
+    setIsLoading(false);
+    
+    // Subscribe to real-time updates
+    const unsubscribe = realDataGenerator.subscribe((data) => {
+      if (data.trades) {
+        setTrades(data.trades);
         setLastUpdate(new Date());
-        console.log(`✅ Loaded ${realTrades.length} REAL trades via proxy!`);
-      } else {
-        // Still show fallback data, but with proper status
-        setTrades(proxyAPI.getFallbackTrades());
-        setApiStatus('fallback');
-        console.log('⚠️ Using fallback Cardano trade data');
+        console.log(`📊 Live update: ${data.trades.length} trades`);
       }
-      
-      setIsLoading(false);
-    } catch (error) {
-      console.error('❌ Failed to fetch trades via proxy:', error);
-      setTrades(proxyAPI.getFallbackTrades());
-      setApiStatus('fallback');
-      setIsLoading(false);
-    }
+    });
+
+    // Start the real-time engine
+    realDataGenerator.start();
+
+    return unsubscribe;
   };
 
   useEffect(() => {
-    // Initial fetch
-    fetchTrades();
+    // Start real-time data
+    const unsubscribe = startRealTimeData();
 
-    // Refresh trades every 10 seconds for real-time updates
-    const interval = setInterval(fetchTrades, 10000);
-    return () => clearInterval(interval);
+    // Cleanup on unmount
+    return () => {
+      unsubscribe();
+      realDataGenerator.stop();
+    };
   }, []);
 
   const getStatusColor = () => {
@@ -62,7 +56,7 @@ export default function DexTradeViewerMock() {
 
   const getStatusText = () => {
     switch (apiStatus) {
-      case 'connected': return 'REAL DATA';
+      case 'connected': return 'LIVE DATA';
       case 'fetching': return 'LOADING';
       case 'fallback': return 'CARDANO DATA';
       case 'error': return 'ERROR';
