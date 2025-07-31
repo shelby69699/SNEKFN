@@ -1,41 +1,39 @@
-// Vercel serverless function to proxy trades from local backend with REAL DexHunter data
+// Vercel serverless function for trades - Uses main data endpoint
 export default async function handler(req, res) {
   try {
-    console.log('🔥 Proxying trades from local backend...');
+    console.log('🔥 Fetching trades from Vercel data endpoint...');
     
-    // Try to fetch REAL trades from deployed backend
-    const BACKEND_URL = process.env.BACKEND_URL || 'https://snekfn-backend-production.up.railway.app/api/trades';
-    console.log(`🔥 Fetching from: ${BACKEND_URL}`);
-    
-    const response = await fetch(BACKEND_URL, {
+    // Get data from our main scraper
+    const dataResponse = await fetch(`${req.headers['x-forwarded-proto'] || 'https'}://${req.headers.host}/api/data`, {
       method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'DEXY-Vercel-Proxy/1.0'
-      },
-      signal: AbortSignal.timeout(10000)
+      headers: { 'Accept': 'application/json' }
     });
-
-    if (response.ok) {
-      const realTrades = await response.json();
-      console.log(`🔥 SUCCESS! Serving ${realTrades.length || 0} REAL trades from local backend`);
+    
+    if (dataResponse.ok) {
+      const data = await dataResponse.json();
+      console.log(`🔥 SUCCESS! Serving ${data.trades?.length || 0} trades`);
       
-      res.status(200).json(realTrades);
+      res.status(200).json({
+        success: true,
+        data: data.trades || [],
+        count: data.trades?.length || 0,
+        source: 'vercel-trades',
+        lastUpdated: data.lastUpdated
+      });
       return;
     }
     
-    throw new Error(`Local backend returned status: ${response.status}`);
-  } catch (error) {
-    console.error('❌ Local backend trades not available:', error.message);
+    throw new Error(`Data endpoint returned status: ${dataResponse.status}`);
     
-    // NO FALLBACK DATA - REAL DATA ONLY!
-    console.log('❌ NO BACKEND AVAILABLE - RETURNING EMPTY TRADES (NO FAKE SHIT)');
+  } catch (error) {
+    console.error('❌ Trades endpoint failed:', error.message);
+    
     res.status(503).json({
-      error: 'Backend not available',
+      error: 'Trades service unavailable',
       data: [],
       count: 0,
       source: 'none',
-      message: 'Real backend required - no fake data served'
+      message: 'Real trades service required'
     });
   }
 }

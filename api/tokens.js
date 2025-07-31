@@ -1,41 +1,39 @@
-// Vercel serverless function to proxy tokens from local backend with REAL DexHunter data
+// Vercel serverless function for tokens - Uses main data endpoint
 export default async function handler(req, res) {
   try {
-    console.log('🔥 Proxying tokens from local backend...');
+    console.log('🔥 Fetching tokens from Vercel data endpoint...');
     
-    // Try to fetch REAL tokens from deployed backend
-    const BACKEND_URL = process.env.BACKEND_URL || 'https://snekfn-backend-production.up.railway.app/api/tokens';
-    console.log(`🔥 Fetching from: ${BACKEND_URL}`);
-    
-    const response = await fetch(BACKEND_URL, {
+    // Get data from our main scraper
+    const dataResponse = await fetch(`${req.headers['x-forwarded-proto'] || 'https'}://${req.headers.host}/api/data`, {
       method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'DEXY-Vercel-Proxy/1.0'
-      },
-      signal: AbortSignal.timeout(10000)
+      headers: { 'Accept': 'application/json' }
     });
-
-    if (response.ok) {
-      const realTokens = await response.json();
-      console.log(`🔥 SUCCESS! Serving ${realTokens.length || 0} REAL tokens from local backend`);
+    
+    if (dataResponse.ok) {
+      const data = await dataResponse.json();
+      console.log(`🔥 SUCCESS! Serving ${data.tokens?.length || 0} tokens`);
       
-      res.status(200).json(realTokens);
+      res.status(200).json({
+        success: true,
+        data: data.tokens || [],
+        count: data.tokens?.length || 0,
+        source: 'vercel-tokens',
+        lastUpdated: data.lastUpdated
+      });
       return;
     }
     
-    throw new Error(`Local backend returned status: ${response.status}`);
-  } catch (error) {
-    console.error('❌ Local backend tokens not available:', error.message);
+    throw new Error(`Data endpoint returned status: ${dataResponse.status}`);
     
-    // NO FALLBACK DATA - REAL DATA ONLY!
-    console.log('❌ NO BACKEND AVAILABLE - RETURNING EMPTY TOKENS (NO FAKE SHIT)');
+  } catch (error) {
+    console.error('❌ Tokens endpoint failed:', error.message);
+    
     res.status(503).json({
-      error: 'Backend not available',
+      error: 'Tokens service unavailable',
       data: [],
       count: 0,
       source: 'none',
-      message: 'Real backend required - no fake data served'
+      message: 'Real tokens service required'
     });
   }
 }
