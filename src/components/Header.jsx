@@ -1,6 +1,6 @@
 
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card } from './ui/card';
+import { Badge } from './ui/badge';
 
 // DEXY Mini Logo - Clean Header Version
 const DexyMiniLogo = () => (

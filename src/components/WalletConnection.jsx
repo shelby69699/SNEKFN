@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from './ui/badge';
+import { Card, CardContent } from './ui/card';
 
 // Professional wallet list with real logos
 const WALLETS = [

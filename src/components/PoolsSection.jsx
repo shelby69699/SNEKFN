@@ -1,5 +1,5 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from './ui/card';
+import { Badge } from './ui/badge';
 
 // NO MOCK DATA - POOLS SECTION DISABLED UNTIL REAL DATA AVAILABLE
 export default function PoolsSection() {

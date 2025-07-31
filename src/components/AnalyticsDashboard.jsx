@@ -1,4 +1,4 @@
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from './ui/card';
 
 // NO MOCK DATA - ANALYTICS DISABLED UNTIL REAL DATA AVAILABLE
 export default function AnalyticsDashboard() {

@@ -1,4 +1,4 @@
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from './ui/card';
 
 // MY ORDERS - REAL CARDANO TRADING ORDERS
 export default function MyOrders() {

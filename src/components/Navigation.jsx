@@ -1,5 +1,5 @@
 
-import { Badge } from '@/components/ui/badge';
+import { Badge } from './ui/badge';
 import WalletConnection from './WalletConnection';
 
 // PROFESSIONAL DEXY LOGO - CLEAN MODERN DESIGN  

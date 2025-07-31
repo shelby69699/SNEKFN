@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from './ui/card';
 import { useRealTimeData } from '../hooks/useRealTimeData';
 // REAL DATA ONLY - NO MOCK IMPORTS
 
