@@ -67,27 +67,44 @@ export default function DexTradeViewerMock() {
     }
   }, [lastUpdated]);
 
+  // Live timer state for updating "ago" times
+  const [currentTime, setCurrentTime] = useState(Date.now());
+
+  // Update current time every second for live "ago" calculation
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(Date.now());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // Function to calculate live "time ago" from timestamp
+  const getTimeAgo = (timestamp) => {
+    if (!timestamp) return 'unknown';
+    
+    const seconds = Math.floor((currentTime - timestamp) / 1000);
+    
+    if (seconds < 60) {
+      return `${seconds}s ago`;
+    } else if (seconds < 3600) {
+      const minutes = Math.floor(seconds / 60);
+      return `${minutes}m ago`;
+    } else {
+      const hours = Math.floor(seconds / 3600);
+      return `${hours}h ago`;
+    }
+  };
+
+  // Sort trades by timestamp (most recent first) and ensure they're properly formatted
+  const sortedTrades = [...trades]
+    .filter(trade => trade && trade.timestamp)
+    .sort((a, b) => b.timestamp - a.timestamp);
+
   const startRealTimeData = () => {
     console.log('🔥 Starting REAL API trades from DEXY...');
     setApiStatus('connected');
-    
-    // Load initial REAL trades from static data
-    if (staticTrades.length > 0) {
-      setTrades(staticTrades);
-      setLastUpdate(new Date());
-      console.log(`📊 Loaded ${staticTrades.length} static trades`);
-    }
-
-    // Update trades every 30 seconds (refresh from static data)
-    const interval = setInterval(() => {
-      if (staticTrades.length > 0) {
-        setTrades(staticTrades);
-        setLastUpdate(new Date());
-        console.log(`📊 Updated with static trades: ${staticTrades.length} trades`);
-      }
-    }, 30000);
-
-    return () => clearInterval(interval);
+    setLastUpdate(new Date());
   };
 
   useEffect(() => {
@@ -138,7 +155,15 @@ export default function DexTradeViewerMock() {
   return (
     <Card className="bg-slate-950 border-slate-800">
       <CardContent className="p-6">
-        <div className="text-xl font-semibold mb-4 text-white">Global Trades</div>
+        <div className="flex items-center justify-between mb-4">
+          <div className="text-xl font-semibold text-white">Global Trades</div>
+          <div className="flex items-center gap-2 text-sm">
+            <div className="text-gray-400">
+              {sortedTrades.length} trades • Live updates every 1s
+            </div>
+            <div className={`w-2 h-2 rounded-full ${backendConnected ? 'bg-green-500' : 'bg-red-500'} animate-pulse`}></div>
+          </div>
+        </div>
         <ScrollArea className="h-[600px]">
           <table className="w-full text-sm bg-slate-950">
             <thead className="text-gray-400 border-b border-slate-800">
@@ -175,7 +200,7 @@ export default function DexTradeViewerMock() {
                     <td className="py-3 px-2"><div className="w-24 h-6 bg-slate-700 rounded animate-pulse"></div></td>
                   </tr>
                 ))
-              ) : trades.length === 0 ? (
+              ) : sortedTrades.length === 0 ? (
                 // No data state
                 <tr>
                   <td colSpan="10" className="py-12 text-center">
@@ -193,11 +218,25 @@ export default function DexTradeViewerMock() {
                     </div>
                   </td>
                 </tr>
-              ) : trades.map((trade) => {
-                // Parse the trading pair to get individual tokens
-                const pairParts = trade.pair?.split(' ') || [];
-                const token1 = pairParts[0] || 'ADA';
-                const token2 = pairParts[1] || 'UNKNOWN';
+              ) : sortedTrades.map((trade) => {
+                // Parse the trading pair to get individual tokens (handle both ">" and "/" formats)
+                const pair = trade.pair || '';
+                let token1 = 'ADA', token2 = 'UNKNOWN';
+                
+                if (pair.includes('>')) {
+                  const parts = pair.split('>').map(p => p.trim());
+                  token1 = parts[0] || 'ADA';
+                  token2 = parts[1] || 'UNKNOWN';
+                } else if (pair.includes('/')) {
+                  const parts = pair.split('/').map(p => p.trim());
+                  token1 = parts[0] || 'ADA';
+                  token2 = parts[1] || 'UNKNOWN';
+                } else {
+                  // Fallback to space-separated
+                  const parts = pair.split(' ');
+                  token1 = parts[0] || 'ADA';
+                  token2 = parts[1] || 'UNKNOWN';
+                }
                 
                 // Get token icons (using placeholder for now, can be replaced with real icons)
                 const getTokenIcon = (symbol) => {
@@ -211,7 +250,7 @@ export default function DexTradeViewerMock() {
 
                 return (
                   <tr key={trade.id} className="border-b border-slate-800 hover:bg-slate-900/30 transition-colors text-white bg-slate-950">
-                    <td className="py-3 px-2 text-sm text-gray-300">{trade.timeAgo}</td>
+                    <td className="py-3 px-2 text-sm text-gray-300 font-mono">{getTimeAgo(trade.timestamp)}</td>
                     <td className="py-3 px-2">
                       <span className={`px-2 py-1 rounded text-xs font-medium ${
                         trade.type === "Buy" 
