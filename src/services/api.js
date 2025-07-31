@@ -1,9 +1,8 @@
-// API Service for communicating with backend
-// In production, fallback to static data since backend is not deployed
+// API Service for communicating with Vercel serverless functions
 const API_BASE_URL = process.env.REACT_APP_API_URL || (
   typeof window !== 'undefined' && window.location.hostname === 'localhost' 
     ? 'http://localhost:3001/api' 
-    : null
+    : '/api'  // Use Vercel serverless functions in production
 );
 
 class ApiService {
@@ -61,10 +60,11 @@ class ApiService {
     return this.fetchWithTimeout(`${this.baseUrl}/trades`);
   }
 
-  // Get DEX statistics
+  // Get DEX statistics (fallback to data endpoint)
   async getDexStats() {
     if (!this.baseUrl) throw new Error('Backend not available');
-    return this.fetchWithTimeout(`${this.baseUrl}/stats`);
+    const data = await this.fetchWithTimeout(`${this.baseUrl}/data`);
+    return data.stats;
   }
 
   // Manual scraper trigger
