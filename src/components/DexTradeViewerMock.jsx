@@ -159,7 +159,7 @@ export default function DexTradeViewerMock() {
           <div className="text-xl font-semibold text-white">Global Trades</div>
           <div className="flex items-center gap-2 text-sm">
             <div className="text-gray-400">
-              {sortedTrades.length} trades • Live updates every 1s
+              {sortedTrades.length} trades • New data every 10s • Live time every 1s
             </div>
             <div className={`w-2 h-2 rounded-full ${backendConnected ? 'bg-green-500' : 'bg-red-500'} animate-pulse`}></div>
           </div>

@@ -144,15 +144,15 @@ export const useRealTimeData = () => {
     if (apiService.baseUrl) {
       checkScraperStatus();
       
-      // Set up polling every 10 seconds to check for updates
+      // Set up polling every 5 seconds to check for updates
       intervalRef.current = setInterval(() => {
         fetchData();
-      }, 10000);
+      }, 5000);
 
       // Check scraper status every 30 seconds
       const statusInterval = setInterval(checkScraperStatus, 30000);
 
-      // 🚀 AUTO-SCRAPER: Trigger REAL DexHunter scraping every 30 seconds
+      // 🚀 AUTO-SCRAPER: Trigger REAL DexHunter scraping every 10 seconds
       const autoScraperInterval = setInterval(async () => {
         console.log('🔄 Auto-triggering REAL DexHunter scraper for fresh trades...');
         try {
@@ -178,7 +178,7 @@ export const useRealTimeData = () => {
         } catch (error) {
           console.error('❌ REAL scraper failed:', error);
         }
-      }, 30000); // Every 30 seconds
+      }, 10000); // Every 10 seconds
 
       // Cleanup
       return () => {

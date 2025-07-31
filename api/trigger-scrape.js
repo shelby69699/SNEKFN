@@ -253,7 +253,7 @@ export default async function handler(req, res) {
         timestamp: new Date().toISOString(),
         method: finalTrades.length === tradesData.length ? 'direct-scrape' : 'token-based-generation'
       },
-      output: `🚀 Starting COMPLETE DEXY scraping - TRENDS + TRADES\n✅ Found ${updatedTokens.length} trending tokens from trade activity\n✅ Found ${finalTrades.length} sorted trades from DexHunter\n🎉 COMPLETE SUCCESS!\n✅ NO MORE SAMPLE BULLSHIT - ALL REAL DATA SORTED BY TIME!`
+      output: `🚀 Starting COMPLETE DEXY scraping - TRENDS + TRADES\n✅ Found ${updatedTokens.length} trending tokens from trade activity\n✅ Found ${finalTrades.length} sorted trades from DexHunter\n🎉 COMPLETE SUCCESS!\n✅ NO MORE SAMPLE BULLSHIT - ALL REAL DATA SORTED BY TIME!\n⚡ Auto-updates every 10 seconds!`
     });
 
   } catch (error) {
@@ -322,7 +322,7 @@ export default async function handler(req, res) {
         method: 'fallback-due-to-error',
         originalError: error.message
       },
-      output: `🚀 Fallback mode activated\n⚠️ Original scraper error: ${error.message}\n✅ Providing realistic token-based trades\n📊 ${fallbackTrades.length} fallback trades generated`
+      output: `🚀 Fallback mode activated\n⚠️ Original scraper error: ${error.message}\n✅ Providing realistic token-based trades\n📊 ${fallbackTrades.length} fallback trades generated\n⚡ Auto-updates every 10 seconds!`
     });
   }
 }
