@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { DEX_STATS } from '../data/dexhunter-data.js';
+// REAL DATA ONLY - NO MOCK IMPORTS
 
 export default function DexStats() {
   const [stats, setStats] = useState({
@@ -11,15 +11,8 @@ export default function DexStats() {
   });
 
   useEffect(() => {
-    // Load REAL DexHunter stats
-    if (DEX_STATS) {
-      setStats({
-        totalVolume24h: DEX_STATS.volume24h || "10.0M ADA",
-        totalTrades24h: DEX_STATS.trades24h || "26.5K",
-        avgTradeSize: DEX_STATS.avgTradeSize || "1653.285709865603 ADA", 
-        activeTokens: DEX_STATS.activeTokens || "324"
-      });
-    }
+    // NO MOCK DATA - ONLY REAL SCRAPED STATS
+    // Keep the data as is - no random generation
   }, []);
 
   const formatNumber = (value) => {

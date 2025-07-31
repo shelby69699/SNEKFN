@@ -71,14 +71,14 @@ const parseRealTrendingData = (data) => {
       id: token.id || token.symbol || `token_${index}`,
       name: token.name || token.symbol || 'Unknown Token',
       symbol: token.symbol || token.ticker || 'UNK',
-      price: parseFloat(token.price || token.current_price || Math.random() * 10),
-      change_24h: parseFloat(token.price_change_24h || token.change_24h || (Math.random() - 0.5) * 200),
-      volume_24h: parseFloat(token.volume_24h || token.total_volume || Math.random() * 1000000),
-      market_cap: parseFloat(token.market_cap || Math.random() * 10000000),
+              price: parseFloat(token.price || token.current_price || 0),
+        change_24h: parseFloat(token.price_change_24h || token.change_24h || 0),
+        volume_24h: parseFloat(token.volume_24h || token.total_volume || 0),
+        market_cap: parseFloat(token.market_cap || 0),
       logo: token.logo || token.image || token.icon || `https://via.placeholder.com/48x48/0ea5e9/ffffff?text=${(token.symbol || 'T')[0]}`,
       category: token.category || 'DeFi',
-      holders: parseInt(token.holders || Math.floor(Math.random() * 50000) + 1000),
-      transactions: parseInt(token.transactions || Math.floor(Math.random() * 100000) + 5000),
+              holders: parseInt(token.holders || 0),
+        transactions: parseInt(token.transactions || 0),
       rank: index + 1
     }));
   } catch (error) {
@@ -87,122 +87,10 @@ const parseRealTrendingData = (data) => {
   }
 };
 
-// Beautiful real Cardano ecosystem tokens with actual logos and data
+// NO MOCK DATA - ONLY REAL SCRAPED DATA ALLOWED
 const getRealCardanoTokens = () => {
-  return [
-    {
-      id: 'cardano',
-      name: 'Cardano',
-      symbol: 'ADA',
-      logo: 'https://cryptologos.cc/logos/cardano-ada-logo.png',
-      category: 'Layer 1',
-      price: 0.45 + (Math.random() - 0.5) * 0.1,
-      change_24h: (Math.random() - 0.5) * 20,
-      volume_24h: 1200000000 + Math.random() * 300000000,
-      market_cap: 15800000000 + Math.random() * 2000000000,
-      holders: 4200000,
-      transactions: 89000000,
-      rank: 1
-    },
-    {
-      id: 'djed',
-      name: 'DJED',
-      symbol: 'DJED',
-      logo: 'https://pbs.twimg.com/profile_images/1494689689341177857/rGMNyYos_400x400.jpg',
-      category: 'Stablecoin',
-      price: 1.0 + (Math.random() - 0.5) * 0.02,
-      change_24h: (Math.random() - 0.5) * 2,
-      volume_24h: 10000000 + Math.random() * 5000000,
-      market_cap: 100000000 + Math.random() * 20000000,
-      holders: 25000,
-      transactions: 150000,
-      rank: 2
-    },
-    {
-      id: 'snek',
-      name: 'SNEK',
-      symbol: 'SNEK',
-      logo: 'https://pbs.twimg.com/profile_images/1658861271498850307/w4Z4_5vJ_400x400.jpg',
-      category: 'Meme',
-      price: 0.00085 + (Math.random() - 0.5) * 0.0002,
-      change_24h: (Math.random() - 0.5) * 150,
-      volume_24h: 850000 + Math.random() * 200000,
-      market_cap: 8500000 + Math.random() * 2000000,
-      holders: 75000,
-      transactions: 500000,
-      rank: 3
-    },
-    {
-      id: 'min',
-      name: 'Minswap',
-      symbol: 'MIN',
-      logo: 'https://pbs.twimg.com/profile_images/1462416892156706818/MzT_KsEO_400x400.jpg',
-      category: 'DeFi',
-      price: 0.028 + (Math.random() - 0.5) * 0.01,
-      change_24h: (Math.random() - 0.5) * 30,
-      volume_24h: 420000 + Math.random() * 100000,
-      market_cap: 28000000 + Math.random() * 5000000,
-      holders: 50000,
-      transactions: 800000,
-      rank: 4
-    },
-    {
-      id: 'hosky',
-      name: 'HOSKY',
-      symbol: 'HOSKY',
-      logo: 'https://pbs.twimg.com/profile_images/1482376298902732803/NGYkEUCL_400x400.jpg',
-      category: 'Meme',
-      price: 0.000001 + (Math.random() - 0.5) * 0.0000002,
-      change_24h: (Math.random() - 0.5) * 80,
-      volume_24h: 2000000 + Math.random() * 500000,
-      market_cap: 20000000 + Math.random() * 5000000,
-      holders: 120000,
-      transactions: 1200000,
-      rank: 5
-    },
-    {
-      id: 'sundae',
-      name: 'SundaeSwap',
-      symbol: 'SUNDAE',
-      logo: 'https://pbs.twimg.com/profile_images/1471947491891290114/Tv4Irene_400x400.jpg',
-      category: 'DeFi',
-      price: 0.012 + (Math.random() - 0.5) * 0.005,
-      change_24h: (Math.random() - 0.5) * 25,
-      volume_24h: 300000 + Math.random() * 100000,
-      market_cap: 12000000 + Math.random() * 3000000,
-      holders: 35000,
-      transactions: 400000,
-      rank: 6
-    },
-    {
-      id: 'agix',
-      name: 'SingularityNET',
-      symbol: 'AGIX',
-      logo: 'https://pbs.twimg.com/profile_images/1595407866985254913/fvI84L5w_400x400.jpg',
-      category: 'AI',
-      price: 0.25 + (Math.random() - 0.5) * 0.1,
-      change_24h: (Math.random() - 0.5) * 40,
-      volume_24h: 5000000 + Math.random() * 1000000,
-      market_cap: 250000000 + Math.random() * 50000000,
-      holders: 80000,
-      transactions: 600000,
-      rank: 7
-    },
-    {
-      id: 'wrt',
-      name: 'World Mobile Token',
-      symbol: 'WMT',
-      logo: 'https://pbs.twimg.com/profile_images/1472247395017093123/I8f4XMFW_400x400.jpg',
-      category: 'Utility',
-      price: 0.085 + (Math.random() - 0.5) * 0.02,
-      change_24h: (Math.random() - 0.5) * 20,
-      volume_24h: 800000 + Math.random() * 200000,
-      market_cap: 85000000 + Math.random() * 15000000,
-      holders: 45000,
-      transactions: 350000,
-      rank: 8
-    }
-  ];
+  // Return empty array - we only want real scraped data from DEXHUNTER_TOKENS
+  return [];
 };
 
 export default function TrendingTokens() {
@@ -233,7 +121,7 @@ export default function TrendingTokens() {
         price: parseFloat(token.price?.replace('₳', '').replace(',', '')) || 0,
         change_24h: parseFloat(token.priceChange?.replace('%', '').replace('+', '')) || 0,
         volume_24h: parseVolume(token.volume) || 0,
-        market_cap: Math.random() * 10000000, // Calculate from volume
+        market_cap: 0, // No fake market cap calculation
         rank: token.rank || (index + 1),
         isPositive: token.isPositive
       }));
