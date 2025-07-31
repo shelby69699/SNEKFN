@@ -8,6 +8,30 @@ export default async function handler(req, res) {
     // Get tokens from database
     const tokens = await DexyDatabase.getTokens();
     
+    // If database has no tokens (KV not available), use static fallback immediately
+    if (tokens.length === 0) {
+      console.log('⚠️ Database returned empty tokens, using static fallback...');
+      
+      try {
+        const { DEXY_TOKENS } = await import('../src/data/dexhunter-data.js');
+        
+        console.log(`✅ Serving ${DEXY_TOKENS.length} tokens from static fallback`);
+        
+        return res.status(200).json({
+          success: true,
+          tokens: DEXY_TOKENS || [],
+          count: DEXY_TOKENS?.length || 0,
+          lastUpdated: new Date().toISOString(),
+          source: 'static-fallback-due-to-empty-db'
+        });
+      } catch (staticError) {
+        return res.status(500).json({ 
+          error: 'Failed to load tokens from database and static fallback',
+          details: staticError.message
+        });
+      }
+    }
+    
     console.log(`✅ Serving ${tokens.length} tokens from database`);
     
     res.status(200).json({

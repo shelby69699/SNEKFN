@@ -8,6 +8,30 @@ export default async function handler(req, res) {
     // Get trades from database (150 most recent)
     const trades = await DexyDatabase.getTrades();
     
+    // If database has no trades (KV not available), use static fallback immediately
+    if (trades.length === 0) {
+      console.log('⚠️ Database returned empty trades, using static fallback...');
+      
+      try {
+        const { DEXY_TRADES } = await import('../src/data/dexhunter-trades.js');
+        
+        console.log(`✅ Serving ${DEXY_TRADES.length} trades from static fallback`);
+        
+        return res.status(200).json({
+          success: true,
+          trades: DEXY_TRADES || [],
+          count: DEXY_TRADES?.length || 0,
+          lastUpdated: new Date().toISOString(),
+          source: 'static-fallback-due-to-empty-db'
+        });
+      } catch (staticError) {
+        return res.status(500).json({ 
+          error: 'Failed to load trades from database and static fallback',
+          details: staticError.message
+        });
+      }
+    }
+    
     console.log(`✅ Serving ${trades.length} trades from database`);
     
     res.status(200).json({
