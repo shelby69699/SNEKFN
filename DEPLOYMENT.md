@@ -1,4 +1,4 @@
-# DEXY Deployment Options
+# DEXY Deployment Options - LIVE DEPLOY TRIGGER
 
 Since Vercel deployment keeps failing, here are multiple deployment alternatives:
 
