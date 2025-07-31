@@ -92,7 +92,8 @@ class ApiService {
 
   async getAutoScraperStatus() {
     if (!this.baseUrl) throw new Error('Backend not available');
-    return this.fetchWithTimeout(`${this.baseUrl}/auto-scraper/status`);
+    // Use scraper-status endpoint for Vercel
+    return this.fetchWithTimeout(`${this.baseUrl}/scraper-status`);
   }
 }
 
