@@ -1,4 +1,2 @@
-// REAL DEXY trending tokens - Placeholder until scraper runs
-export const DEXY_TOKENS = [];
-
-export const TOKENS_TIMESTAMP = new Date().toISOString();
+// ALL STATIC TOKENS REMOVED - ONLY REAL BACKEND DATA ALLOWED!
+export const DEXY_TOKENS = []; // EMPTY - NO FALLBACK BULLSHIT!

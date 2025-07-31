@@ -11,7 +11,7 @@ export default function DexTradeViewerMock() {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('details'); // 'details' or 'raw'
   
-  // Use real-time data hook with fallback to static data
+  // Use real-time data hook - NO FALLBACK DATA ALLOWED!
   const { 
     trades: apiTrades,
     tokens: apiTokens, 
@@ -101,7 +101,7 @@ export default function DexTradeViewerMock() {
     switch (apiStatus) {
       case 'connected': return 'text-green-400';
       case 'fetching': return 'text-yellow-400';
-      case 'fallback': return 'text-blue-400';
+      // FALLBACK STATUS REMOVED
       case 'error': return 'text-red-400';
       default: return 'text-gray-400';
     }
@@ -111,7 +111,7 @@ export default function DexTradeViewerMock() {
     switch (apiStatus) {
       case 'connected': return 'LIVE DATA';
       case 'fetching': return 'LOADING';
-      case 'fallback': return 'CARDANO DATA';
+      // FALLBACK STATUS TEXT REMOVED
       case 'error': return 'ERROR';
       default: return 'CONNECTING';
     }

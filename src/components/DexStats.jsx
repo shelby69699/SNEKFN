@@ -4,27 +4,18 @@ import { useRealTimeData } from '../hooks/useRealTimeData';
 // REAL DATA ONLY - NO MOCK IMPORTS
 
 export default function DexStats() {
-  const [staticStats, setStaticStats] = useState({
-    totalVolume24h: "10.0M ADA",
-    totalTrades24h: "26.5K", 
-    avgTradeSize: "1653.285709865603 ADA",
-    activeTokens: "324"
-  });
-
+  // NO STATIC FALLBACK DATA - BACKEND ONLY!
+  
   // Use real-time data hook
   const { stats: apiStats, isLoading, error, backendConnected } = useRealTimeData();
   
-  useEffect(() => {
-    // Load static stats as fallback
-    import('../data/dexhunter-data.js').then(module => {
-      if (module.DEX_STATS) {
-        setStaticStats(module.DEX_STATS);
-      }
-    }).catch(console.error);
-  }, []);
-
-  // Use API data if available, fallback to static data
-  const displayStats = apiStats && Object.keys(apiStats).length > 0 ? apiStats : staticStats;
+  // ONLY USE BACKEND DATA - NO FALLBACK BULLSHIT!
+  const displayStats = apiStats || { 
+    totalVolume24h: "0 ADA",
+    totalTrades24h: "0", 
+    avgTradeSize: "0 ADA",
+    activeTokens: "0" 
+  };
 
   const formatNumber = (value) => {
     // If it's already formatted (like "10.0M ADA"), return as is

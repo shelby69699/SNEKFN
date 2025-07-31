@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { ScrollArea } from './ui/scroll-area';
-import { DEXY_TOKENS } from '../data/dexhunter-data.js';
+// DEXY_TOKENS IMPORT REMOVED - ONLY REAL DATA FROM BACKEND!
 
 // Real DEXY API integration for trending tokens
 const fetchRealDexyTrending = async () => {
@@ -106,33 +106,11 @@ export default function TrendingTokens() {
     setIsLoading(true);
     setError(null);
     
-    // Use the REAL scraped data immediately
-    if (DEXY_TOKENS && DEXY_TOKENS.length > 0) {
-      console.log(`✅ LOADED ${DEXY_TOKENS.length} REAL TOKENS FROM DEXY!`);
-      console.log('🎯 REAL TOKENS:', DEXY_TOKENS.slice(0, 3));
-      
-      // Convert REAL DEXY data to our format
-      const realTokens = DEXY_TOKENS.map((token, index) => ({
-        id: token.symbol?.toLowerCase() || `token_${index}`,
-        name: token.name || token.symbol || 'Unknown',
-        symbol: token.symbol || 'UNK',
-        logo: getTokenLogo(token.symbol),
-        category: token.category || 'trending',
-        price: parseFloat(token.price?.replace('₳', '').replace(',', '')) || 0,
-        change_24h: parseFloat(token.priceChange?.replace('%', '').replace('+', '')) || 0,
-        volume_24h: parseVolume(token.volume) || 0,
-        market_cap: 0, // No fake market cap calculation
-        rank: token.rank || (index + 1),
-        isPositive: token.isPositive
-      }));
-      
-      setTokens(realTokens);
-      setIsLoading(false);
-    } else {
-      console.log('❌ NO REAL DATA FOUND');
-      setError('No real data available');
-      setIsLoading(false);
-    }
+    // ONLY USE BACKEND DATA - NO STATIC FALLBACK BULLSHIT!
+    console.log('❌ ALL STATIC DATA REMOVED - BACKEND ONLY!');
+    setTokens([]); // Empty until backend provides data
+    setError('No backend data available');
+    setIsLoading(false);
   }, []);
 
   const filteredTokens = tokens.filter(token => {
@@ -304,7 +282,7 @@ export default function TrendingTokens() {
                 </div>
                 <div className="text-red-400 text-xl font-bold mb-3">Failed to Load Real Data</div>
                 <div className="text-gray-400 text-lg">{error}</div>
-                <div className="text-gray-500 text-sm mt-2">Showing fallback Cardano ecosystem data</div>
+                <div className="text-gray-500 text-sm mt-2">No backend data available - ALL FALLBACK DATA REMOVED</div>
               </div>
             ) : filteredTokens.length === 0 ? (
               // No results state
