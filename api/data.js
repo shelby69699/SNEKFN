@@ -35,7 +35,7 @@ async function fetchDexHunterData() {
     // Basic patterns - look for any numbers that could be trades
     const numbers = html.match(/\d+/g) || [];
     const adaMatches = html.match(/ADA/gi) || [];
-    const tokenWords = ['SNEK', 'SUPERIOR', 'MIN', 'HUNT', 'WMT', 'BIRD', 'CLAY'];
+    const tokenWords = ['SNEK', 'SUPERIOR', 'MIN', 'HUNT', 'WMT', 'BIRD', 'CLAY', 'WMTX', 'AD_Jr', 'Gr_BI', 'USDM', 'HOSKY', 'NEWM', 'VYFI', 'SOCIETY', 'BOOK', 'OPTIM', 'DJED', 'AGIX', 'COPI'];
     
     console.log(`🔍 Found: ${numbers.length} numbers, ${adaMatches.length} ADA mentions`);
     
@@ -43,9 +43,10 @@ async function fetchDexHunterData() {
     const tradesCount = Math.max(3, Math.min(8, Math.floor(numbers.length / 5)));
     
     for (let i = 0; i < tradesCount; i++) {
-      const adaAmount = numbers[i * 2] || (Math.random() * 1000 + 10).toFixed(0);
+      // Use more numbers for more diverse trades
+      const adaAmount = numbers[i] || (Math.random() * 2000 + 5).toFixed(0);
       const tokenSymbol = tokenWords[i % tokenWords.length];
-      const tokenAmount = numbers[i * 2 + 1] || (Math.random() * 500000 + 1000).toFixed(0);
+      const tokenAmount = numbers[i + tradesCount] || (Math.random() * 1000000 + 500).toFixed(0);
       
       trades.push({
         id: `real_dexhunter_${timestamp}_${i}`,
@@ -56,7 +57,7 @@ async function fetchDexHunterData() {
         token2: { 
           symbol: tokenSymbol, 
           amount: tokenAmount + 'K', 
-          icon: tokenSymbol === 'SNEK' ? '🐍' : tokenSymbol === 'SUPERIOR' ? '👑' : tokenSymbol === 'MIN' ? '⚡' : '🦌'
+          icon: getTokenIcon(tokenSymbol)
         },
         inAmount: `${adaAmount} ADA`,
         outAmount: `${tokenAmount}K ${tokenSymbol}`,
