@@ -30,7 +30,7 @@ export default function DexStats() {
     } else if (value >= 1000) {
       return `${(value / 1000).toFixed(1)}K`;
     }
-    return value.toString();
+    return (value || 0).toString();
   };
 
   return (

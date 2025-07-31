@@ -117,7 +117,7 @@ export default function TrendingTokens() {
     symbol: token.symbol || 'UNK',
     logo: getTokenLogo(token.symbol),
     category: 'trending',
-    price: typeof token.price === 'number' ? token.price : parseFloat(token.price?.toString().replace('₳', '').replace(',', '')) || 0,
+              price: typeof token.price === 'number' ? token.price : parseFloat((token.price?.toString() || '0').replace('₳', '').replace(',', '')) || 0,
     change_24h: token.change24h || (Math.random() - 0.5) * 20,
     volume_24h: token.volume24h || Math.floor(Math.random() * 1000000),
     market_cap: 0,
