@@ -2,50 +2,30 @@
 import { Badge } from '@/components/ui/badge';
 import WalletConnection from './WalletConnection';
 
-// Your ACTUAL DEXY logo for navigation - cubic framework design
+// PROFESSIONAL DEXY LOGO - CLEAN MODERN DESIGN  
 const DexyMiniLogo = () => (
-  <div className="w-12 h-12 relative group cursor-pointer">
-    {/* Main cubic framework structure */}
-    <div className="absolute inset-1 border-2 border-teal-400 rounded-lg transform rotate-12 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110">
-      {/* Framework connection lines */}
-      <div className="absolute -inset-1">
-        <div className="absolute top-0 left-1/4 w-1/2 h-0.5 bg-teal-400"></div>
-        <div className="absolute bottom-0 left-1/4 w-1/2 h-0.5 bg-teal-400"></div>
-        <div className="absolute left-0 top-1/4 w-0.5 h-1/2 bg-teal-400"></div>
-        <div className="absolute right-0 top-1/4 w-0.5 h-1/2 bg-teal-400"></div>
-      </div>
-    </div>
-    
-    {/* White connection nodes */}
-    <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full z-10"></div>
-    <div className="absolute top-1/4 -right-1 w-2 h-2 bg-white rounded-full z-10"></div>
-    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full z-10"></div>
-    <div className="absolute bottom-1/4 -left-1 w-2 h-2 bg-white rounded-full z-10"></div>
-    
-    {/* Inner framework */}
-    <div className="absolute inset-3 border border-teal-500 rounded-md bg-slate-800/40">
-      {/* Central orange cube */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div className="relative w-3 h-3">
-          {/* 3D cube faces */}
-          <div className="absolute inset-0 bg-gradient-to-br from-orange-400 to-orange-600 rounded-sm"></div>
-          <div className="absolute inset-0 bg-gradient-to-br from-orange-300 to-orange-500 rounded-sm transform -translate-y-0.5 -translate-x-0.5"></div>
-          <div className="absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-700 rounded-sm transform translate-x-0.5 translate-y-0.5"></div>
+  <div className="w-10 h-10 relative group cursor-pointer">
+    {/* Main logo container */}
+    <div className="absolute inset-0 bg-gradient-to-br from-teal-400 to-teal-600 rounded-xl transform rotate-3 group-hover:rotate-6 transition-all duration-300 shadow-lg">
+      {/* Inner container */}
+      <div className="absolute inset-1 bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg transform -rotate-3 group-hover:-rotate-6 transition-all duration-300">
+        {/* Center D letter */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-white font-black text-lg tracking-tighter">D</span>
         </div>
       </div>
     </div>
     
-    {/* Hover glow effect */}
-    <div className="absolute inset-0 rounded-lg transform rotate-12 bg-gradient-to-br from-teal-400/30 to-orange-400/30 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    {/* Glow effect */}
+    <div className="absolute inset-0 bg-gradient-to-br from-teal-400/50 to-orange-400/50 rounded-xl blur-md opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
   </div>
 );
 
 export default function Navigation({ activeTab, setActiveTab, onBackToLanding }) {
   const navItems = [
-    { id: 'trending', label: 'Trending', icon: 'T' },
-    { id: 'trades', label: 'Trades', icon: 'D' },
-    { id: 'pools', label: 'Pools', icon: 'P' },
-    { id: 'analytics', label: 'Analytics', icon: 'A' }
+    { id: 'trades', label: 'TRADES', icon: '📊' },
+    { id: 'orders', label: 'MY ORDERS', icon: '📋' },
+    { id: 'analytics', label: 'ANALYTICS', icon: '📈' }
   ];
 
   return (
@@ -64,7 +44,7 @@ export default function Navigation({ activeTab, setActiveTab, onBackToLanding })
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-3">
             <DexyMiniLogo />
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-black bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent tracking-tight">
               DEXY
             </h1>
             
@@ -78,15 +58,13 @@ export default function Navigation({ activeTab, setActiveTab, onBackToLanding })
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`flex items-center space-x-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`flex items-center space-x-3 px-6 py-3 rounded-xl text-sm font-bold transition-all ${
                   activeTab === item.id
-                    ? 'bg-teal-600 text-white shadow-lg'
-                    : 'text-gray-300 hover:text-white hover:bg-slate-800'
+                    ? 'bg-gradient-to-r from-teal-600 to-teal-700 text-white shadow-xl shadow-teal-600/30'
+                    : 'text-gray-300 hover:text-white hover:bg-slate-800/70 hover:shadow-lg'
                 }`}
               >
-                <div className="w-6 h-6 bg-gradient-to-br from-teal-500 to-orange-500 rounded flex items-center justify-center">
-                  <span className="text-xs font-bold text-white">{item.icon}</span>
-                </div>
+                <span className="text-lg">{item.icon}</span>
                 <span>{item.label}</span>
               </button>
             ))}
@@ -138,18 +116,18 @@ export default function Navigation({ activeTab, setActiveTab, onBackToLanding })
 
       {/* Mobile Navigation */}
       <div className="md:hidden mt-4 pt-4 border-t border-slate-700">
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-3 gap-2">
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`flex items-center justify-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+              className={`flex items-center justify-center space-x-2 px-3 py-3 rounded-xl text-xs font-bold transition-all ${
                 activeTab === item.id
-                  ? 'bg-teal-600 text-white'
+                  ? 'bg-gradient-to-r from-teal-600 to-teal-700 text-white shadow-lg'
                   : 'text-gray-300 hover:text-white hover:bg-slate-800'
               }`}
             >
-              <span>{item.icon}</span>
+              <span className="text-sm">{item.icon}</span>
               <span>{item.label}</span>
             </button>
           ))}

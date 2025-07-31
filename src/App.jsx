@@ -6,12 +6,13 @@ import DexTradeViewerMock from './components/DexTradeViewerMock'
 import TrendingTokens from './components/TrendingTokens'
 import PoolsSection from './components/PoolsSection'
 import AnalyticsDashboard from './components/AnalyticsDashboard'
+import MyOrders from './components/MyOrders'
 
 import DexyBackground from './components/DexyBackground'
 
 function App() {
   const [showApp, setShowApp] = useState(false);
-  const [activeTab, setActiveTab] = useState('trending');
+  const [activeTab, setActiveTab] = useState('trades');
 
   if (!showApp) {
     return <LandingPage onEnterApp={() => setShowApp(true)} />;
@@ -19,8 +20,6 @@ function App() {
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'trending':
-        return <TrendingTokens />;
       case 'trades':
         return (
           <div className="space-y-6">
@@ -28,12 +27,17 @@ function App() {
             <DexTradeViewerMock />
           </div>
         );
-      case 'pools':
-        return <PoolsSection />;
+      case 'orders':
+        return <MyOrders />;
       case 'analytics':
         return <AnalyticsDashboard />;
       default:
-        return <TrendingTokens />;
+        return (
+          <div className="space-y-6">
+            <DexStats />
+            <DexTradeViewerMock />
+          </div>
+        );
     }
   };
 
