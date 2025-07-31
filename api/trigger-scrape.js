@@ -1,5 +1,6 @@
-// Vercel serverless function for REAL DexHunter scraping with embedded Puppeteer logic
-import puppeteer from 'puppeteer';
+// Vercel serverless function for REAL DexHunter scraping with Chromium
+import chromium from '@sparticuz/chromium';
+import puppeteer from 'puppeteer-core';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -11,10 +12,10 @@ export default async function handler(req, res) {
   try {
     console.log('🚀 Starting REAL DexHunter scraping on Vercel...');
     
-    // Launch browser with Vercel-optimized settings
+    // Launch browser with Vercel-compatible Chromium
     browser = await puppeteer.launch({
-      headless: 'new',
       args: [
+        ...chromium.args,
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
@@ -22,9 +23,12 @@ export default async function handler(req, res) {
         '--no-first-run',
         '--no-zygote',
         '--disable-gpu',
-        '--disable-web-security',
-        '--disable-features=VizDisplayCompositor'
-      ]
+        '--single-process',
+        '--disable-web-security'
+      ],
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless
     });
 
     const page = await browser.newPage();
