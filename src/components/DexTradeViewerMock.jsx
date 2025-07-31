@@ -47,8 +47,8 @@ export default function DexTradeViewerMock() {
     console.log('🔄 Generating trades from REAL DEXY tokens...');
     
     const realTrades = Array.from({ length: 25 }, (_, i) => {
-      const token1 = DEXHUNTER_TOKENS[Math.floor(Math.random() * DEXHUNTER_TOKENS.length)];
-      const token2 = DEXHUNTER_TOKENS[Math.floor(Math.random() * DEXHUNTER_TOKENS.length)];
+      const token1 = DEXY_TOKENS[Math.floor(Math.random() * DEXY_TOKENS.length)];
+      const token2 = DEXY_TOKENS[Math.floor(Math.random() * DEXY_TOKENS.length)];
       const type = Math.random() > 0.5 ? 'Buy' : 'Sell';
       
       return {
