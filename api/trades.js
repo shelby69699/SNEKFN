@@ -34,47 +34,5 @@ export default async function handler(req, res) {
       source: 'none',
       message: 'Real backend required - no fake data served'
     });
-          lastUpdated: new Date().toISOString(),
-          source: 'static-fallback-due-to-empty-db'
-        });
-      } catch (staticError) {
-        return res.status(500).json({ 
-          error: 'Failed to load trades from database and static fallback',
-          details: staticError.message
-        });
-      }
-    }
-    
-    console.log(`✅ Serving ${trades.length} trades from database`);
-    
-    res.status(200).json({
-      success: true,
-      trades: trades,
-      count: trades.length,
-      lastUpdated: new Date().toISOString(),
-      source: 'database'
-    });
-  } catch (error) {
-    console.error('❌ Error reading trades from database:', error);
-    
-    // Fallback to static data
-    try {
-      const { DEXY_TRADES } = await import('../src/data/dexhunter-trades.js');
-      
-      res.status(200).json({
-        success: true,
-        trades: DEXY_TRADES || [],
-        count: DEXY_TRADES?.length || 0,
-        lastUpdated: new Date().toISOString(),
-        source: 'static-fallback',
-        error: error.message
-      });
-    } catch (fallbackError) {
-      res.status(500).json({ 
-        error: 'Failed to load trades from database and fallback',
-        details: error.message,
-        fallbackError: fallbackError.message
-      });
-    }
   }
 }

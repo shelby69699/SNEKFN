@@ -34,47 +34,5 @@ export default async function handler(req, res) {
       source: 'none',
       message: 'Real backend required - no fake data served'
     });
-          lastUpdated: new Date().toISOString(),
-          source: 'static-fallback-due-to-empty-db'
-        });
-      } catch (staticError) {
-        return res.status(500).json({ 
-          error: 'Failed to load tokens from database and static fallback',
-          details: staticError.message
-        });
-      }
-    }
-    
-    console.log(`✅ Serving ${tokens.length} tokens from database`);
-    
-    res.status(200).json({
-      success: true,
-      tokens: tokens,
-      count: tokens.length,
-      lastUpdated: new Date().toISOString(),
-      source: 'database'
-    });
-  } catch (error) {
-    console.error('❌ Error reading tokens from database:', error);
-    
-    // Fallback to static data
-    try {
-      const { DEXY_TOKENS } = await import('../src/data/dexhunter-data.js');
-      
-      res.status(200).json({
-        success: true,
-        tokens: DEXY_TOKENS || [],
-        count: DEXY_TOKENS?.length || 0,
-        lastUpdated: new Date().toISOString(),
-        source: 'static-fallback',
-        error: error.message
-      });
-    } catch (fallbackError) {
-      res.status(500).json({ 
-        error: 'Failed to load tokens from database and fallback',
-        details: error.message,
-        fallbackError: fallbackError.message
-      });
-    }
   }
 }
