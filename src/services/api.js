@@ -1,5 +1,10 @@
 // API Service for communicating with backend
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+// In production, fallback to static data since backend is not deployed
+const API_BASE_URL = process.env.REACT_APP_API_URL || (
+  typeof window !== 'undefined' && window.location.hostname === 'localhost' 
+    ? 'http://localhost:3001/api' 
+    : null
+);
 
 class ApiService {
   constructor() {

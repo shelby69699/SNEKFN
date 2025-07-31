@@ -1,0 +1,5 @@
+[33mffd6750[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Fix syntax error: remove orphaned code in DexTradeViewerMock component
+[33md806c9a[m Fix build error: replace remaining DEXHUNTER_TOKENS with DEXY_TOKENS in DexTradeViewerMock
+[33m1921862[m Fix GitHub Pages deployment permissions - use official actions/deploy-pages
+[33m9fb1b57[m Fix remaining DEXHUNTER variable references in all scripts
+[33mcc6df70[m Complete DexHunter to DEXY replacement in scraper scripts

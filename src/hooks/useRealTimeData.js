@@ -26,6 +26,22 @@ export const useRealTimeData = () => {
   // Function to fetch data from backend
   const fetchData = async () => {
     try {
+      // Skip API calls in production if no backend URL is configured
+      if (!apiService.baseUrl) {
+        console.log('No backend configured, using static data only');
+        setData(prev => ({
+          ...prev,
+          tokens: [],
+          trades: [],
+          stats: {},
+          lastUpdated: null,
+          isLoading: false,
+          error: null,
+          backendConnected: false
+        }));
+        return;
+      }
+
       const response = await apiService.getAllData();
       setData(prev => ({
         ...prev,
@@ -47,8 +63,8 @@ export const useRealTimeData = () => {
         isLoading: false
       }));
 
-      // Retry logic
-      if (retryCount < maxRetries) {
+      // Only retry if we have a backend URL configured
+      if (apiService.baseUrl && retryCount < maxRetries) {
         const delay = Math.min(1000 * Math.pow(2, retryCount), 30000); // Exponential backoff, max 30s
         retryTimeoutRef.current = setTimeout(() => {
           setRetryCount(prev => prev + 1);
@@ -107,26 +123,30 @@ export const useRealTimeData = () => {
   useEffect(() => {
     // Initial data fetch
     fetchData();
-    checkScraperStatus();
+    
+    // Only check scraper status if we have a backend configured
+    if (apiService.baseUrl) {
+      checkScraperStatus();
+      
+      // Set up polling every 5 seconds to check for updates
+      intervalRef.current = setInterval(() => {
+        fetchData();
+      }, 5000);
 
-    // Set up polling every 5 seconds to check for updates
-    intervalRef.current = setInterval(() => {
-      fetchData();
-    }, 5000);
+      // Check scraper status every 30 seconds
+      const statusInterval = setInterval(checkScraperStatus, 30000);
 
-    // Check scraper status every 30 seconds
-    const statusInterval = setInterval(checkScraperStatus, 30000);
-
-    // Cleanup
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-      if (retryTimeoutRef.current) {
-        clearTimeout(retryTimeoutRef.current);
-      }
-      clearInterval(statusInterval);
-    };
+      // Cleanup
+      return () => {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+        }
+        if (retryTimeoutRef.current) {
+          clearTimeout(retryTimeoutRef.current);
+        }
+        clearInterval(statusInterval);
+      };
+    }
   }, []);
 
   // Cleanup retry timeout on unmount

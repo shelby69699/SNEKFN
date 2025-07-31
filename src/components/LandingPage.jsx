@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import DexyBackground from './DexyBackground';
+import TermsOfService from './TermsOfService';
 
 // DEXY Professional Logo - Clean & Simple
 const DexyLogo = () => (
@@ -173,6 +174,15 @@ export default function LandingPage({ onEnterApp }) {
       {/* Footer */}
       <footer className="relative z-10 border-t border-slate-800 py-8">
         <div className="max-w-6xl mx-auto px-6 text-center text-gray-400">
+          <div className="flex justify-center space-x-6 mb-4">
+            <TermsOfService />
+            <a href="#" className="text-teal-400 hover:text-teal-300 transition-colors text-sm underline">
+              Privacy Policy
+            </a>
+            <a href="#" className="text-teal-400 hover:text-teal-300 transition-colors text-sm underline">
+              Contact
+            </a>
+          </div>
           <p>&copy; 2023-2025 DEXY Aggregator. Built for the Cardano ecosystem.</p>
         </div>
       </footer>

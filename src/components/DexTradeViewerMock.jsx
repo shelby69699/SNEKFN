@@ -11,10 +11,10 @@ export default function DexTradeViewerMock() {
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('details'); // 'details' or 'raw'
   
-  // Use real-time data hook
+  // Use real-time data hook with fallback to static data
   const { 
-    trades,
-    tokens, 
+    trades: apiTrades,
+    tokens: apiTokens, 
     isLoading, 
     error, 
     backendConnected, 
@@ -22,6 +22,29 @@ export default function DexTradeViewerMock() {
     scraperStatus,
     triggerScrape 
   } = useRealTimeData();
+
+  // Import static data as fallback
+  const [staticTokens, setStaticTokens] = useState([]);
+  const [staticTrades, setStaticTrades] = useState([]);
+
+  useEffect(() => {
+    // Load static data as fallback
+    import('../data/dexhunter-data.js').then(module => {
+      if (module.DEXY_TOKENS) {
+        setStaticTokens(module.DEXY_TOKENS);
+      }
+    }).catch(console.error);
+
+    import('../data/dexhunter-trades.js').then(module => {
+      if (module.DEXY_TRADES) {
+        setStaticTrades(module.DEXY_TRADES);
+      }
+    }).catch(console.error);
+  }, []);
+
+  // Use API data if available, fallback to static data
+  const trades = apiTrades && apiTrades.length > 0 ? apiTrades : staticTrades;
+  const tokens = apiTokens && apiTokens.length > 0 ? apiTokens : staticTokens;
   
   const [lastUpdate, setLastUpdate] = useState(new Date());
   const [apiStatus, setApiStatus] = useState('connecting');
