@@ -155,15 +155,15 @@ export default function LandingPage({ onEnterApp }) {
           
           <div className="grid md:grid-cols-3 gap-8 text-center relative z-10">
             <div className="group">
-              <div className="text-4xl font-bold bg-gradient-to-r from-teal-400 to-teal-300 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">$50M+</div>
+              <div className="text-4xl font-bold bg-gradient-to-r from-teal-400 to-teal-300 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">—</div>
               <div className="text-gray-300">Total Volume Aggregated</div>
             </div>
             <div className="group">
-              <div className="text-4xl font-bold bg-gradient-to-r from-orange-400 to-orange-300 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">100K+</div>
+              <div className="text-4xl font-bold bg-gradient-to-r from-orange-400 to-orange-300 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">—</div>
               <div className="text-gray-300">Successful Swaps</div>
             </div>
             <div className="group">
-              <div className="text-4xl font-bold bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">5.2%</div>
+              <div className="text-4xl font-bold bg-gradient-to-r from-teal-400 to-orange-400 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform duration-300">—</div>
               <div className="text-gray-300">Average Savings</div>
             </div>
           </div>
@@ -173,7 +173,7 @@ export default function LandingPage({ onEnterApp }) {
       {/* Footer */}
       <footer className="relative z-10 border-t border-slate-800 py-8">
         <div className="max-w-6xl mx-auto px-6 text-center text-gray-400">
-          <p>&copy; 2024 DEXY Aggregator. Built for the Cardano ecosystem.</p>
+          <p>&copy; 2023-2025 DEXY Aggregator. Built for the Cardano ecosystem.</p>
         </div>
       </footer>
     </div>
