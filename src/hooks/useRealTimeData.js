@@ -128,13 +128,25 @@ export const useRealTimeData = () => {
     if (apiService.baseUrl) {
       checkScraperStatus();
       
-      // Set up polling every 5 seconds to check for updates
+      // Set up polling every 10 seconds to check for updates
       intervalRef.current = setInterval(() => {
         fetchData();
-      }, 5000);
+      }, 10000);
 
       // Check scraper status every 30 seconds
       const statusInterval = setInterval(checkScraperStatus, 30000);
+
+      // 🚀 AUTO-SCRAPER: Trigger new scraping every 30 seconds for live trades
+      const autoScraperInterval = setInterval(async () => {
+        console.log('🔄 Auto-triggering scraper for fresh trades...');
+        try {
+          await apiService.triggerScraper();
+          console.log('✅ Auto-scraper completed, fetching fresh data...');
+          await fetchData(); // Get the fresh data immediately after scraping
+        } catch (error) {
+          console.error('❌ Auto-scraper failed:', error);
+        }
+      }, 30000); // Every 30 seconds
 
       // Cleanup
       return () => {
@@ -145,6 +157,7 @@ export const useRealTimeData = () => {
           clearTimeout(retryTimeoutRef.current);
         }
         clearInterval(statusInterval);
+        clearInterval(autoScraperInterval); // Clean up auto-scraper
       };
     }
   }, []);

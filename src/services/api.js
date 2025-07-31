@@ -70,9 +70,9 @@ class ApiService {
   // Manual scraper trigger
   async triggerScraper() {
     if (!this.baseUrl) throw new Error('Backend not available');
-    return this.fetchWithTimeout(`${this.baseUrl}/scrape`, {
+    return this.fetchWithTimeout(`${this.baseUrl}/trigger-scrape`, {
       method: 'POST',
-    }, 120000); // 2 minute timeout for scraping
+    }, 35000); // 35 second timeout for scraping
   }
 
   // Auto scraper control
