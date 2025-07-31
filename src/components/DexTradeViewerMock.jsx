@@ -44,31 +44,6 @@ export default function DexTradeViewerMock() {
     }
   }, [lastUpdated]);
 
-    console.log('🔄 Generating trades from REAL DEXY tokens...');
-    
-    const realTrades = Array.from({ length: 25 }, (_, i) => {
-      const token1 = DEXY_TOKENS[Math.floor(Math.random() * DEXY_TOKENS.length)];
-      const token2 = DEXY_TOKENS[Math.floor(Math.random() * DEXY_TOKENS.length)];
-      const type = Math.random() > 0.5 ? 'Buy' : 'Sell';
-      
-      return {
-        id: `real_${Date.now()}_${i}`,
-        type: type,
-        pair: `${token1.symbol} > ${token2.symbol}`,
-        inAmount: `${(Math.random() * 1000 + 10).toFixed(2)} ${token1.symbol}`,
-        outAmount: `${(Math.random() * 10000 + 100).toFixed(2)} ${token2.symbol}`,
-        price: `${(parseFloat(token1.price?.replace('$', '') || '0') * (0.8 + Math.random() * 0.4)).toFixed(6)} ADA`,
-        status: 'Success',
-        dex: ['Minswap', 'SundaeSwap', 'WingRiders', 'Splash'][Math.floor(Math.random() * 4)],
-        maker: `addr..${Math.random().toString(36).substr(2, 4)}`,
-        timeAgo: `${Math.floor(Math.random() * 300) + 1}s ago`,
-        timestamp: Date.now() - (Math.random() * 300000)
-      };
-    });
-
-    return realTrades;
-  };
-
   const startRealTimeData = () => {
     console.log('🔥 Starting REAL API trades from DEXY...');
     setApiStatus('connected');
