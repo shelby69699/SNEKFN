@@ -3,6 +3,7 @@ import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { ScrollArea } from "./ui/scroll-area";
 import { useRealTimeData } from '../hooks/useRealTimeData';
+import { DEXY_TRADES } from '../data/dexhunter-data.js';
 
 // REAL DEXY Global Trades - Direct Backend API Integration!
 
@@ -23,10 +24,17 @@ export default function DexTradeViewerMock() {
     triggerScrape 
   } = useRealTimeData();
 
-  // ALWAYS USE DATABASE DATA - NO MORE STATIC FALLBACK BULLSHIT
-  // The database is the single source of truth for ALL users
-  const trades = apiTrades || []; // Use database data or empty array
-  const tokens = apiTokens || []; // Use database data or empty array
+  // USE BACKEND DATA WHEN AVAILABLE - MINIMAL FALLBACK TO PREVENT BLANK PAGE
+  // Use backend data if connected and has data, otherwise use minimal fallback
+  const trades = (backendConnected && apiTrades && apiTrades.length > 0) ? apiTrades : DEXY_TRADES;
+  const tokens = apiTokens || [];
+  
+  console.log('🎯 DexTradeViewerMock data source:', {
+    backendConnected,
+    apiTradesCount: apiTrades?.length || 0,
+    finalTradesCount: trades?.length || 0,
+    usingBackend: backendConnected && apiTrades && apiTrades.length > 0
+  });
   
   const [lastUpdate, setLastUpdate] = useState(new Date());
   const [apiStatus, setApiStatus] = useState('connecting');

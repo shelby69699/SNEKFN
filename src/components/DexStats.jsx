@@ -4,18 +4,22 @@ import { useRealTimeData } from '../hooks/useRealTimeData';
 // REAL DATA ONLY - NO MOCK IMPORTS
 
 export default function DexStats() {
-  // NO STATIC FALLBACK DATA - BACKEND ONLY!
-  
-  // Use real-time data hook
+  // Use real-time data hook - show "Loading..." when backend not connected
   const { stats: apiStats, isLoading, error, backendConnected } = useRealTimeData();
   
-  // ONLY USE BACKEND DATA - NO FALLBACK BULLSHIT!
-  const displayStats = apiStats || { 
-    totalVolume24h: "0 ADA",
-    totalTrades24h: "0", 
-    avgTradeSize: "0 ADA",
-    activeTokens: "0" 
+  // Use backend data if available, otherwise show loading state
+  const displayStats = (backendConnected && apiStats && Object.keys(apiStats).length > 0) ? apiStats : { 
+    totalVolume24h: "Loading...",
+    totalTrades24h: "Loading...", 
+    avgTradeSize: "Loading...",
+    activeTokens: "Loading..." 
   };
+  
+  console.log('🎯 DexStats data source:', {
+    backendConnected,
+    hasApiStats: !!(apiStats && Object.keys(apiStats).length > 0),
+    displayStats
+  });
 
   const formatNumber = (value) => {
     // If it's already formatted (like "10.0M ADA"), return as is

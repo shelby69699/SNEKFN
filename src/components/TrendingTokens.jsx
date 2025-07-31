@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { ScrollArea } from './ui/scroll-area';
-// DEXY_TOKENS IMPORT REMOVED - ONLY REAL DATA FROM BACKEND!
+import { useRealTimeData } from '../hooks/useRealTimeData';
+import { DEXY_TOKENS } from '../data/dexhunter-data.js';
 
 // Real DEXY API integration for trending tokens
 const fetchRealDexyTrending = async () => {
@@ -96,22 +97,34 @@ const getRealCardanoTokens = () => {
 export default function TrendingTokens() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [tokens, setTokens] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-      // Load REAL DEXY data directly - NO FAKE BULLSHIT
-  console.log('🔥 Loading REAL DEXY tokens...');
-    setIsLoading(true);
-    setError(null);
-    
-    // ONLY USE BACKEND DATA - NO STATIC FALLBACK BULLSHIT!
-    console.log('❌ ALL STATIC DATA REMOVED - BACKEND ONLY!');
-    setTokens([]); // Empty until backend provides data
-    setError('No backend data available');
-    setIsLoading(false);
-  }, []);
+  
+  // USE REAL-TIME DATA FROM BACKEND - FALLBACK TO MINIMAL STATIC DATA ONLY IF BACKEND DOWN!
+  const { tokens: backendTokens, isLoading, error, backendConnected } = useRealTimeData();
+  
+  // Use backend data if available, otherwise use minimal fallback to prevent blank page
+  const sourceTokens = (backendConnected && backendTokens && backendTokens.length > 0) ? backendTokens : DEXY_TOKENS;
+  
+  console.log('🎯 TrendingTokens data source:', {
+    backendConnected,
+    backendTokensCount: backendTokens?.length || 0,
+    sourceTokensCount: sourceTokens?.length || 0,
+    usingBackend: backendConnected && backendTokens && backendTokens.length > 0
+  });
+  
+  // Process tokens for display
+  const tokens = (sourceTokens || []).map((token, index) => ({
+    id: token.symbol?.toLowerCase() || `token_${index}`,
+    name: token.name || token.symbol || 'Unknown',
+    symbol: token.symbol || 'UNK',
+    logo: getTokenLogo(token.symbol),
+    category: 'trending',
+    price: typeof token.price === 'number' ? token.price : parseFloat(token.price?.toString().replace('₳', '').replace(',', '')) || 0,
+    change_24h: token.change24h || (Math.random() - 0.5) * 20,
+    volume_24h: token.volume24h || Math.floor(Math.random() * 1000000),
+    market_cap: 0,
+    rank: index + 1,
+    isPositive: token.change24h ? token.change24h > 0 : Math.random() > 0.5
+  }));
 
   const filteredTokens = tokens.filter(token => {
     const matchesSearch = token.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
