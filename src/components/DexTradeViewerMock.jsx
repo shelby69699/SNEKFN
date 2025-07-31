@@ -165,7 +165,6 @@ export default function DexTradeViewerMock() {
                 <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">STATUS</th>
                 <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">DEX</th>
                 <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">MAKER</th>
-                <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">ACTIONS</th>
               </tr>
             </thead>
             <tbody>
@@ -196,7 +195,7 @@ export default function DexTradeViewerMock() {
                     <td className="py-3 px-2"><div className="w-20 h-6 bg-slate-700 rounded animate-pulse"></div></td>
                     <td className="py-3 px-2"><div className="w-16 h-6 bg-slate-700 rounded animate-pulse"></div></td>
                     <td className="py-3 px-2"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
-                    <td className="py-3 px-2"><div className="w-24 h-6 bg-slate-700 rounded animate-pulse"></div></td>
+
                   </tr>
                 ))
               ) : sortedTrades.length === 0 ? (
@@ -323,30 +322,7 @@ export default function DexTradeViewerMock() {
                         {trade.maker}
                       </a>
                     </td>
-                    <td className="py-3 px-2">
-                      <div className="flex gap-1">
-                        <button
-                          onClick={() => openTradeDetails(trade)}
-                          className="w-8 h-8 bg-slate-700 hover:bg-slate-600 rounded flex items-center justify-center transition-colors"
-                          title="View Trade Details"
-                        >
-                          <span className="text-blue-400 text-sm">📊</span>
-                        </button>
-                        <button
-                          onClick={() => openRawData(trade)}
-                          className="w-8 h-8 bg-slate-700 hover:bg-slate-600 rounded flex items-center justify-center transition-colors"
-                          title="View Raw Data"
-                        >
-                          <span className="text-green-400 text-sm">🔍</span>
-                        </button>
-                        <button
-                          className="w-8 h-8 bg-slate-700 hover:bg-slate-600 rounded flex items-center justify-center transition-colors"
-                          title="External Link"
-                        >
-                          <span className="text-gray-400 text-sm">🔗</span>
-                        </button>
-                      </div>
-                    </td>
+
                   </tr>
                 );
               })}
