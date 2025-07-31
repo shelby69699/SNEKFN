@@ -171,7 +171,7 @@ export default function DexTradeViewerMock() {
               {!backendConnected ? (
                 // Backend not connected - show connection message
                 <tr>
-                  <td colSpan="10" className="py-12 text-center">
+                  <td colSpan="9" className="py-12 text-center">
                     <div className="text-gray-400">
                       <div className="text-lg font-semibold mb-2">🔌 Connecting to Backend...</div>
                       <div className="text-sm">Starting backend server connection</div>
@@ -201,7 +201,7 @@ export default function DexTradeViewerMock() {
               ) : sortedTrades.length === 0 ? (
                 // No data state
                 <tr>
-                  <td colSpan="10" className="py-12 text-center">
+                  <td colSpan="9" className="py-12 text-center">
                     <div className="text-gray-400">
                       <div className="text-lg font-semibold mb-2">🔥 Waiting for Real DexHunter Trades</div>
                       <div className="text-sm">
