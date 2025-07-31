@@ -71,17 +71,20 @@ export default function DexTradeViewerMock() {
     console.log('🔥 Starting REAL API trades from DEXY...');
     setApiStatus('connected');
     
-    // Load initial REAL trades
-    const initialTrades = loadRealTrades();
-    setTrades(initialTrades);
-    setLastUpdate(new Date());
-
-    // Update trades every 30 seconds (refresh API data or generate new from real tokens)
-    const interval = setInterval(() => {
-      const newTrades = loadRealTrades();
-      setTrades(newTrades);
+    // Load initial REAL trades from static data
+    if (staticTrades.length > 0) {
+      setTrades(staticTrades);
       setLastUpdate(new Date());
-      console.log(`📊 Updated with REAL API trades: ${newTrades.length} trades`);
+      console.log(`📊 Loaded ${staticTrades.length} static trades`);
+    }
+
+    // Update trades every 30 seconds (refresh from static data)
+    const interval = setInterval(() => {
+      if (staticTrades.length > 0) {
+        setTrades(staticTrades);
+        setLastUpdate(new Date());
+        console.log(`📊 Updated with static trades: ${staticTrades.length} trades`);
+      }
     }, 30000);
 
     return () => clearInterval(interval);
