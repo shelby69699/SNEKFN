@@ -6,7 +6,8 @@ const VERCEL_BACKEND_URL = '/api'; // Use Vercel's serverless functions that pro
 const isLocalDevelopment = typeof window !== 'undefined' && 
   (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
-const API_BASE_URL = isLocalDevelopment ? LOCAL_BACKEND_URL : VERCEL_BACKEND_URL;
+// FORCE LOCAL BACKEND FOR REAL DATA (both dev and production)
+const API_BASE_URL = LOCAL_BACKEND_URL;
 
 console.log('🔥 API Configuration:', {
   hostname: typeof window !== 'undefined' ? window.location.hostname : 'server',
