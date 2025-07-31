@@ -39,31 +39,37 @@ class ApiService {
 
   // Health check
   async checkHealth() {
+    if (!this.baseUrl) throw new Error('Backend not available');
     return this.fetchWithTimeout(`${this.baseUrl}/health`);
   }
 
   // Get all data (tokens, trades, stats)
   async getAllData() {
+    if (!this.baseUrl) throw new Error('Backend not available');
     return this.fetchWithTimeout(`${this.baseUrl}/data`);
   }
 
   // Get trending tokens
   async getTrendingTokens() {
+    if (!this.baseUrl) throw new Error('Backend not available');
     return this.fetchWithTimeout(`${this.baseUrl}/tokens`);
   }
 
   // Get global trades
   async getGlobalTrades() {
+    if (!this.baseUrl) throw new Error('Backend not available');
     return this.fetchWithTimeout(`${this.baseUrl}/trades`);
   }
 
   // Get DEX statistics
   async getDexStats() {
+    if (!this.baseUrl) throw new Error('Backend not available');
     return this.fetchWithTimeout(`${this.baseUrl}/stats`);
   }
 
   // Manual scraper trigger
   async triggerScraper() {
+    if (!this.baseUrl) throw new Error('Backend not available');
     return this.fetchWithTimeout(`${this.baseUrl}/scrape`, {
       method: 'POST',
     }, 120000); // 2 minute timeout for scraping
@@ -71,18 +77,21 @@ class ApiService {
 
   // Auto scraper control
   async startAutoScraper() {
+    if (!this.baseUrl) throw new Error('Backend not available');
     return this.fetchWithTimeout(`${this.baseUrl}/auto-scraper/start`, {
       method: 'POST',
     });
   }
 
   async stopAutoScraper() {
+    if (!this.baseUrl) throw new Error('Backend not available');
     return this.fetchWithTimeout(`${this.baseUrl}/auto-scraper/stop`, {
       method: 'POST',
     });
   }
 
   async getAutoScraperStatus() {
+    if (!this.baseUrl) throw new Error('Backend not available');
     return this.fetchWithTimeout(`${this.baseUrl}/auto-scraper/status`);
   }
 }
