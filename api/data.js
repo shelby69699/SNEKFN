@@ -124,7 +124,7 @@ async function scrapeRealDexHunterOrNothing() {
 
 export default async function handler(req, res) {
   try {
-    console.log('🔥 NO FAKE DATA SCRAPER v7.0 - REAL OR NOTHING!');
+    console.log('🔥 NO FAKE DATA SCRAPER v7.1 - ZERO BULLSHIT!');
     
     const data = await scrapeRealDexHunterOrNothing();
     
