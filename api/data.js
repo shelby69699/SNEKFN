@@ -137,17 +137,18 @@ export default async function handler(req, res) {
     });
     
   } catch (error) {
-    console.error('❌ No fake data scraper failed:', error);
+    console.error('❌ Real scraping failed:', error);
     
-    // NO FAKE DATA - Return empty arrays if scraping fails
-    res.status(503).json({
-      error: 'Real scraping failed - NO FAKE DATA',
+    // NO FAKE DATA - Return 200 OK with empty arrays (frontend expects 200)
+    res.status(200).json({
       trades: [], // EMPTY - NO FAKE TRADES
       tokens: [], // EMPTY - NO FAKE TOKENS  
       stats: { totalTrades: 0, totalVolume: '0', activeUsers: 0, totalLiquidity: '0' },
-      lastUpdated: null,
-      source: 'none',
-      message: 'REAL DATA ONLY - NO FAKE BULLSHIT',
+      lastUpdated: new Date().toISOString(),
+      source: 'empty-no-fake-data',
+      environment: 'production',
+      method: 'REAL_OR_EMPTY',
+      message: 'Real scraping failed - returning empty data (NO FAKE BULLSHIT)',
       errorDetails: error.message
     });
   }
