@@ -91,8 +91,24 @@ export const useRealTimeData = () => {
   const triggerScrape = async () => {
     try {
       setData(prev => ({ ...prev, isLoading: true }));
-      await apiService.triggerScraper();
-      await fetchData(); // Refresh data after scraping
+      const scrapeResult = await apiService.triggerScraper();
+      
+      // Use fresh scraped data immediately
+      if (scrapeResult.success && scrapeResult.data) {
+        setData(prev => ({
+          ...prev,
+          tokens: scrapeResult.data.tokens || prev.tokens,
+          trades: scrapeResult.data.trades || prev.trades,
+          stats: scrapeResult.data.stats || prev.stats,
+          lastUpdated: scrapeResult.data.timestamp,
+          isLoading: false,
+          error: null,
+          backendConnected: true
+        }));
+        console.log('🔥 Manual scrape completed with fresh REAL data');
+      } else {
+        await fetchData(); // Fallback to regular data fetch
+      }
     } catch (error) {
       console.error('Error triggering scraper:', error);
       setData(prev => ({ ...prev, error: error.message, isLoading: false }));
@@ -136,15 +152,31 @@ export const useRealTimeData = () => {
       // Check scraper status every 30 seconds
       const statusInterval = setInterval(checkScraperStatus, 30000);
 
-      // 🚀 AUTO-SCRAPER: Trigger new scraping every 30 seconds for live trades
+      // 🚀 AUTO-SCRAPER: Trigger REAL DexHunter scraping every 30 seconds
       const autoScraperInterval = setInterval(async () => {
-        console.log('🔄 Auto-triggering scraper for fresh trades...');
+        console.log('🔄 Auto-triggering REAL DexHunter scraper for fresh trades...');
         try {
-          await apiService.triggerScraper();
-          console.log('✅ Auto-scraper completed, fetching fresh data...');
-          await fetchData(); // Get the fresh data immediately after scraping
+          const scrapeResult = await apiService.triggerScraper();
+          console.log('✅ REAL scraper completed:', scrapeResult.message);
+          
+          // Use the fresh scraped data immediately
+          if (scrapeResult.success && scrapeResult.data) {
+            setData(prev => ({
+              ...prev,
+              tokens: scrapeResult.data.tokens || prev.tokens,
+              trades: scrapeResult.data.trades || prev.trades,
+              stats: scrapeResult.data.stats || prev.stats,
+              lastUpdated: scrapeResult.data.timestamp,
+              error: null,
+              backendConnected: true
+            }));
+            console.log('🔥 Fresh REAL data updated:', {
+              tokens: scrapeResult.data.tokensCount,
+              trades: scrapeResult.data.tradesCount
+            });
+          }
         } catch (error) {
-          console.error('❌ Auto-scraper failed:', error);
+          console.error('❌ REAL scraper failed:', error);
         }
       }, 30000); // Every 30 seconds
 
