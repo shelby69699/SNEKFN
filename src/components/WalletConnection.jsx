@@ -199,42 +199,7 @@ export default function WalletConnection() {
                   );
                 })}
               </div>
-              
-              <div className="mt-4 text-center">
-                <p className="text-sm text-gray-400 mb-2">Don't have a wallet?</p>
-                <div className="flex justify-center space-x-4 text-sm">
-                  <a 
-                    href="https://vespr.xyz/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-teal-400 hover:text-teal-300 transition-colors"
-                  >
-                    Get VESPR
-                  </a>
-                  <a 
-                    href="https://eternl.io/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-teal-400 hover:text-teal-300 transition-colors"
-                  >
-                    Get Eternl
-                  </a>
-                  <a 
-                    href="https://www.lace.io/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-teal-400 hover:text-teal-300 transition-colors"
-                  >
-                    Get Lace
-                  </a>
-                </div>
-              </div>
 
-              <div className="mt-4 p-3 bg-slate-800/50 rounded-lg border border-slate-700/50">
-                <div className="text-xs text-gray-400">
-                  🔒 Secure connection - DEXY never stores your private keys
-                </div>
-              </div>
             </CardContent>
           </Card>
         </div>,
