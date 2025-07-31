@@ -40,7 +40,7 @@ export default function LandingPage({ onEnterApp }) {
     { icon: "📊", title: "Analytics", desc: "Advanced trading insights and market analytics" }
   ];
 
-  const supportedDexes = ["Minswap", "WingRiders", "Spectrum", "MuesliSwap", "VyFinance"];
+  const supportedDexes = ["Minswap", "WingRiders", "Splash", "MuesliSwap", "VyFinance"];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-teal-950/30 to-slate-900 relative overflow-hidden">
