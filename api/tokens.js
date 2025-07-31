@@ -1,28 +1,43 @@
-// Vercel serverless function for tokens data
-import fs from 'fs';
-import path from 'path';
+// Vercel serverless function for tokens data from DATABASE
+import { DexyDatabase } from '../lib/database.js';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   try {
-    // Read the static tokens data
-    const tokensPath = path.join(process.cwd(), 'src/data/dexhunter-data.js');
-    const tokensContent = fs.readFileSync(tokensPath, 'utf8');
+    console.log('🪙 Fetching tokens from database...');
     
-    // Extract DEXY_TOKENS from the file
-    const tokensMatch = tokensContent.match(/export const DEXY_TOKENS = (\[[\s\S]*?\]);/);
+    // Get tokens from database
+    const tokens = await DexyDatabase.getTokens();
     
-    if (tokensMatch) {
-      const tokensData = eval(tokensMatch[1]);
-      res.status(200).json({
-        tokens: tokensData,
-        count: tokensData.length,
-        lastUpdated: new Date().toISOString()
-      });
-    } else {
-      res.status(500).json({ error: 'Could not parse tokens data' });
-    }
+    console.log(`✅ Serving ${tokens.length} tokens from database`);
+    
+    res.status(200).json({
+      success: true,
+      tokens: tokens,
+      count: tokens.length,
+      lastUpdated: new Date().toISOString(),
+      source: 'database'
+    });
   } catch (error) {
-    console.error('Error reading tokens:', error);
-    res.status(500).json({ error: 'Failed to load tokens data' });
+    console.error('❌ Error reading tokens from database:', error);
+    
+    // Fallback to static data
+    try {
+      const { DEXY_TOKENS } = await import('../src/data/dexhunter-data.js');
+      
+      res.status(200).json({
+        success: true,
+        tokens: DEXY_TOKENS || [],
+        count: DEXY_TOKENS?.length || 0,
+        lastUpdated: new Date().toISOString(),
+        source: 'static-fallback',
+        error: error.message
+      });
+    } catch (fallbackError) {
+      res.status(500).json({ 
+        error: 'Failed to load tokens from database and fallback',
+        details: error.message,
+        fallbackError: fallbackError.message
+      });
+    }
   }
 }

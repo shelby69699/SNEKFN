@@ -1,6 +1,7 @@
-// Vercel serverless function for REAL DexHunter scraping with Chromium
+// Vercel serverless function for REAL DexHunter scraping with Chromium + Database
 import chromium from '@sparticuz/chromium';
 import puppeteer from 'puppeteer-core';
+import { DexyDatabase } from '../lib/database.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -281,20 +282,30 @@ export default async function handler(req, res) {
     console.log(`📊 Sorted ${finalTrades.length} trades by timestamp (newest first)`);
     console.log(`🪙 Updated ${updatedTokens.length} tokens based on recent trade activity`);
     
-    // Return the scraped data
+    // 💾 SAVE TO DATABASE - ADD NEW TRADES AND MAINTAIN 150 LIMIT
+    console.log('💾 Saving scraped data to database...');
+    
+    const [savedTrades, savedTokens, savedStats] = await Promise.all([
+      DexyDatabase.addTrades(finalTrades), // Adds new trades and keeps only 150 most recent
+      DexyDatabase.updateTokens(updatedTokens),
+      DexyDatabase.updateStats(stats)
+    ]);
+    
+    console.log(`✅ DATABASE UPDATED: ${savedTrades.length} total trades stored (150 limit maintained)`);
+    
+    // Return ALL data from database (150 trades)
+    const allData = await DexyDatabase.getAllData();
+    
     res.status(200).json({
       success: true,
-      message: 'REAL DexHunter scraping completed successfully',
-      data: {
-        tokens: updatedTokens,
-        trades: finalTrades,
-        stats: stats,
-        tokensCount: updatedTokens.length,
-        tradesCount: finalTrades.length,
-        timestamp: new Date().toISOString(),
+      message: 'REAL DexHunter scraping completed and saved to database',
+      data: allData,
+      scraped: {
+        newTrades: finalTrades.length,
+        newTokens: updatedTokens.length,
         method: finalTrades.length === tradesData.length ? 'direct-scrape' : 'token-based-generation'
       },
-      output: `🚀 Starting COMPLETE DEXY scraping - TRENDS + TRADES\n✅ Found ${updatedTokens.length} trending tokens from trade activity\n✅ Found ${finalTrades.length} sorted trades from DexHunter\n🎉 COMPLETE SUCCESS!\n✅ NO MORE SAMPLE BULLSHIT - ALL REAL DATA SORTED BY TIME!\n⚡ Auto-updates every 10 seconds!`
+      output: `🚀 COMPLETE DEXY SCRAPING + DATABASE SAVE\n✅ Scraped ${finalTrades.length} new trades from DexHunter\n💾 Database now has ${allData.tradesCount} total trades (150 limit)\n🪙 ${allData.tokensCount} tokens updated\n🎉 ALL USERS NOW SEE SAME DATA!\n⚡ Auto-updates every 10 seconds!`
     });
 
   } catch (error) {
@@ -358,20 +369,51 @@ export default async function handler(req, res) {
       activeTokens: fallbackTokens.length.toString()
     };
     
-    res.status(200).json({
-      success: true,
-      message: 'Fallback data provided (scraper had issues)',
-      data: {
-        tokens: fallbackTokens,
-        trades: fallbackTrades,
-        stats: fallbackStats,
-        tokensCount: fallbackTokens.length,
-        tradesCount: fallbackTrades.length,
-        timestamp: new Date().toISOString(),
-        method: 'fallback-due-to-error',
-        originalError: error.message
-      },
-      output: `🚀 Fallback mode activated\n⚠️ Original scraper error: ${error.message}\n✅ Providing realistic token-based trades\n📊 ${fallbackTrades.length} fallback trades generated\n⚡ Auto-updates every 10 seconds!`
-    });
+    // 💾 SAVE FALLBACK DATA TO DATABASE TOO
+    console.log('💾 Saving fallback data to database...');
+    
+    try {
+      const [savedTrades, savedTokens, savedStats] = await Promise.all([
+        DexyDatabase.addTrades(fallbackTrades), // Still adds to database
+        DexyDatabase.updateTokens(fallbackTokens),
+        DexyDatabase.updateStats(fallbackStats)
+      ]);
+      
+      // Return ALL data from database
+      const allData = await DexyDatabase.getAllData();
+      
+      res.status(200).json({
+        success: true,
+        message: 'Fallback data provided and saved to database (scraper had issues)',
+        data: allData,
+        scraped: {
+          newTrades: fallbackTrades.length,
+          newTokens: fallbackTokens.length,
+          method: 'fallback-due-to-error',
+          originalError: error.message
+        },
+        output: `🚀 Fallback mode + Database save\n⚠️ Original scraper error: ${error.message}\n💾 Database now has ${allData.tradesCount} total trades (150 limit)\n📊 ${fallbackTrades.length} fallback trades added\n🎉 ALL USERS STILL SEE CONSISTENT DATA!\n⚡ Auto-updates every 10 seconds!`
+      });
+    } catch (dbError) {
+      console.error('❌ Database error in fallback:', dbError);
+      
+      // If database fails too, return static fallback
+      res.status(200).json({
+        success: true,
+        message: 'Static fallback data (scraper and database had issues)',
+        data: {
+          tokens: fallbackTokens,
+          trades: fallbackTrades,
+          stats: fallbackStats,
+          tokensCount: fallbackTokens.length,
+          tradesCount: fallbackTrades.length,
+          timestamp: new Date().toISOString(),
+          method: 'static-fallback',
+          originalError: error.message,
+          dbError: dbError.message
+        },
+        output: `🚀 Static fallback mode\n⚠️ Scraper error: ${error.message}\n⚠️ Database error: ${dbError.message}\n✅ Providing static fallback data\n📊 ${fallbackTrades.length} fallback trades\n⚡ Auto-updates every 10 seconds!`
+      });
+    }
   }
 }

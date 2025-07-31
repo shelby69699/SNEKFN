@@ -1,28 +1,43 @@
-// Vercel serverless function for trades data
-import fs from 'fs';
-import path from 'path';
+// Vercel serverless function for trades data from DATABASE
+import { DexyDatabase } from '../lib/database.js';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   try {
-    // Read the static trades data
-    const tradesPath = path.join(process.cwd(), 'src/data/dexhunter-trades.js');
-    const tradesContent = fs.readFileSync(tradesPath, 'utf8');
+    console.log('📊 Fetching trades from database...');
     
-    // Extract DEXY_TRADES from the file
-    const tradesMatch = tradesContent.match(/export const DEXY_TRADES = (\[[\s\S]*?\]);/);
+    // Get trades from database (150 most recent)
+    const trades = await DexyDatabase.getTrades();
     
-    if (tradesMatch) {
-      const tradesData = eval(tradesMatch[1]);
-      res.status(200).json({
-        trades: tradesData,
-        count: tradesData.length,
-        lastUpdated: new Date().toISOString()
-      });
-    } else {
-      res.status(500).json({ error: 'Could not parse trades data' });
-    }
+    console.log(`✅ Serving ${trades.length} trades from database`);
+    
+    res.status(200).json({
+      success: true,
+      trades: trades,
+      count: trades.length,
+      lastUpdated: new Date().toISOString(),
+      source: 'database'
+    });
   } catch (error) {
-    console.error('Error reading trades:', error);
-    res.status(500).json({ error: 'Failed to load trades data' });
+    console.error('❌ Error reading trades from database:', error);
+    
+    // Fallback to static data
+    try {
+      const { DEXY_TRADES } = await import('../src/data/dexhunter-trades.js');
+      
+      res.status(200).json({
+        success: true,
+        trades: DEXY_TRADES || [],
+        count: DEXY_TRADES?.length || 0,
+        lastUpdated: new Date().toISOString(),
+        source: 'static-fallback',
+        error: error.message
+      });
+    } catch (fallbackError) {
+      res.status(500).json({ 
+        error: 'Failed to load trades from database and fallback',
+        details: error.message,
+        fallbackError: fallbackError.message
+      });
+    }
   }
 }
