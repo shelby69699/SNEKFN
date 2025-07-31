@@ -70,7 +70,6 @@ export default function DexTradeViewerMock() {
   const startRealTimeData = () => {
     console.log('🔥 Starting REAL API trades from DEXY...');
     setApiStatus('connected');
-    setIsLoading(false);
     
     // Load initial REAL trades
     const initialTrades = loadRealTrades();
