@@ -1,22 +1,33 @@
-// Vercel serverless function to serve all data from DATABASE (150 trades)
-import { DexyDatabase } from '../lib/database.js';
-
+// Vercel serverless function to proxy to local backend with REAL DexHunter data
 export default async function handler(req, res) {
   try {
-    console.log('📊 Fetching all data from database (150 trades)...');
+    console.log('🔥 Proxying to local backend for REAL DexHunter data...');
     
-    // Get ALL data from database (150 trades + tokens + stats)
-    const allData = await DexyDatabase.getAllData();
-    
-    console.log(`✅ Serving ${allData.tradesCount} trades and ${allData.tokensCount} tokens from database`);
-
-    res.status(200).json({
-      success: true,
-      ...allData,
-      source: 'database'
+    // Try to fetch from local backend first (REAL data)
+    const response = await fetch('http://localhost:9999/api/data', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'DEXY-Vercel-Proxy/1.0'
+      },
+      signal: AbortSignal.timeout(10000) // 10 second timeout
     });
+
+    if (response.ok) {
+      const realData = await response.json();
+      console.log(`🔥 SUCCESS! Serving ${realData.trades?.length || 0} REAL trades from local backend`);
+      
+      res.status(200).json({
+        ...realData,
+        source: 'real-local-backend',
+        proxy: 'vercel'
+      });
+      return;
+    }
+    
+    throw new Error(`Local backend returned status: ${response.status}`);
   } catch (error) {
-    console.error('❌ Error serving data from database:', error);
+    console.error('❌ Local backend not available:', error.message);
     
     // Fallback to static data if database fails
     try {
