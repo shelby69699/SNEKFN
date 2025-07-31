@@ -12,6 +12,7 @@
     "scrape": "node scripts/scrape-both.cjs",
     "scrape-live": "node scripts/auto-scraper-live.cjs",
     "scrape-deploy": "node scripts/auto-scraper-deploy.cjs",
+    "scrape-simple": "node scripts/auto-scraper-simple.cjs",
     "scrape-fresh": "node scripts/scrape-both.cjs",
     "scrape-api-direct": "node scripts/scrape-api-direct.cjs",
     "scrape-trades": "node scripts/scrape-real-trades.cjs",
