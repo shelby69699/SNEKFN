@@ -34,11 +34,6 @@ export default async function handler(req, res) {
       source: 'none',
       message: 'Real backend required - no fake data served'
     });
-        
-        return res.status(200).json({
-          success: true,
-          tokens: DEXY_TOKENS || [],
-          count: DEXY_TOKENS?.length || 0,
           lastUpdated: new Date().toISOString(),
           source: 'static-fallback-due-to-empty-db'
         });
