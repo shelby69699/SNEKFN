@@ -5,9 +5,10 @@
   "description": "Local backend server for DEXY aggregator with real DexHunter scraping",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node simple-server.js",
     "simple": "node simple-server.js",
-    "dev": "node server.js"
+    "dev": "node simple-server.js",
+    "build": "echo 'No build step needed'"
   },
   "dependencies": {
     "express": "^4.18.2",

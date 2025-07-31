@@ -3,7 +3,7 @@ import cors from 'cors';
 import puppeteer from 'puppeteer';
 
 const app = express();
-const PORT = 9999;
+const PORT = process.env.PORT || 9999;
 
 // Enable CORS for Vercel frontend
 app.use(cors({
