@@ -1,8 +1,11 @@
 // Vercel serverless function for health check - proxy to local backend
 export default async function handler(req, res) {
   try {
-    // Try to check local backend health
-    const response = await fetch('http://localhost:9999/api/health', {
+    // Try to fetch from deployed backend
+    const BACKEND_URL = process.env.BACKEND_URL || 'https://snekfn-backend-production.up.railway.app/api/health';
+    console.log(`🔥 Fetching from: ${BACKEND_URL}`);
+    
+    const response = await fetch(BACKEND_URL, {
       method: 'GET',
       headers: { 'Accept': 'application/json' },
       signal: AbortSignal.timeout(5000) // 5 second timeout

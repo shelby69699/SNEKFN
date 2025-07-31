@@ -3,8 +3,11 @@ export default async function handler(req, res) {
   try {
     console.log('🔥 Proxying tokens from local backend...');
     
-    // Try to fetch REAL tokens from local backend
-    const response = await fetch('http://localhost:9999/api/tokens', {
+    // Try to fetch REAL tokens from deployed backend
+    const BACKEND_URL = process.env.BACKEND_URL || 'https://snekfn-backend-production.up.railway.app/api/tokens';
+    console.log(`🔥 Fetching from: ${BACKEND_URL}`);
+    
+    const response = await fetch(BACKEND_URL, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',

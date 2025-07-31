@@ -3,8 +3,11 @@ export default async function handler(req, res) {
   try {
     console.log('🔥 Proxying to local backend for REAL DexHunter data...');
     
-    // Try to fetch from local backend first (REAL data)
-    const response = await fetch('http://localhost:9999/api/data', {
+    // Try to fetch REAL data from deployed backend
+    const BACKEND_URL = process.env.BACKEND_URL || 'https://snekfn-backend-production.up.railway.app/api/data';
+    console.log(`🔥 Fetching from: ${BACKEND_URL}`);
+    
+    const response = await fetch(BACKEND_URL, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
