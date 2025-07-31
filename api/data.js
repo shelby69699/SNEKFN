@@ -49,10 +49,10 @@ async function fetchDexHunterData() {
     const tokenWords = ['SNEK', 'SUPERIOR', 'MIN', 'HUNT', 'WMT', 'BIRD', 'CLAY', 'WMTX', 'AD_Jr', 'Gr_BI', 'USDM', 'HOSKY', 'NEWM', 'VYFI', 'SOCIETY', 'BOOK', 'OPTIM', 'DJED', 'AGIX', 'COPI'];
     
     console.log(`🔍 Found: ${numbers.length} numbers, ${adaMatches.length} ADA mentions`);
-    console.log(`🎯 EXTRACTING: ${tradesCount} trades (MAXIMUM EXTRACTION MODE)`);
     
     // Extract ALL POSSIBLE TRADES like real DexHunter (NO LIMITS!)
     const tradesCount = Math.max(15, Math.min(100, Math.floor(numbers.length / 2)));
+    console.log(`🎯 EXTRACTING: ${tradesCount} trades (MAXIMUM EXTRACTION MODE)`);
     
     for (let i = 0; i < tradesCount; i++) {
       // Use more numbers for more diverse trades
@@ -69,7 +69,7 @@ async function fetchDexHunterData() {
         token2: { 
           symbol: tokenSymbol, 
           amount: tokenAmount + 'K', 
-          icon: getTokenIcon(tokenSymbol)
+          icon: tokenSymbol === 'SNEK' ? '🐍' : tokenSymbol === 'SUPERIOR' ? '👑' : tokenSymbol === 'MIN' ? '⚡' : tokenSymbol === 'HUNT' ? '🦌' : tokenSymbol === 'WMTX' ? '💎' : tokenSymbol === 'AD_Jr' ? '⚡' : tokenSymbol === 'Gr_BI' ? '💰' : tokenSymbol === 'USDM' ? '💵' : '🔷'
         },
         inAmount: `${adaAmount} ADA`,
         outAmount: `${tokenAmount}K ${tokenSymbol}`,
