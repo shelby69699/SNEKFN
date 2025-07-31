@@ -3,7 +3,6 @@ import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { ScrollArea } from './ui/scroll-area';
 import { useRealTimeData } from '../hooks/useRealTimeData';
-import { DEXY_TOKENS } from '../data/dexhunter-data.js';
 
 // Real DEXY API integration for trending tokens
 const fetchRealDexyTrending = async () => {
@@ -101,8 +100,8 @@ export default function TrendingTokens() {
   // USE REAL-TIME DATA FROM BACKEND - FALLBACK TO MINIMAL STATIC DATA ONLY IF BACKEND DOWN!
   const { tokens: backendTokens, isLoading, error, backendConnected } = useRealTimeData();
   
-  // Use backend data if available, otherwise use minimal fallback to prevent blank page
-  const sourceTokens = (backendConnected && backendTokens && backendTokens.length > 0) ? backendTokens : DEXY_TOKENS;
+  // ONLY USE REAL BACKEND DATA - NO FAKE FALLBACK DATA!
+  const sourceTokens = (backendConnected && backendTokens && backendTokens.length > 0) ? backendTokens : [];
   
   console.log('🎯 TrendingTokens data source:', {
     backendConnected,
@@ -287,24 +286,24 @@ export default function TrendingTokens() {
                   </div>
                 ))}
               </div>
-            ) : error ? (
+                          ) : error ? (
               // Professional error state
               <div className="p-16 text-center">
                 <div className="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                   <span className="text-3xl">❌</span>
                 </div>
-                <div className="text-red-400 text-xl font-bold mb-3">Failed to Load Real Data</div>
-                <div className="text-gray-400 text-lg">{error}</div>
-                <div className="text-gray-500 text-sm mt-2">No backend data available - ALL FALLBACK DATA REMOVED</div>
+                <div className="text-red-400 text-xl font-bold mb-3">Backend Connection Failed</div>
+                <div className="text-gray-400 text-lg">Please start backend: cd backend && node simple-server.js</div>
+                <div className="text-gray-500 text-sm mt-2">Only showing real DexHunter data</div>
               </div>
             ) : filteredTokens.length === 0 ? (
               // No results state
               <div className="p-16 text-center">
                 <div className="w-20 h-20 bg-teal-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <span className="text-3xl">🔍</span>
+                  <span className="text-3xl">🔥</span>
                 </div>
-                <div className="text-gray-400 text-xl font-bold mb-3">No Tokens Found</div>
-                <div className="text-gray-500 text-lg">Try adjusting your search or category filter</div>
+                <div className="text-gray-400 text-xl font-bold mb-3">Waiting for Real Token Data</div>
+                <div className="text-gray-500 text-lg">Backend will provide tokens from scraped trades</div>
               </div>
             ) : (
               <div className="divide-y divide-slate-700/50">

@@ -3,7 +3,6 @@ import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { ScrollArea } from "./ui/scroll-area";
 import { useRealTimeData } from '../hooks/useRealTimeData';
-import { DEXY_TRADES } from '../data/dexhunter-data.js';
 
 // REAL DEXY Global Trades - Direct Backend API Integration!
 
@@ -24,9 +23,8 @@ export default function DexTradeViewerMock() {
     triggerScrape 
   } = useRealTimeData();
 
-  // USE BACKEND DATA WHEN AVAILABLE - MINIMAL FALLBACK TO PREVENT BLANK PAGE
-  // Use backend data if connected and has data, otherwise use minimal fallback
-  const trades = (backendConnected && apiTrades && apiTrades.length > 0) ? apiTrades : DEXY_TRADES;
+  // ONLY USE REAL BACKEND DATA - NO FAKE FALLBACK DATA!
+  const trades = (backendConnected && apiTrades && apiTrades.length > 0) ? apiTrades : [];
   const tokens = apiTokens || [];
   
   console.log('🎯 DexTradeViewerMock data source:', {
@@ -149,7 +147,7 @@ export default function DexTradeViewerMock() {
           <div className="text-xl font-semibold text-white">Global Trades</div>
           <div className="flex items-center gap-2 text-sm">
             <div className="text-gray-400">
-              {sortedTrades.length} trades • New data every 10s • Live time every 1s
+              {sortedTrades.length} real trades • Live scraping every 30s • Live time every 1s
             </div>
             <div className={`w-2 h-2 rounded-full ${backendConnected ? 'bg-green-500' : 'bg-red-500'} animate-pulse`}></div>
           </div>
@@ -195,15 +193,15 @@ export default function DexTradeViewerMock() {
                 <tr>
                   <td colSpan="10" className="py-12 text-center">
                     <div className="text-gray-400">
-                      <div className="text-lg font-semibold mb-2">No Real Trade Data Available</div>
+                      <div className="text-lg font-semibold mb-2">🔥 Waiting for Real DexHunter Trades</div>
                       <div className="text-sm">
-                        {apiStatus === 'error' ? 
-                          'Failed to connect to Cardano DEX APIs' : 
-                          'No live trades found from real DEX sources'
+                        {!backendConnected ? 
+                          'Please start the backend server: cd backend && node simple-server.js' : 
+                          'Scraping DexHunter for live trades...'
                         }
                       </div>
                       <div className="text-xs mt-2 text-gray-500">
-                        Status: {getStatusText()}
+                        Status: {getStatusText()} • Backend: {backendConnected ? 'Connected' : 'Disconnected'}
                       </div>
                     </div>
                   </td>
