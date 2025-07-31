@@ -26,6 +26,8 @@ export const useRealTimeData = () => {
   // Function to fetch data from backend
   const fetchData = async () => {
     try {
+      console.log('🔥 Fetching data from backend:', apiService.baseUrl);
+      
       // Skip API calls in production if no backend URL is configured
       if (!apiService.baseUrl) {
         console.log('No backend configured, using static data only');
@@ -43,6 +45,11 @@ export const useRealTimeData = () => {
       }
 
       const response = await apiService.getAllData();
+      console.log('🔥 Backend response received:', {
+        trades: response.trades?.length || 0,
+        tokens: response.tokens?.length || 0,
+        stats: response.stats
+      });
       setData(prev => ({
         ...prev,
         tokens: response.tokens || [], // Database data or empty array

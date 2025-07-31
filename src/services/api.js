@@ -1,15 +1,9 @@
-// API Service for DEXY aggregator - Smart backend detection
+// API Service for DEXY aggregator - ALWAYS USE LOCAL BACKEND FOR REAL DATA
 const LOCAL_BACKEND_URL = 'http://localhost:9999/api';
 const VERCEL_BACKEND_URL = '/api'; // Use Vercel's serverless functions
 
-// Smart backend selection:
-// - In development: use local backend 
-// - In production: use Vercel API endpoints that proxy to your local backend
-const isLocalDevelopment = typeof window !== 'undefined' && 
-  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-
-const API_BASE_URL = process.env.REACT_APP_API_URL || 
-  (isLocalDevelopment ? LOCAL_BACKEND_URL : VERCEL_BACKEND_URL);
+// FORCE LOCAL BACKEND CONNECTION FOR REAL TRADES
+const API_BASE_URL = 'http://localhost:9999/api';
 
 class ApiService {
   constructor() {
