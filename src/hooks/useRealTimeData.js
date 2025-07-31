@@ -45,9 +45,9 @@ export const useRealTimeData = () => {
       const response = await apiService.getAllData();
       setData(prev => ({
         ...prev,
-        tokens: response.tokens || [],
-        trades: response.trades || [],
-        stats: response.stats || {},
+        tokens: response.tokens || [], // Database data or empty array
+        trades: response.trades || [], // Database data or empty array  
+        stats: response.stats || {},   // Database data or empty object
         lastUpdated: response.lastUpdated,
         isLoading: false,
         error: null,
@@ -93,19 +93,19 @@ export const useRealTimeData = () => {
       setData(prev => ({ ...prev, isLoading: true }));
       const scrapeResult = await apiService.triggerScraper();
       
-      // Use fresh scraped data immediately
+      // Use fresh DATABASE data immediately - NO FALLBACKS!
       if (scrapeResult.success && scrapeResult.data) {
         setData(prev => ({
           ...prev,
-          tokens: scrapeResult.data.tokens || prev.tokens,
-          trades: scrapeResult.data.trades || prev.trades,
-          stats: scrapeResult.data.stats || prev.stats,
+          tokens: scrapeResult.data.tokens, // ALWAYS use database data
+          trades: scrapeResult.data.trades, // ALWAYS use database data
+          stats: scrapeResult.data.stats,   // ALWAYS use database data
           lastUpdated: scrapeResult.data.timestamp,
           isLoading: false,
           error: null,
           backendConnected: true
         }));
-        console.log('🔥 Manual scrape completed with fresh REAL data');
+        console.log('🔥 Manual scrape completed with fresh DATABASE data');
       } else {
         await fetchData(); // Fallback to regular data fetch
       }
@@ -159,18 +159,18 @@ export const useRealTimeData = () => {
           const scrapeResult = await apiService.triggerScraper();
           console.log('✅ REAL scraper completed:', scrapeResult.message);
           
-          // Use the fresh scraped data immediately
+          // Use the fresh DATABASE data immediately - NO FALLBACKS!
           if (scrapeResult.success && scrapeResult.data) {
             setData(prev => ({
               ...prev,
-              tokens: scrapeResult.data.tokens || prev.tokens,
-              trades: scrapeResult.data.trades || prev.trades,
-              stats: scrapeResult.data.stats || prev.stats,
+              tokens: scrapeResult.data.tokens, // ALWAYS use database data
+              trades: scrapeResult.data.trades, // ALWAYS use database data
+              stats: scrapeResult.data.stats,   // ALWAYS use database data
               lastUpdated: scrapeResult.data.timestamp,
               error: null,
               backendConnected: true
             }));
-            console.log('🔥 Fresh REAL data updated:', {
+            console.log('🔥 Fresh DATABASE data updated:', {
               tokens: scrapeResult.data.tokensCount,
               trades: scrapeResult.data.tradesCount
             });

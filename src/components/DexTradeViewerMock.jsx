@@ -23,28 +23,10 @@ export default function DexTradeViewerMock() {
     triggerScrape 
   } = useRealTimeData();
 
-  // Import static data as fallback
-  const [staticTokens, setStaticTokens] = useState([]);
-  const [staticTrades, setStaticTrades] = useState([]);
-
-  useEffect(() => {
-    // Load static data as fallback
-    import('../data/dexhunter-data.js').then(module => {
-      if (module.DEXY_TOKENS) {
-        setStaticTokens(module.DEXY_TOKENS);
-      }
-    }).catch(console.error);
-
-    import('../data/dexhunter-trades.js').then(module => {
-      if (module.DEXY_TRADES) {
-        setStaticTrades(module.DEXY_TRADES);
-      }
-    }).catch(console.error);
-  }, []);
-
-  // Use API data if available, fallback to static data
-  const trades = apiTrades && apiTrades.length > 0 ? apiTrades : staticTrades;
-  const tokens = apiTokens && apiTokens.length > 0 ? apiTokens : staticTokens;
+  // ALWAYS USE DATABASE DATA - NO MORE STATIC FALLBACK BULLSHIT
+  // The database is the single source of truth for ALL users
+  const trades = apiTrades || []; // Use database data or empty array
+  const tokens = apiTokens || []; // Use database data or empty array
   
   const [lastUpdate, setLastUpdate] = useState(new Date());
   const [apiStatus, setApiStatus] = useState('connecting');
