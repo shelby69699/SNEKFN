@@ -1,8 +1,12 @@
-// API Service for communicating with Vercel serverless functions
+// API Service for DEXY aggregator - Local backend priority
+const LOCAL_BACKEND_URL = 'http://localhost:3001/api';
+const VERCEL_BACKEND_URL = '/api';
+
+// Try local backend first, fallback to Vercel
 const API_BASE_URL = process.env.REACT_APP_API_URL || (
   typeof window !== 'undefined' && window.location.hostname === 'localhost' 
-    ? 'http://localhost:3001/api' 
-    : '/api'  // Use Vercel serverless functions in production
+    ? LOCAL_BACKEND_URL
+    : VERCEL_BACKEND_URL
 );
 
 class ApiService {
