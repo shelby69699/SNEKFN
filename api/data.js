@@ -1,47 +1,37 @@
-// Vercel serverless function to proxy to local backend with REAL DexHunter data
+// Vercel serverless function with REAL DexHunter scraping
 export default async function handler(req, res) {
   try {
-    console.log('🔥 Proxying to local backend for REAL DexHunter data...');
+    console.log('🔥 Running DexHunter scraper on Vercel...');
     
-    // Try to fetch REAL data from deployed backend
-    const BACKEND_URL = process.env.BACKEND_URL || 'https://snekfn-backend-production.up.railway.app/api/data';
-    console.log(`🔥 Fetching from: ${BACKEND_URL}`);
-    
-    const response = await fetch(BACKEND_URL, {
+    // Use the scraper function directly in Vercel
+    const scraperResponse = await fetch(`${req.headers['x-forwarded-proto'] || 'https'}://${req.headers.host}/api/scraper`, {
       method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'DEXY-Vercel-Proxy/1.0'
-      },
-      signal: AbortSignal.timeout(10000) // 10 second timeout
+      headers: { 'Accept': 'application/json' }
     });
-
-    if (response.ok) {
-      const realData = await response.json();
-      console.log(`🔥 SUCCESS! Serving ${realData.trades?.length || 0} REAL trades from local backend`);
+    
+    if (scraperResponse.ok) {
+      const data = await scraperResponse.json();
+      console.log(`🔥 SUCCESS! Serving ${data.trades?.length || 0} REAL trades from Vercel scraper`);
       
-      res.status(200).json({
-        ...realData,
-        source: 'real-local-backend',
-        proxy: 'vercel'
-      });
+      res.status(200).json(data);
       return;
     }
     
-    throw new Error(`Local backend returned status: ${response.status}`);
+    throw new Error(`Scraper returned status: ${scraperResponse.status}`);
+    
   } catch (error) {
-    console.error('❌ Local backend not available:', error.message);
+    console.error('❌ Vercel scraper failed:', error.message);
     
     // NO FALLBACK DATA - REAL DATA ONLY!
-    console.log('❌ NO BACKEND AVAILABLE - RETURNING EMPTY DATA (NO FAKE SHIT)');
+    console.log('❌ SCRAPER FAILED - RETURNING EMPTY DATA (NO FAKE SHIT)');
     res.status(503).json({
-      error: 'Backend not available',
+      error: 'Scraper failed',
       trades: [],
       tokens: [],
       stats: { totalTrades: 0, totalVolume: '0', activeUsers: 0, totalLiquidity: '0' },
       lastUpdated: null,
       source: 'none',
-      message: 'Real backend required - no fake data served'
+      message: 'Real scraper required - no fake data served'
     });
   }
 }
