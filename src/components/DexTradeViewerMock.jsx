@@ -2,34 +2,47 @@ import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { DEXHUNTER_TOKENS } from '../data/dexhunter-data.js';
-import { DEXHUNTER_TRADES } from '../data/dexhunter-trades.js';
+import { useRealTimeData } from '../hooks/useRealTimeData';
 
-// REAL DexHunter Global Trades - Direct API Integration!
+// REAL DexHunter Global Trades - Direct Backend API Integration!
 
 export default function DexTradeViewerMock() {
-  const [trades, setTrades] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [lastUpdate, setLastUpdate] = useState(new Date());
-  const [apiStatus, setApiStatus] = useState('connecting');
   const [selectedTrade, setSelectedTrade] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('details'); // 'details' or 'raw'
+  
+  // Use real-time data hook
+  const { 
+    trades,
+    tokens, 
+    isLoading, 
+    error, 
+    backendConnected, 
+    lastUpdated,
+    scraperStatus,
+    triggerScrape 
+  } = useRealTimeData();
+  
+  const [lastUpdate, setLastUpdate] = useState(new Date());
+  const [apiStatus, setApiStatus] = useState('connecting');
 
-  // Load REAL API trades directly
-  const loadRealTrades = () => {
-    // First try to use REAL API trades
-    if (DEXHUNTER_TRADES && DEXHUNTER_TRADES.length > 0) {
-      console.log('🔥 Using REAL API TRADES from DexHunter!');
-      console.log('📊 REAL TRADES:', DEXHUNTER_TRADES.slice(0, 3));
-      return DEXHUNTER_TRADES;
+  // Update API status based on backend connection
+  useEffect(() => {
+    if (backendConnected) {
+      setApiStatus('connected');
+    } else if (error) {
+      setApiStatus('error');
+    } else {
+      setApiStatus('connecting');
     }
-    
-    // Fallback to generating from real tokens
-    if (!DEXHUNTER_TOKENS || DEXHUNTER_TOKENS.length === 0) {
-      console.log('❌ NO REAL DATA AVAILABLE');
-      return [];
+  }, [backendConnected, error]);
+
+  // Update last update time when data changes
+  useEffect(() => {
+    if (lastUpdated) {
+      setLastUpdate(new Date(lastUpdated));
     }
+  }, [lastUpdated]);
 
     console.log('🔄 Generating trades from REAL DexHunter tokens...');
     

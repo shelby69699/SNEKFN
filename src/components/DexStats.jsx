@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import { useRealTimeData } from '../hooks/useRealTimeData';
 // REAL DATA ONLY - NO MOCK IMPORTS
 
 export default function DexStats() {
-  const [stats, setStats] = useState({
-    totalVolume24h: "10.0M ADA",
-    totalTrades24h: "26.5K", 
-    avgTradeSize: "1653.285709865603 ADA",
-    activeTokens: "324"
-  });
-
-  useEffect(() => {
-    // NO MOCK DATA - ONLY REAL SCRAPED STATS
-    // Keep the data as is - no random generation
-  }, []);
+  // Use real-time data hook
+  const { stats, isLoading, error, backendConnected } = useRealTimeData();
+  
+  // Default stats if no data available
+  const displayStats = stats && Object.keys(stats).length > 0 ? stats : {
+    totalVolume24h: "—",
+    totalTrades24h: "—", 
+    avgTradeSize: "—",
+    activeTokens: "—"
+  };
 
   const formatNumber = (value) => {
     // If it's already formatted (like "10.0M ADA"), return as is
