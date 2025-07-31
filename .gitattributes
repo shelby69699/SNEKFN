@@ -1,0 +1,10 @@
+# Set line endings to LF for all text files
+* text=auto eol=lf
+
+# Ensure JavaScript files use LF
+*.js text eol=lf
+*.jsx text eol=lf
+*.json text eol=lf
+
+# Ensure data files use LF 
+src/data/*.js text eol=lf
