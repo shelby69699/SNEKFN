@@ -43,25 +43,25 @@ export default function DexStats() {
       <Card className="p-4">
         <CardContent className="p-0">
           <div className="text-sm text-muted-foreground">24h Volume</div>
-          <div className="text-2xl font-bold">{formatNumber(stats.totalVolume24h)}</div>
+          <div className="text-2xl font-bold">{formatNumber(displayStats.totalVolume24h)}</div>
         </CardContent>
       </Card>
       <Card className="p-4">
         <CardContent className="p-0">
           <div className="text-sm text-muted-foreground">24h Trades</div>
-          <div className="text-2xl font-bold">{formatNumber(stats.totalTrades24h)}</div>
+          <div className="text-2xl font-bold">{formatNumber(displayStats.totalTrades24h)}</div>
         </CardContent>
       </Card>
       <Card className="p-4">
         <CardContent className="p-0">
           <div className="text-sm text-muted-foreground">Avg Trade Size</div>
-          <div className="text-2xl font-bold">{stats.avgTradeSize}</div>
+          <div className="text-2xl font-bold">{displayStats.avgTradeSize}</div>
         </CardContent>
       </Card>
       <Card className="p-4">
         <CardContent className="p-0">
           <div className="text-sm text-muted-foreground">Active Tokens</div>
-          <div className="text-2xl font-bold">{stats.activeTokens}</div>
+          <div className="text-2xl font-bold">{displayStats.activeTokens}</div>
         </CardContent>
       </Card>
     </div>
