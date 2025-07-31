@@ -28,8 +28,10 @@ export default function LandingPage({ onEnterApp }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLaunchApp = () => {
+    console.log('🚀 Launch App button clicked!');
     setIsLoading(true);
     setTimeout(() => {
+      console.log('🚀 Calling onEnterApp...');
       onEnterApp();
     }, 1000);
   };
@@ -100,7 +102,7 @@ export default function LandingPage({ onEnterApp }) {
           <button
             onClick={handleLaunchApp}
             disabled={isLoading}
-            className="bg-gradient-to-r from-teal-500 to-orange-500 hover:from-teal-400 hover:to-orange-400 text-white font-bold py-4 px-12 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-teal-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="relative z-50 bg-gradient-to-r from-teal-500 to-orange-500 hover:from-teal-400 hover:to-orange-400 text-white font-bold py-4 px-12 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-teal-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <span className="flex items-center">

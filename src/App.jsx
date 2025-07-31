@@ -15,7 +15,10 @@ function App() {
   const [activeTab, setActiveTab] = useState('trades');
 
   if (!showApp) {
-    return <LandingPage onEnterApp={() => setShowApp(true)} />;
+    return <LandingPage onEnterApp={() => {
+      console.log('🎯 onEnterApp called, setting showApp to true');
+      setShowApp(true);
+    }} />;
   }
 
   const renderContent = () => {
