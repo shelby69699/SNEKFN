@@ -123,40 +123,43 @@ export default function DexTradeViewerMock() {
   };
 
   return (
-    <Card className="bg-slate-900 border-slate-700">
+    <Card className="bg-slate-950 border-slate-800">
       <CardContent className="p-6">
         <div className="text-xl font-semibold mb-4 text-white">Global Trades</div>
         <ScrollArea className="h-[600px]">
-          <table className="w-full text-sm">
-            <thead className="text-muted-foreground">
-              <tr className="border-b">
-                <th className="py-2 text-left">Time</th>
-                <th className="py-2 text-left">Type</th>
-                <th className="py-2 text-left">Pair</th>
-                <th className="py-2 text-left">In</th>
-                <th className="py-2 text-left">Out</th>
-                <th className="py-2 text-left">Price</th>
-                <th className="py-2 text-left">Status</th>
-                <th className="py-2 text-left">DEX</th>
-                <th className="py-2 text-left">Maker</th>
-                <th className="py-2 text-left">Actions</th>
+          <table className="w-full text-sm bg-slate-950">
+            <thead className="text-gray-400 border-b border-slate-800">
+              <tr className="bg-slate-900/50">
+                <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">TIME</th>
+                <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">TYPE</th>
+                <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">PAIR</th>
+                <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">IN</th>
+                <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">OUT</th>
+                <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">PRICE</th>
+                <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">STATUS</th>
+                <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">DEX</th>
+                <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">MAKER</th>
+                <th className="py-3 px-2 text-left font-medium text-xs uppercase tracking-wider">ACTIONS</th>
               </tr>
             </thead>
             <tbody>
               {isLoading ? (
                 // Loading skeleton
                 Array.from({ length: 10 }).map((_, index) => (
-                  <tr key={index} className="border-b border-slate-800">
-                    <td className="py-2 px-1"><div className="w-12 h-4 bg-slate-700 rounded animate-pulse"></div></td>
-                    <td className="py-2 px-1"><div className="w-16 h-6 bg-slate-700 rounded animate-pulse"></div></td>
-                    <td className="py-2 px-1"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
-                    <td className="py-2 px-1"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
-                    <td className="py-2 px-1"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
-                    <td className="py-2 px-1"><div className="w-16 h-4 bg-slate-700 rounded animate-pulse"></div></td>
-                    <td className="py-2 px-1"><div className="w-16 h-6 bg-slate-700 rounded animate-pulse"></div></td>
-                    <td className="py-2 px-1"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
-                    <td className="py-2 px-1"><div className="w-16 h-4 bg-slate-700 rounded animate-pulse"></div></td>
-                    <td className="py-2 px-1"><div className="w-20 h-6 bg-slate-700 rounded animate-pulse"></div></td>
+                  <tr key={index} className="border-b border-slate-800 bg-slate-950">
+                    <td className="py-3 px-2"><div className="w-12 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-3 px-2"><div className="w-16 h-6 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-3 px-2"><div className="w-32 h-6 bg-slate-700 rounded animate-pulse flex items-center gap-2">
+                      <div className="w-6 h-6 bg-slate-600 rounded-full"></div>
+                      <div className="w-16 h-4 bg-slate-600 rounded"></div>
+                    </div></td>
+                    <td className="py-3 px-2"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-3 px-2"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-3 px-2"><div className="w-16 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-3 px-2"><div className="w-20 h-6 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-3 px-2"><div className="w-16 h-6 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-3 px-2"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-3 px-2"><div className="w-24 h-6 bg-slate-700 rounded animate-pulse"></div></td>
                   </tr>
                 ))
               ) : trades.length === 0 ? (
@@ -177,41 +180,125 @@ export default function DexTradeViewerMock() {
                     </div>
                   </td>
                 </tr>
-              ) : trades.map((trade) => (
-                <tr key={trade.id} className="border-b hover:bg-muted/50 transition-colors">
-                  <td className="py-2">{trade.timeAgo}</td>
-                  <td className="py-2">
-                    <Badge variant={trade.type === "Buy" ? "success" : "destructive"}>{trade.type}</Badge>
-                  </td>
-                  <td className="py-2 font-medium">{trade.pair}</td>
-                  <td className="py-2">{trade.inAmount}</td>
-                  <td className="py-2">{trade.outAmount}</td>
-                  <td className="py-2 font-mono">{trade.price}</td>
-                  <td className="py-2">
-                    <Badge variant={trade.status === "Success" ? "success" : "secondary"}>{trade.status}</Badge>
-                  </td>
-                  <td className="py-2">{trade.dex}</td>
-                  <td className="py-2 font-mono text-xs">{trade.maker}</td>
-                  <td className="py-2">
-                    <div className="flex gap-1">
-                      <button
-                        onClick={() => openTradeDetails(trade)}
-                        className="px-2 py-1 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
-                        title="View Trade Details"
+              ) : trades.map((trade) => {
+                // Parse the trading pair to get individual tokens
+                const pairParts = trade.pair?.split(' ') || [];
+                const token1 = pairParts[0] || 'ADA';
+                const token2 = pairParts[1] || 'UNKNOWN';
+                
+                // Get token icons (using placeholder for now, can be replaced with real icons)
+                const getTokenIcon = (symbol) => {
+                  const iconMap = {
+                    'ADA': '🪙', 'SNEK': '🐍', 'WORT': '🌿', 'MEH': '😐', 'FLOW': '💧', 
+                    'CHAD': '💪', 'WETH': '💎', 'USDC': '💰', 'DJED': '🏛️', 'IUSD': '💵',
+                    'HOSKY': '🐕', 'COPI': '🐧', 'NEWM': '🎵', 'AGIX': '🤖', 'MIN': '⛰️'
+                  };
+                  return iconMap[symbol] || '🔸';
+                };
+
+                return (
+                  <tr key={trade.id} className="border-b border-slate-800 hover:bg-slate-900/30 transition-colors text-white bg-slate-950">
+                    <td className="py-3 px-2 text-sm text-gray-300">{trade.timeAgo}</td>
+                    <td className="py-3 px-2">
+                      <span className={`px-2 py-1 rounded text-xs font-medium ${
+                        trade.type === "Buy" 
+                          ? "bg-green-900/50 text-green-400 border border-green-600" 
+                          : "bg-red-900/50 text-red-400 border border-red-600"
+                      }`}>
+                        {trade.type}
+                      </span>
+                    </td>
+                    <td className="py-3 px-2">
+                      <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1">
+                          <span className="text-lg">{getTokenIcon(token1)}</span>
+                          <span className="font-medium text-white">{token1}</span>
+                        </div>
+                        <span className="text-gray-400">{'>'}</span>
+                        <div className="flex items-center gap-1">
+                          <span className="text-lg">{getTokenIcon(token2)}</span>
+                          <span className="font-medium text-blue-400">{token2}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-3 px-2 font-mono text-sm">
+                      <div className="flex items-center gap-1">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        {trade.inAmount}
+                      </div>
+                    </td>
+                    <td className="py-3 px-2 font-mono text-sm">
+                      <div className="flex items-center gap-1">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        {trade.outAmount}
+                      </div>
+                    </td>
+                    <td className="py-3 px-2 font-mono text-sm text-yellow-400">{trade.price}</td>
+                    <td className="py-3 px-2">
+                      <div className="flex items-center gap-1">
+                        {trade.status === "Success" ? (
+                          <>
+                            <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs">✓</span>
+                            </div>
+                            <span className="text-green-400 text-sm">Success</span>
+                          </>
+                        ) : (
+                          <>
+                            <div className="w-4 h-4 bg-yellow-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs">◊</span>
+                            </div>
+                            <span className="text-yellow-400 text-sm">Pending</span>
+                          </>
+                        )}
+                      </div>
+                    </td>
+                    <td className="py-3 px-2">
+                      <div className="flex items-center gap-1">
+                        <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
+                          <span className="text-white text-xs font-bold">
+                            {trade.dex ? trade.dex.charAt(0) : 'D'}
+                          </span>
+                        </div>
+                        <span className="text-sm text-gray-300">{trade.dex || 'DEX'}</span>
+                      </div>
+                    </td>
+                    <td className="py-3 px-2">
+                      <a 
+                        href="#" 
+                        className="font-mono text-sm text-blue-400 hover:text-blue-300 underline"
+                        onClick={(e) => e.preventDefault()}
                       >
-                        Details
-                      </button>
-                      <button
-                        onClick={() => openRawData(trade)}
-                        className="px-2 py-1 text-xs bg-green-600 hover:bg-green-700 text-white rounded transition-colors"
-                        title="View Raw Data"
-                      >
-                        Raw
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                        {trade.maker}
+                      </a>
+                    </td>
+                    <td className="py-3 px-2">
+                      <div className="flex gap-1">
+                        <button
+                          onClick={() => openTradeDetails(trade)}
+                          className="w-8 h-8 bg-slate-700 hover:bg-slate-600 rounded flex items-center justify-center transition-colors"
+                          title="View Trade Details"
+                        >
+                          <span className="text-blue-400 text-sm">📊</span>
+                        </button>
+                        <button
+                          onClick={() => openRawData(trade)}
+                          className="w-8 h-8 bg-slate-700 hover:bg-slate-600 rounded flex items-center justify-center transition-colors"
+                          title="View Raw Data"
+                        >
+                          <span className="text-green-400 text-sm">🔍</span>
+                        </button>
+                        <button
+                          className="w-8 h-8 bg-slate-700 hover:bg-slate-600 rounded flex items-center justify-center transition-colors"
+                          title="External Link"
+                        >
+                          <span className="text-gray-400 text-sm">🔗</span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </ScrollArea>
