@@ -15,9 +15,9 @@ const mockPoolTokens = [
 ];
 
 const generatePoolData = (tokens) => {
-  const tvl = faker.datatype.number({ min: 100000, max: 10000000 });
-  const volume24h = faker.datatype.number({ min: 10000, max: 2000000 });
-  const apy = faker.datatype.number({ min: 5, max: 150, precision: 0.01 });
+      const tvl = Math.floor(Math.random() * 10000000 + 100000);
+    const volume24h = Math.floor(Math.random() * 2000000 + 10000);
+    const apy = (Math.random() * 145 + 5).toFixed(2);
   const fees24h = volume24h * 0.003; // 0.3% fee
   
   return {
@@ -26,7 +26,7 @@ const generatePoolData = (tokens) => {
     volume24h: `$${(volume24h / 1000).toFixed(0)}K`,
     apy: `${apy.toFixed(2)}%`,
     fees24h: `$${(fees24h / 1000).toFixed(1)}K`,
-    dex: faker.helpers.arrayElement(['Minswap', 'WingRiders', 'Spectrum', 'VyFinance'])
+          dex: ['Minswap', 'WingRiders', 'Spectrum', 'VyFinance'][Math.floor(Math.random() * 4)]
   };
 };
 

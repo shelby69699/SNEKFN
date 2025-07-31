@@ -17,27 +17,27 @@ export default function AnalyticsDashboard() {
   useEffect(() => {
     // Generate mock analytics data
     const topGainers = Array.from({ length: 5 }, () => ({
-      symbol: faker.helpers.arrayElement(['SNEK', 'HOSKY', 'ROOKIE', 'GATOR', 'WORT']),
-      change: faker.datatype.number({ min: 20, max: 200, precision: 0.01 }),
-      volume: faker.datatype.number({ min: 100000, max: 1000000 })
+      symbol: ['SNEK', 'HOSKY', 'ROOKIE', 'GATOR', 'WORT'][Math.floor(Math.random() * 5)],
+      change: +(Math.random() * 180 + 20).toFixed(2),
+      volume: Math.floor(Math.random() * 900000 + 100000)
     }));
 
     const topLosers = Array.from({ length: 5 }, () => ({
-      symbol: faker.helpers.arrayElement(['DJED', 'MIN', 'SUNDAE', 'WRT', 'VYFI']),
-      change: faker.datatype.number({ min: -50, max: -5, precision: 0.01 }),
-      volume: faker.datatype.number({ min: 50000, max: 800000 })
+      symbol: ['DJED', 'MIN', 'SUNDAE', 'WRT', 'VYFI'][Math.floor(Math.random() * 5)],
+      change: +(Math.random() * -45 - 5).toFixed(2),
+      volume: Math.floor(Math.random() * 750000 + 50000)
     }));
 
     const volumeChart = Array.from({ length: 24 }, (_, i) => ({
       hour: i,
-      volume: faker.datatype.number({ min: 500000, max: 2000000 })
+      volume: Math.floor(Math.random() * 1500000 + 500000)
     }));
 
     setMarketData({
-      totalValueLocked: faker.datatype.number({ min: 50000000, max: 200000000 }),
-      volume24h: faker.datatype.number({ min: 10000000, max: 50000000 }),
-      totalTrades: faker.datatype.number({ min: 50000, max: 200000 }),
-      activePairs: faker.datatype.number({ min: 200, max: 500 }),
+          totalValueLocked: Math.floor(Math.random() * 150000000 + 50000000),
+    volume24h: Math.floor(Math.random() * 40000000 + 10000000),
+    totalTrades: Math.floor(Math.random() * 150000 + 50000),
+    activePairs: Math.floor(Math.random() * 300 + 200),
       topGainers,
       topLosers,
       volumeChart
