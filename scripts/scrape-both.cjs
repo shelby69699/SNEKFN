@@ -209,7 +209,7 @@ export const TRADES_TIMESTAMP = '${new Date().toISOString()}';
       });
 
       const tradesContent = `// REAL trades generated from REAL DexHunter tokens - ${new Date().toISOString()}
-export const DEXHUNTER_TRADES = ${JSON.stringify(generatedTrades, null, 2)};
+export const DEXY_TRADES = ${JSON.stringify(generatedTrades, null, 2)};
 
 export const TRADES_TIMESTAMP = '${new Date().toISOString()}';
 export const GENERATION_METHOD = 'real-tokens-based';

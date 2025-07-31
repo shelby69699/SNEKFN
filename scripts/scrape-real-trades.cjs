@@ -132,7 +132,7 @@ async function scrapeRealDexHunterTrades() {
     // Save REAL trades to data file
     if (realTrades.trades.length > 0) {
       const tradesContent = `// REAL DexHunter trades - NO SAMPLE BULLSHIT - ${new Date().toISOString()}
-export const DEXHUNTER_TRADES = ${JSON.stringify(realTrades.trades, null, 2)};
+export const DEXY_TRADES = ${JSON.stringify(realTrades.trades, null, 2)};
 
 export const TRADES_TIMESTAMP = '${new Date().toISOString()}';
 export const SCRAPER_METHOD = 'puppeteer-real-trades';

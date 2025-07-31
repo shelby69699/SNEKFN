@@ -194,7 +194,7 @@ async function scrapeDexHunterTrends() {
 
     // Write to data file
     const dataContent = `// Real-time data scraped from DexHunter - ${new Date().toISOString()}
-export const DEXHUNTER_TOKENS = ${JSON.stringify(combinedTokens, null, 2)};
+export const DEXY_TOKENS = ${JSON.stringify(combinedTokens, null, 2)};
 
 export const CATEGORY_COLORS = {
   'layer1': 'border-blue-500 text-blue-400',
