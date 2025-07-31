@@ -32,7 +32,7 @@ const readDataFile = (filename) => {
       
       // Extract exported data from JavaScript file
       if (filename.includes('tokens') || filename.includes('data')) {
-        const tokensMatch = content.match(/export const DEXHUNTER_TOKENS = (\[[\s\S]*?\]);/);
+        const tokensMatch = content.match(/export const DEXY_TOKENS = (\[[\s\S]*?\]);/);
         const statsMatch = content.match(/export const DEX_STATS = (\{[\s\S]*?\});/);
         
         return {
@@ -40,7 +40,7 @@ const readDataFile = (filename) => {
           stats: statsMatch ? JSON.parse(statsMatch[1]) : {}
         };
       } else if (filename.includes('trades')) {
-        const tradesMatch = content.match(/export const DEXHUNTER_TRADES = (\[[\s\S]*?\]);/);
+        const tradesMatch = content.match(/export const DEXY_TRADES = (\[[\s\S]*?\]);/);
         return {
           trades: tradesMatch ? JSON.parse(tradesMatch[1]) : []
         };

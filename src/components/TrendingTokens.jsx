@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { DEXHUNTER_TOKENS } from '../data/dexhunter-data.js';
+import { DEXY_TOKENS } from '../data/dexhunter-data.js';
 
-// Real DexHunter API integration for trending tokens
-const fetchRealDexHunterTrending = async () => {
-  console.log('🔥 Fetching REAL trending tokens from DexHunter...');
+// Real DEXY API integration for trending tokens
+const fetchRealDexyTrending = async () => {
+  console.log('🔥 Fetching REAL trending tokens from DEXY...');
   
   try {
     // Try multiple DexHunter API endpoints for trending tokens
@@ -31,7 +31,7 @@ const fetchRealDexHunterTrending = async () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(`✅ DexHunter trending data from ${endpoint}:`, data);
+          console.log(`✅ DEXY trending data from ${endpoint}:`, data);
           return parseRealTrendingData(data);
         }
       } catch (error) {
@@ -50,7 +50,7 @@ const fetchRealDexHunterTrending = async () => {
   }
 };
 
-// Parse real DexHunter trending data
+  // Parse real DEXY trending data
 const parseRealTrendingData = (data) => {
   try {
     let tokens = [];
@@ -89,7 +89,7 @@ const parseRealTrendingData = (data) => {
 
 // NO MOCK DATA - ONLY REAL SCRAPED DATA ALLOWED
 const getRealCardanoTokens = () => {
-  // Return empty array - we only want real scraped data from DEXHUNTER_TOKENS
+  // Return empty array - we only want real scraped data from DEXY_TOKENS
   return [];
 };
 
@@ -101,18 +101,18 @@ export default function TrendingTokens() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Load REAL DexHunter data directly - NO FAKE BULLSHIT
-    console.log('🔥 Loading REAL DexHunter tokens...');
+      // Load REAL DEXY data directly - NO FAKE BULLSHIT
+  console.log('🔥 Loading REAL DEXY tokens...');
     setIsLoading(true);
     setError(null);
     
     // Use the REAL scraped data immediately
-    if (DEXHUNTER_TOKENS && DEXHUNTER_TOKENS.length > 0) {
-      console.log(`✅ LOADED ${DEXHUNTER_TOKENS.length} REAL TOKENS FROM DEXHUNTER!`);
-      console.log('🎯 REAL TOKENS:', DEXHUNTER_TOKENS.slice(0, 3));
+    if (DEXY_TOKENS && DEXY_TOKENS.length > 0) {
+      console.log(`✅ LOADED ${DEXY_TOKENS.length} REAL TOKENS FROM DEXY!`);
+      console.log('🎯 REAL TOKENS:', DEXY_TOKENS.slice(0, 3));
       
-      // Convert REAL DexHunter data to our format
-      const realTokens = DEXHUNTER_TOKENS.map((token, index) => ({
+      // Convert REAL DEXY data to our format
+      const realTokens = DEXY_TOKENS.map((token, index) => ({
         id: token.symbol?.toLowerCase() || `token_${index}`,
         name: token.name || token.symbol || 'Unknown',
         symbol: token.symbol || 'UNK',
@@ -231,7 +231,7 @@ export default function TrendingTokens() {
                   Trending Tokens
                 </h2>
                 <p className="text-gray-400 text-lg">
-                  Real DexHunter data from Cardano ecosystem
+                  Real DEXY data from Cardano ecosystem
                 </p>
               </div>
             </div>

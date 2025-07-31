@@ -1,5 +1,5 @@
-// REAL DexHunter trades - 2025-07-31T02:22:50.386Z
-export const DEXHUNTER_TRADES = [
+// REAL DEXY trades - 2025-07-31T02:22:50.386Z
+export const DEXY_TRADES = [
   {
     "id": "real_trade_1753928570383_0",
     "timeAgo": "1m ago",

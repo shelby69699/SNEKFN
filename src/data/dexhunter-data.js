@@ -1,5 +1,5 @@
-// REAL DexHunter tokens - 2025-07-31T02:22:50.385Z
-export const DEXHUNTER_TOKENS = [
+// REAL DEXY tokens - 2025-07-31T02:22:50.385Z
+export const DEXY_TOKENS = [
   {
     "symbol": "ADA",
     "name": "Cardano",

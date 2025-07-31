@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useRealTimeData } from '../hooks/useRealTimeData';
 
-// REAL DexHunter Global Trades - Direct Backend API Integration!
+// REAL DEXY Global Trades - Direct Backend API Integration!
 
 export default function DexTradeViewerMock() {
   const [selectedTrade, setSelectedTrade] = useState(null);
@@ -44,7 +44,7 @@ export default function DexTradeViewerMock() {
     }
   }, [lastUpdated]);
 
-    console.log('🔄 Generating trades from REAL DexHunter tokens...');
+    console.log('🔄 Generating trades from REAL DEXY tokens...');
     
     const realTrades = Array.from({ length: 25 }, (_, i) => {
       const token1 = DEXHUNTER_TOKENS[Math.floor(Math.random() * DEXHUNTER_TOKENS.length)];
@@ -70,7 +70,7 @@ export default function DexTradeViewerMock() {
   };
 
   const startRealTimeData = () => {
-    console.log('🔥 Starting REAL API trades from DexHunter...');
+    console.log('🔥 Starting REAL API trades from DEXY...');
     setApiStatus('connected');
     setIsLoading(false);
     
