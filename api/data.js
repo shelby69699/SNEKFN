@@ -173,7 +173,7 @@ async function fetchDexHunterData() {
 
 export default async function handler(req, res) {
   try {
-    console.log('🔥 MAXIMUM TRADES SCRAPER v3.0 - NO LIMITS!');
+    console.log('🔥 MAXIMUM TRADES SCRAPER v4.0 - REAL DEX NAMES!');
     
     const data = await fetchDexHunterData();
 
