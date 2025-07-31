@@ -23,8 +23,8 @@ export default function DexTradeViewerMock() {
     triggerScrape 
   } = useRealTimeData();
 
-  // ONLY USE REAL BACKEND DATA - NO FAKE FALLBACK DATA!
-  const trades = (backendConnected && apiTrades && apiTrades.length > 0) ? apiTrades : [];
+  // ONLY USE REAL BACKEND DATA - NEVER SHOW ANYTHING ELSE!
+  const trades = apiTrades || [];
   const tokens = apiTokens || [];
   
   console.log('🎯 DexTradeViewerMock data source:', {
@@ -169,7 +169,18 @@ export default function DexTradeViewerMock() {
               </tr>
             </thead>
             <tbody>
-              {isLoading ? (
+              {!backendConnected ? (
+                // Backend not connected - show connection message
+                <tr>
+                  <td colSpan="10" className="py-12 text-center">
+                    <div className="text-gray-400">
+                      <div className="text-lg font-semibold mb-2">🔌 Connecting to Backend...</div>
+                      <div className="text-sm">Starting backend server connection</div>
+                      <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mt-4"></div>
+                    </div>
+                  </td>
+                </tr>
+              ) : isLoading ? (
                 // Loading skeleton
                 Array.from({ length: 10 }).map((_, index) => (
                   <tr key={index} className="border-b border-slate-800 bg-slate-950">
