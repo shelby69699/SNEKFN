@@ -97,7 +97,7 @@ async function fetchDexHunterData() {
 
 export default async function handler(req, res) {
   try {
-    console.log('🔥 REAL DexHunter HTTP scraper starting...');
+    console.log('🔥 REAL DexHunter HTTP scraper starting... v2.0');
     
     const data = await fetchDexHunterData();
     
