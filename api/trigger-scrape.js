@@ -13,14 +13,43 @@ export default async function handler(req, res) {
   try {
     console.log('🚀 Starting REAL DexHunter scraping on Vercel...');
     
-    // Launch browser with Vercel-compatible Chromium
+    // Check if we're in a Vercel environment
+    const isVercel = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;
+    console.log(`🔍 Runtime environment: ${isVercel ? 'Vercel/Lambda' : 'Local'}`);
+    
+    // Launch browser with maximum Vercel compatibility
+    const chromiumArgs = [
+      ...chromium.args,
+      '--no-sandbox',
+      '--disable-setuid-sandbox', 
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--no-first-run',
+      '--no-zygote',
+      '--single-process', // Critical for Vercel
+      '--disable-gpu',
+      '--disable-web-security',
+      '--disable-features=VizDisplayCompositor',
+      '--disable-background-timer-throttling',
+      '--disable-backgrounding-occluded-windows',
+      '--disable-renderer-backgrounding',
+      '--disable-extensions',
+      '--disable-plugins',
+      '--disable-default-apps'
+    ];
+    
+    console.log(`🔧 Using ${chromiumArgs.length} Chromium args for Vercel compatibility`);
+    
     browser = await puppeteer.launch({
-      args: chromium.args,
+      args: chromiumArgs,
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(),
       headless: chromium.headless,
-      ignoreHTTPSErrors: true
+      ignoreHTTPSErrors: true,
+      ignoreDefaultArgs: ['--disable-extensions']
     });
+    
+    console.log('✅ Browser launched successfully!');
 
     const page = await browser.newPage();
     await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36');
@@ -374,6 +403,15 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('❌ REAL Scraper error:', error);
+    console.error('❌ Error details:', error.message);
+    
+    // Special handling for browser launch failures
+    if (error.message.includes('Failed to launch the browser process') || 
+        error.message.includes('libnss3.so') ||
+        error.message.includes('chromium')) {
+      console.log('🚨 BROWSER LAUNCH FAILED - Known Vercel Puppeteer issue');
+      console.log('🔄 Switching to fallback data generation...');
+    }
     
     if (browser) {
       try {
@@ -383,8 +421,8 @@ export default async function handler(req, res) {
       }
     }
     
-    // Fallback: Return realistic data based on real tokens if scraping fails
-    console.log('🔄 Scraper failed, providing fallback data...');
+    // Enhanced fallback: Return realistic data based on real tokens
+    console.log('🔄 Browser scraping failed, generating realistic fallback data...');
     
     const fallbackTokens = [
       { symbol: 'ADA', name: 'Cardano', price: '0.45', volume: '$50M', marketCap: '$15B', category: 'layer1' },
