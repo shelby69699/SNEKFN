@@ -25,14 +25,15 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('❌ Local backend trades not available:', error.message);
     
-    // If database has no trades (KV not available), use static fallback immediately
-    if (trades.length === 0) {
-      console.log('⚠️ Database returned empty trades, using static fallback...');
-      
-      try {
-        const { DEXY_TRADES } = await import('../src/data/dexhunter-trades.js');
-        
-        console.log(`✅ Serving ${DEXY_TRADES.length} trades from static fallback`);
+    // NO FALLBACK DATA - REAL DATA ONLY!
+    console.log('❌ NO BACKEND AVAILABLE - RETURNING EMPTY TRADES (NO FAKE SHIT)');
+    res.status(503).json({
+      error: 'Backend not available',
+      data: [],
+      count: 0,
+      source: 'none',
+      message: 'Real backend required - no fake data served'
+    });
         
         return res.status(200).json({
           success: true,
