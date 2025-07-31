@@ -6,7 +6,7 @@ The most capital efficient trading protocol on Cardano. DEXY aggregates liquidit
 
 - 🔄 **Real-time trade monitoring** across multiple Cardano DEXes
 - 📊 **Live statistics dashboard** with market insights
-- 🔗 **Real Cardano wallet integration** (Nami, Eternl, Lace, Flint, Typhon)
+- 🔗 **Real Cardano wallet integration** (VESPR, Eternl, Lace, Flint, Typhon)
 - 🎨 **Professional dark theme** optimized interface
 - 📱 **Responsive design** with mobile support
 - ⚡ **High-performance data updates** with live streaming
@@ -19,7 +19,7 @@ The most capital efficient trading protocol on Cardano. DEXY aggregates liquidit
 
 - Minswap
 - WingRiders  
-- Spectrum
+- Splash
 
 ## Supported Tokens
 

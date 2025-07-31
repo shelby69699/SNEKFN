@@ -6,8 +6,8 @@ import { Card, CardContent } from '@/components/ui/card';
 // Professional wallet list with real logos
 const WALLETS = [
   { 
-    name: 'Nami', 
-    key: 'nami', 
+    name: 'VESPR', 
+    key: 'vespr', 
     logo: 'https://avatars.githubusercontent.com/u/92246442?s=200&v=4',
     description: 'Browser wallet with built-in DeFi features'
   },
@@ -204,12 +204,12 @@ export default function WalletConnection() {
                 <p className="text-sm text-gray-400 mb-2">Don't have a wallet?</p>
                 <div className="flex justify-center space-x-4 text-sm">
                   <a 
-                    href="https://namiwallet.io/" 
+                    href="https://vespr.xyz/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-teal-400 hover:text-teal-300 transition-colors"
                   >
-                    Get Nami
+                    Get VESPR
                   </a>
                   <a 
                     href="https://eternl.io/" 

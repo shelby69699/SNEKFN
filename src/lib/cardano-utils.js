@@ -73,9 +73,9 @@ export const getSupportedWallets = () => {
   
   const wallets = [];
   
-  // Check for Nami
-  if (window.cardano?.nami) {
-    wallets.push({ name: 'Nami', key: 'nami', icon: '🦎' });
+  // Check for VESPR
+  if (window.cardano?.vespr) {
+    wallets.push({ name: 'VESPR', key: 'vespr', icon: '🦎' });
   }
   
   // Check for Eternl

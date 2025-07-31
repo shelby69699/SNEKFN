@@ -202,7 +202,7 @@ export const TRADES_TIMESTAMP = '${new Date().toISOString()}';
           outAmount: `${(Math.random() * 10000 + 100).toFixed(2)} ${token2.symbol}`,
           price: `${(parseFloat(token1.price) * (0.8 + Math.random() * 0.4)).toFixed(6)} ADA`,
           status: 'Success',
-          dex: ['Minswap', 'SundaeSwap', 'WingRiders', 'Spectrum'][Math.floor(Math.random() * 4)],
+          dex: ['Minswap', 'SundaeSwap', 'WingRiders', 'Splash'][Math.floor(Math.random() * 4)],
           maker: `addr..${Math.random().toString(36).substr(2, 4)}`,
           timestamp: Date.now() - (Math.random() * 300000)
         };
