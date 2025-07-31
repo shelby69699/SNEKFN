@@ -1,10 +1,10 @@
 scripts/
 proxy-server/
 debug-*
+debug-*.html
 *.png
 *.jpg
 *.jpeg
-*.html
 node_modules/
 .env*
 .git/
