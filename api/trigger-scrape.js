@@ -17,6 +17,28 @@ export default async function handler(req, res) {
     const isVercel = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;
     console.log(`🔍 Runtime environment: ${isVercel ? 'Vercel/Lambda' : 'Local'}`);
     
+    // Try simple HTTP request first (alternative to Puppeteer)
+    let httpDataFound = false;
+    try {
+      console.log('🌐 Attempting simple HTTP request to DexHunter...');
+      const response = await fetch('https://app.dexhunter.io/api/trades', {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        }
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data && data.trades && data.trades.length > 0) {
+          console.log(`✅ HTTP request succeeded: ${data.trades.length} trades found`);
+          httpDataFound = true;
+          // Process HTTP data here if needed
+        }
+      }
+    } catch (httpError) {
+      console.log('⚠️ HTTP request failed, proceeding with Puppeteer...');
+    }
+    
     // Launch browser with maximum Vercel compatibility
     const chromiumArgs = [
       ...chromium.args,
