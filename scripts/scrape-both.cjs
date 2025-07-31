@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 async function scrapeEverything() {
-  console.log('🚀 Starting COMPLETE DexHunter scraping - TRENDS + TRADES');
+  console.log('🚀 Starting COMPLETE DEXY scraping - TRENDS + TRADES');
   
   const browser = await puppeteer.launch({
     headless: true, // SILENT MODE - NO BROWSER WINDOWS!
@@ -152,7 +152,7 @@ async function scrapeEverything() {
     // STEP 3: Save real tokens data
     if (tokenData.length > 0) {
       const tokensContent = `// REAL DexHunter tokens - ${new Date().toISOString()}
-export const DEXHUNTER_TOKENS = ${JSON.stringify(tokenData, null, 2)};
+export const DEXY_TOKENS = ${JSON.stringify(tokenData, null, 2)};
 
 export const CATEGORY_COLORS = {
   'layer1': 'border-blue-500 text-blue-400',
@@ -174,7 +174,7 @@ export const SCRAPE_TIMESTAMP = '${new Date().toISOString()}';
     // STEP 4: Save real trades data
     if (tradesData.length > 0) {
       const tradesContent = `// REAL DexHunter trades - ${new Date().toISOString()}
-export const DEXHUNTER_TRADES = ${JSON.stringify(tradesData, null, 2)};
+export const DEXY_TRADES = ${JSON.stringify(tradesData, null, 2)};
 
 export const TRADES_TIMESTAMP = '${new Date().toISOString()}';
 `;
