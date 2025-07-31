@@ -12,6 +12,9 @@ export default function DexTradeViewerMock() {
   const [isLoading, setIsLoading] = useState(true);
   const [lastUpdate, setLastUpdate] = useState(new Date());
   const [apiStatus, setApiStatus] = useState('connecting');
+  const [selectedTrade, setSelectedTrade] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState('details'); // 'details' or 'raw'
 
   // Load REAL API trades directly
   const loadRealTrades = () => {
@@ -102,6 +105,23 @@ export default function DexTradeViewerMock() {
     }
   };
 
+  const openTradeDetails = (trade) => {
+    setSelectedTrade(trade);
+    setModalType('details');
+    setShowModal(true);
+  };
+
+  const openRawData = (trade) => {
+    setSelectedTrade(trade);
+    setModalType('raw');
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedTrade(null);
+  };
+
   return (
     <Card className="bg-slate-900 border-slate-700">
       <CardContent className="p-6">
@@ -119,6 +139,7 @@ export default function DexTradeViewerMock() {
                 <th className="py-2 text-left">Status</th>
                 <th className="py-2 text-left">DEX</th>
                 <th className="py-2 text-left">Maker</th>
+                <th className="py-2 text-left">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -135,12 +156,13 @@ export default function DexTradeViewerMock() {
                     <td className="py-2 px-1"><div className="w-16 h-6 bg-slate-700 rounded animate-pulse"></div></td>
                     <td className="py-2 px-1"><div className="w-20 h-4 bg-slate-700 rounded animate-pulse"></div></td>
                     <td className="py-2 px-1"><div className="w-16 h-4 bg-slate-700 rounded animate-pulse"></div></td>
+                    <td className="py-2 px-1"><div className="w-20 h-6 bg-slate-700 rounded animate-pulse"></div></td>
                   </tr>
                 ))
               ) : trades.length === 0 ? (
                 // No data state
                 <tr>
-                  <td colSpan="9" className="py-12 text-center">
+                  <td colSpan="10" className="py-12 text-center">
                     <div className="text-gray-400">
                       <div className="text-lg font-semibold mb-2">No Real Trade Data Available</div>
                       <div className="text-sm">
@@ -170,12 +192,170 @@ export default function DexTradeViewerMock() {
                   </td>
                   <td className="py-2">{trade.dex}</td>
                   <td className="py-2 font-mono text-xs">{trade.maker}</td>
+                  <td className="py-2">
+                    <div className="flex gap-1">
+                      <button
+                        onClick={() => openTradeDetails(trade)}
+                        className="px-2 py-1 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
+                        title="View Trade Details"
+                      >
+                        Details
+                      </button>
+                      <button
+                        onClick={() => openRawData(trade)}
+                        className="px-2 py-1 text-xs bg-green-600 hover:bg-green-700 text-white rounded transition-colors"
+                        title="View Raw Data"
+                      >
+                        Raw
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </ScrollArea>
       </CardContent>
+
+      {/* Trade Details Modal */}
+      {showModal && selectedTrade && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={closeModal}>
+          <div className="bg-slate-800 p-6 rounded-lg max-w-4xl max-h-[80vh] overflow-y-auto border border-slate-600" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-bold text-white">
+                {modalType === 'details' ? 'Trade Details' : 'Raw Trade Data'} - {selectedTrade.id}
+              </h3>
+              <button
+                onClick={closeModal}
+                className="text-gray-400 hover:text-white text-xl font-bold px-2"
+              >
+                ×
+              </button>
+            </div>
+
+            {modalType === 'details' ? (
+              <div className="space-y-4 text-white">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-slate-700 p-3 rounded">
+                    <div className="text-sm text-gray-300">Trade ID</div>
+                    <div className="font-mono text-sm">{selectedTrade.id}</div>
+                  </div>
+                  <div className="bg-slate-700 p-3 rounded">
+                    <div className="text-sm text-gray-300">Timestamp</div>
+                    <div className="font-mono text-sm">
+                      {selectedTrade.timestamp ? new Date(selectedTrade.timestamp).toLocaleString() : 'N/A'}
+                    </div>
+                  </div>
+                  <div className="bg-slate-700 p-3 rounded">
+                    <div className="text-sm text-gray-300">Time Ago</div>
+                    <div className="text-lg">{selectedTrade.timeAgo}</div>
+                  </div>
+                  <div className="bg-slate-700 p-3 rounded">
+                    <div className="text-sm text-gray-300">Trade Type</div>
+                    <Badge variant={selectedTrade.type === "Buy" ? "success" : "destructive"} className="text-lg">
+                      {selectedTrade.type}
+                    </Badge>
+                  </div>
+                  <div className="bg-slate-700 p-3 rounded">
+                    <div className="text-sm text-gray-300">Trading Pair</div>
+                    <div className="text-lg font-bold">{selectedTrade.pair}</div>
+                  </div>
+                  <div className="bg-slate-700 p-3 rounded">
+                    <div className="text-sm text-gray-300">Status</div>
+                    <Badge variant={selectedTrade.status === "Success" ? "success" : "secondary"}>
+                      {selectedTrade.status}
+                    </Badge>
+                  </div>
+                  <div className="bg-slate-700 p-3 rounded">
+                    <div className="text-sm text-gray-300">Input Amount</div>
+                    <div className="text-lg font-mono">{selectedTrade.inAmount}</div>
+                  </div>
+                  <div className="bg-slate-700 p-3 rounded">
+                    <div className="text-sm text-gray-300">Output Amount</div>
+                    <div className="text-lg font-mono">{selectedTrade.outAmount}</div>
+                  </div>
+                  <div className="bg-slate-700 p-3 rounded">
+                    <div className="text-sm text-gray-300">Price</div>
+                    <div className="text-lg font-mono text-yellow-400">{selectedTrade.price}</div>
+                  </div>
+                  <div className="bg-slate-700 p-3 rounded">
+                    <div className="text-sm text-gray-300">DEX Platform</div>
+                    <div className="text-lg">{selectedTrade.dex || 'Unknown'}</div>
+                  </div>
+                  <div className="bg-slate-700 p-3 rounded col-span-2">
+                    <div className="text-sm text-gray-300">Maker Address</div>
+                    <div className="text-lg font-mono break-all">{selectedTrade.maker}</div>
+                  </div>
+                </div>
+
+                {selectedTrade.cellCount && (
+                  <div className="bg-slate-700 p-3 rounded">
+                    <div className="text-sm text-gray-300">Data Quality</div>
+                    <div className="text-lg">
+                      <span className="text-green-400">{selectedTrade.cellCount}</span> data cells scraped
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="space-y-4 text-white">
+                <div className="bg-slate-700 p-4 rounded">
+                  <h4 className="text-lg font-bold mb-3 text-yellow-400">Complete Trade Object</h4>
+                  <pre className="text-xs overflow-x-auto bg-slate-900 p-3 rounded font-mono">
+{JSON.stringify(selectedTrade, null, 2)}
+                  </pre>
+                </div>
+
+                {selectedTrade.rawCells && (
+                  <div className="bg-slate-700 p-4 rounded">
+                    <h4 className="text-lg font-bold mb-3 text-green-400">Raw Scraped Data Cells</h4>
+                    <div className="grid grid-cols-1 gap-2">
+                      {selectedTrade.rawCells.map((cell, index) => (
+                        <div key={index} className="bg-slate-900 p-2 rounded flex">
+                          <span className="text-gray-400 w-8 text-right mr-3">{index}:</span>
+                          <span className="font-mono text-green-300">{cell || '(empty)'}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-3 text-sm text-gray-400">
+                      Total cells: {selectedTrade.rawCells.length}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div className="mt-6 flex gap-2">
+              <button
+                onClick={() => setModalType('details')}
+                className={`px-4 py-2 rounded transition-colors ${
+                  modalType === 'details' 
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-slate-600 text-gray-300 hover:bg-slate-500'
+                }`}
+              >
+                Trade Details
+              </button>
+              <button
+                onClick={() => setModalType('raw')}
+                className={`px-4 py-2 rounded transition-colors ${
+                  modalType === 'raw' 
+                    ? 'bg-green-600 text-white' 
+                    : 'bg-slate-600 text-gray-300 hover:bg-slate-500'
+                }`}
+              >
+                Raw Data
+              </button>
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded transition-colors ml-auto"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </Card>
   );
 }
