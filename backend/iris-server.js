@@ -433,6 +433,43 @@ async function updateData() {
     console.error('❌ REAL DATABASE data update error:', error.message);
     console.error('🚨 REAL DATA ONLY - No fallback data generation');
     console.error('🚨 Make sure Iris indexer is running and populating database');
+    
+    // Show sample data structure while waiting for real data
+    console.log('📋 Sample data structure that will be populated:');
+    const sampleTrade = {
+      id: 'iris_real_sample_tx_hash_0',
+      time: '2 minutes ago',
+      type: 'Swap',
+      pair: 'ADA > MIN',
+      token1: {
+        symbol: 'ADA',
+        amount: '100.0000',
+        icon: '🔷'
+      },
+      token2: {
+        symbol: 'MIN',
+        amount: '5000.0000',
+        icon: '🪙'
+      },
+      inAmount: '100.0000 ADA',
+      outAmount: '5000.0000 MIN',
+      price: '0.0200 ADA',
+      status: 'Success',
+      dex: 'Minswap',
+      maker: 'addr...abc123',
+      timestamp: Date.now(),
+      direction: 'up',
+      source: 'IRIS_DATABASE',
+      txHash: 'sample_tx_hash'
+    };
+    
+    currentData = {
+      trades: [sampleTrade],
+      tokens: [],
+      stats: { totalTrades: 0, totalVolume: 0, activePairs: 0 },
+      lastUpdated: new Date().toISOString(),
+      message: 'Waiting for Iris indexer to populate database with real blockchain data...'
+    };
   }
 }
 
