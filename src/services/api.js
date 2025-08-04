@@ -77,33 +77,33 @@ class ApiService {
     return data.stats;
   }
 
-  // Manual scraper trigger
-  async triggerScraper() {
+  // Manual update trigger
+  async triggerUpdate() {
     if (!this.baseUrl) throw new Error('Backend not available');
-    return this.fetchWithTimeout(`${this.baseUrl}/trigger-scrape`, {
+    return this.fetchWithTimeout(`${this.baseUrl}/trigger-update`, {
       method: 'POST',
-    }, 35000); // 35 second timeout for scraping
+    }, 15000); // 15 second timeout for Iris update
   }
 
-  // Auto scraper control
-  async startAutoScraper() {
+  // Auto update control
+  async startAutoUpdate() {
     if (!this.baseUrl) throw new Error('Backend not available');
-    return this.fetchWithTimeout(`${this.baseUrl}/auto-scraper/start`, {
-      method: 'POST',
-    });
-  }
-
-  async stopAutoScraper() {
-    if (!this.baseUrl) throw new Error('Backend not available');
-    return this.fetchWithTimeout(`${this.baseUrl}/auto-scraper/stop`, {
+    return this.fetchWithTimeout(`${this.baseUrl}/auto-update/start`, {
       method: 'POST',
     });
   }
 
-  async getAutoScraperStatus() {
+  async stopAutoUpdate() {
     if (!this.baseUrl) throw new Error('Backend not available');
-    // Use scraper-status endpoint for Vercel
-    return this.fetchWithTimeout(`${this.baseUrl}/scraper-status`);
+    return this.fetchWithTimeout(`${this.baseUrl}/auto-update/stop`, {
+      method: 'POST',
+    });
+  }
+
+  async getAutoUpdateStatus() {
+    if (!this.baseUrl) throw new Error('Backend not available');
+    // Use update-status endpoint for Vercel
+    return this.fetchWithTimeout(`${this.baseUrl}/update-status`);
   }
 }
 
